@@ -1,0 +1,25 @@
+<centercategory scriptid="custcentercategory_creednz_process_cat">
+  <center>BASIC</center>
+  <centertab>[scriptid=custcentertab_creednz_center_tab]</centertab>
+  <label>Creednz Process</label>
+  <links>
+    <link>
+      <linklabel>Vendor Evaluation Request</linklabel>
+      <linkobject>[scriptid=customscript_sl_creednz_vendor_evaluatio.customdeploy_sl_creednz_vendor_evaluatio]</linkobject>
+      <linktasktype>SCRIPT</linktasktype>
+      <shortlist>F</shortlist>
+    </link>
+    <link>
+      <linklabel>Creednz Payment Validation</linklabel>
+      <linkobject>[scriptid=customscript_sl_send_payment_to_creednz.customdeploy_sl_send_payment_to_creednz]</linkobject>
+      <linktasktype>SCRIPT</linktasktype>
+      <shortlist>F</shortlist>
+    </link>
+    <link>
+      <linklabel>Creednz Vendor Validation</linklabel>
+      <linkobject>[scriptid=customscript_sl_send_vendor_to_creed_ns.customdeploy_sl_send_vendor_to_creed_ns]</linkobject>
+      <linktasktype>SCRIPT</linktasktype>
+      <shortlist>F</shortlist>
+    </link>
+  </links>
+</centercategory>

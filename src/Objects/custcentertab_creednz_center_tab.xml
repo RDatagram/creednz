@@ -1,0 +1,10 @@
+<centertab scriptid="custcentertab_creednz_center_tab">
+  <allcustomers>T</allcustomers>
+  <allemployees>T</allemployees>
+  <allpartners>T</allpartners>
+  <allroles>T</allroles>
+  <allvendors>T</allvendors>
+  <audslctrole></audslctrole>
+  <center>BASIC</center>
+  <label>Creednz</label>
+</centertab>
