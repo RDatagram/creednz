@@ -109,7 +109,7 @@
                });
                if(vendorAddress)
                   {
-                   vendorObj.address =  vendorAddress;
+                   vendorObj.billingAddress =  vendorAddress;
                   }
 
             var vendorBillCountry = currentRecord.getValue({
@@ -321,6 +321,10 @@
             //get consignment id
             var creedNzTransactionsParse = JSON.parse(creedNzTransactions);
             log.debug("creedNzTransactionsParse", creedNzTransactionsParse);
+           if(creedNzTransactionsParse)
+           {
+             
+      
             var creednzExternalId = creedNzTransactionsParse[0].vendorExternalId;
             log.debug("creednzExternalId", creednzExternalId);
             var recId = record.submitFields({
@@ -336,6 +340,7 @@
                }
             });
             log.debug("record updated", recId);
+           }
          } catch (err) {
             log.debug("error", err.message);
          }

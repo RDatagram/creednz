@@ -73,38 +73,7 @@ define(['N/log', 'N/record', 'N/format', 'N/search', 'N/currentRecord', 'N/url',
          var parentSubsidiaryId;
          //get access token from custom record
          //var lastSyncAccessToken = checkAccessToken();
-         //get the parentsubsidiary of company
-         var subsidiarySearchObj = search.create({
-            type: "subsidiary",
-            filters: [
-               ["name", "is", "Parent Company"]
-            ],
-            columns: [
-               search.createColumn({
-                  name: "internalid",
-                  label: "Internal ID"
-               }),
-               search.createColumn({
-                  name: "name",
-                  label: "Name"
-               })
-            ]
-         });
-         var searchResultCount = subsidiarySearchObj.runPaged().count;
-         log.debug("subsidiarySearchObj result count", searchResultCount);
-         subsidiarySearchObj.run().each(function(result) {
-            // .run().each has a limit of 4,000 results
-            parentSubsidiaryId = result.getValue({
-               name: "internalid",
-               label: "Internal ID"
-            });
-            var parentSubsidiaryName = result.getValue({
-               name: "name",
-               label: "Name"
-            });
-            return true;
-         });
-         //end search
+        
          var creednzObj = checkAccessToken();
          var lastSyncAccessToken = creednzObj.lastSyncAccessToken;
          var creednzBaseUrl = creednzObj.creednzBaseUrl;
@@ -177,18 +146,73 @@ define(['N/log', 'N/record', 'N/format', 'N/search', 'N/currentRecord', 'N/url',
             fieldId: 'custentity_vendor_external_id',
             value: vendorExternalIdResponse
          });
-         console.log("parentSubsidiaryId", parentSubsidiaryId);
+         var currentDateNow = new Date();
+
+         vendorRecord.setValue({
+            fieldId: 'custentity_creednz_updated_on',
+            value: currentDateNow
+         });
          if (primarySubsidiary) {
             vendorRecord.setValue({
                fieldId: 'subsidiary',
                value: primarySubsidiary
             });
          } else {
-            vendorRecord.setValue({
-               fieldId: 'subsidiary',
-               value: parentSubsidiaryId
+
+               //set primary subsidiary 
+               try{
+         //get the parentsubsidiary of company
+         var subsidiarySearchObj = search.create({
+            type: "subsidiary",
+            filters: [
+               ["name", "is", "Parent Company"]
+            ],
+            columns: [
+               search.createColumn({
+                  name: "internalid",
+                  label: "Internal ID"
+               }),
+               search.createColumn({
+                  name: "name",
+                  label: "Name"
+               })
+            ]
+         });
+         var searchResultCount = subsidiarySearchObj.runPaged().count;
+         console.log("subsidiarySearchObj result count"+searchResultCount);
+         if(!searchResultCount)
+            {
+               parentSubsidiaryId = 1;
+            }
+            else{
+
+            
+        // log.debug("subsidiarySearchObj result count", searchResultCount);
+         subsidiarySearchObj.run().each(function(result) {
+            // .run().each has a limit of 4,000 results
+            parentSubsidiaryId = result.getValue({
+               name: "internalid",
+               label: "Internal ID"
             });
-         }
+            var parentSubsidiaryName = result.getValue({
+               name: "name",
+               label: "Name"
+            });
+            return true;
+         });
+         }//end else
+        
+         vendorRecord.setValue({
+            fieldId: 'subsidiary',
+            value: parentSubsidiaryId
+         });
+
+               }catch(err)
+               {
+                  log.debug("error in subsidiary saved search");
+               }
+     
+         }//end if
          /*vendorRecord.setValue({
             fieldId: 'billaddressee',
             value: vendorAddressResponse
@@ -292,10 +316,6 @@ define(['N/log', 'N/record', 'N/format', 'N/search', 'N/currentRecord', 'N/url',
             fieldId: 'addressbookaddress'
          });
          // Set all required values here.
-         addressSubrecord.setValue({
-            fieldId: 'addr1',
-            value: vendorAddressResponse
-         });
          // country search to get country code
          var vendorCountryCode;
          var customrecord_country_codesSearchObj = search.create({
@@ -315,7 +335,9 @@ define(['N/log', 'N/record', 'N/format', 'N/search', 'N/currentRecord', 'N/url',
             ]
          });
          var searchResultCount = customrecord_country_codesSearchObj.runPaged().count;
+
          log.debug("customrecord_country_codesSearchObj result count", searchResultCount);
+         console.log("customrecord_country_codesSearchObj result count"+ searchResultCount);
          customrecord_country_codesSearchObj.run().each(function(result) {
             // .run().each has a limit of 4,000 results
             vendorCountryCode = result.getValue({
@@ -368,8 +390,12 @@ define(['N/log', 'N/record', 'N/format', 'N/search', 'N/currentRecord', 'N/url',
          });
          var searchResultCount = vendorSearchObj.runPaged().count;
          log.debug("vendorSearchObj result count", searchResultCount);
+         console.log("vendorSearchObj result count"+ searchResultCount);
+
          if (!searchResultCount) {
-            var vendorRecId = vendorRecord.save();
+            var vendorRecId = vendorRecord.save({
+               ignoreMandatoryFields: true
+           });
             console.log("vendor record saved" + vendorRecId);
             //alert("record created at netsuite" + vendorRecId);
             //delete corresponding record from vendor evaluation table
@@ -406,7 +432,7 @@ define(['N/log', 'N/record', 'N/format', 'N/search', 'N/currentRecord', 'N/url',
          }
          location.reload();
       } catch (err) {
-         console.log("error in create vendor" + err);
+         console.log("error in create vendor" + err.message);
       }
    }; //end createVendor
    function updateVendorAnalyze(context) {

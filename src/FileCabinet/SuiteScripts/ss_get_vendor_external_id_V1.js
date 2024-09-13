@@ -134,7 +134,7 @@
                });
                if(vendorAddress)
                   {
-                   vendorObj.address =  vendorAddress;
+                   vendorObj.billingAddress =  vendorAddress;
                   }
 
                var vendorBillCountry = result.getValue({

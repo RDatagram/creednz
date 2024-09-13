@@ -58,7 +58,7 @@
 
              }//end if
              //check filter fields in creednz information page
-             if ((context.fieldId == 'custpage_pageid') || (context.fieldId == 'custpage_bank_acc_risk') || (context.fieldId == 'custpage_operation_risk') || (context.fieldId == 'custpage_sanction_risk') || (context.fieldId == 'custpage_cyber_risk')) {
+             if ((context.fieldId == 'custpage_pageid')) {
                 var pageId = context.currentRecord.getValue({
                    fieldId: 'custpage_pageid'
                 });
@@ -69,7 +69,7 @@
                });
                params.externalId = externalId;
 
-                var filterBankAccRisk = context.currentRecord.getValue({
+              /*  var filterBankAccRisk = context.currentRecord.getValue({
                    fieldId: 'custpage_bank_acc_risk'
                 });
                 if (filterBankAccRisk) {
@@ -94,7 +94,7 @@
                 });
                 if (filterCyberRisk) {
                    params.filterCyberRisk = filterCyberRisk;
-                }
+                }*/
                 //alert("params"+params);
                 document.location = url.resolveScript({
                    scriptId: 'customscript_sl_vendor_page_creednz_info',
