@@ -26,10 +26,6 @@
 
 
                //gte parameters from client script
-               var filterBankAccRisk = context.request.parameters.filterBankAccRisk;
-               var filterOperationRisk = context.request.parameters.filterOperationRisk;
-               var filterSanctionRisk = context.request.parameters.filterSanctionRisk;
-               var filterCyberRisk = context.request.parameters.filterCyberRisk;
                var filterExternalId = context.request.parameters.externalId;
                log.debug("filterExternalId in GET",filterExternalId);
                var filterVendorId = context.request.parameters.vendorId;
@@ -65,94 +61,37 @@
             });
 
 
-                 var bankAccRiskField = form.addField({
+              
+                  // add text fields
+                  var bankAccRiskField = form.addField({
                     id: 'custpage_bank_acc_risk',
-                    type: ui.FieldType.SELECT,
+                    type: ui.FieldType.TEXT,
                     label: 'Bank Account Risk'
+                 }).updateDisplayType({
+                    displayType: ui.FieldDisplayType.DISABLED
                  });
-                 bankAccRiskField.addSelectOption({
-                    value: '0',
-                    text: 'No Risk'
-                 });
-                 bankAccRiskField.addSelectOption({
-                    value: '1',
-                    text: 'On Risk'
-                 });
-                 if (filterBankAccRisk) {
-                  form.updateDefaultValues({
-                     'custpage_bank_acc_risk': filterBankAccRisk
-                  });
-               }
-               else{
-                  bankAccRiskField.defaultValue = 0;
-                  filterBankAccRisk = 0;
-               }
                  var operationRiskField = form.addField({
                     id: 'custpage_operation_risk',
-                    type: ui.FieldType.SELECT,
+                    type: ui.FieldType.TEXT,
                     label: 'Operation Risk'
+                 }).updateDisplayType({
+                    displayType: ui.FieldDisplayType.DISABLED
                  });
-                 operationRiskField.addSelectOption({
-                    value: '0',
-                    text: 'No Risk'
-                 });
-                 operationRiskField.addSelectOption({
-                    value: '1',
-                    text: 'On Risk'
-                 });
-                 if (filterOperationRisk) {
-                  form.updateDefaultValues({
-                     'custpage_operation_risk': filterOperationRisk
-                  });
-               }
-               else{
-                  operationRiskField.defaultValue = 0;
-                  filterOperationRisk = 0;
-               }
                  var sanctionRiskField = form.addField({
                     id: 'custpage_sanction_risk',
-                    type: ui.FieldType.SELECT,
+                    type: ui.FieldType.TEXT,
                     label: 'Sanction Risk'
+                 }).updateDisplayType({
+                    displayType: ui.FieldDisplayType.DISABLED
                  });
-                 sanctionRiskField.addSelectOption({
-                    value: '0',
-                    text: 'No Risk'
-                 });
-                 sanctionRiskField.addSelectOption({
-                    value: '1',
-                    text: 'On Risk'
-                 });
-                 if (filterSanctionRisk != "" || filterSanctionRisk != null) {
-                  form.updateDefaultValues({
-                     'custpage_sanction_risk': filterSanctionRisk
-                  });
-               }
-               else{
-                  sanctionRiskField.defaultValue = 0;
-                  filterSanctionRisk = 0;
-               }
                  var cyberRiskField = form.addField({
                     id: 'custpage_cyber_risk',
-                    type: ui.FieldType.SELECT,
+                    type: ui.FieldType.TEXT,
                     label: 'Cyber Risk'
+                 }).updateDisplayType({
+                    displayType: ui.FieldDisplayType.DISABLED
                  });
-                 cyberRiskField.addSelectOption({
-                    value: '0',
-                    text: 'No Risk'
-                 });
-                 cyberRiskField.addSelectOption({
-                    value: '1',
-                    text: 'On Risk'
-                 });
-                 if (filterCyberRisk != "" || filterCyberRisk != null) {
-                  form.updateDefaultValues({
-                     'custpage_cyber_risk': filterCyberRisk
-                  });
-               }
-               else{
-                  cyberRiskField.defaultValue = 0;
-                  filterCyberRisk = 0;
-               }
+                 
                  //create sublist
                  var creedNzSublist = form.addSublist({
                     id: "custpage_creednz_information_sublist",
@@ -283,34 +222,15 @@
                         }
                        var creedNzTransactionsLength = creedNzTransactionsParse.length;
                       var riskFlag = 0;
+                      var bankRiskStatus = 0;
+                      var operationRiskStatus = 0;
+                      var sanctionRiskStatus = 0;
+                      var cyberRiskStatus = 0;
                        //get data from response
                        if (creedNzTransactionsLength > 0) {
                           for (var i = 0; i < creedNzTransactionsLength; i++) {
                              try {
-                              //var k = 0;
-                              //get all filter field values from suitelet ui
-
-                              var bankAccRiskField = form.getField({
-                                 id : 'custpage_bank_acc_risk'
-                              });
-                              var bankAccRiskFieldValue = bankAccRiskField.defaultValue;
-                              //log.debug("bankAccRiskField",bankAccRiskField.defaultValue);
-                               var operationRiskField = form.getField({
-                                 id : 'custpage_operation_risk'
-                              });
-                              var operationRiskFieldValue = operationRiskField.defaultValue;
-                             // log.debug("operationRiskField",operationRiskField.defaultValue);
-                               var sanctionRiskField = form.getField({
-                                 id : 'custpage_sanction_risk'
-                              });
-                            var sanctionRiskFieldValue = sanctionRiskField.defaultValue;
-
-                             // log.debug("sanctionRiskField",sanctionRiskField.defaultValue);
-                               var cyberRiskField = form.getField({
-                                 id : 'custpage_cyber_risk'
-                              });
-                               var cyberRiskFieldValue = cyberRiskField.defaultValue;
-
+                              
                             //  log.debug("cyberRiskField",cyberRiskField.defaultValue);
                                 var vendorFindingsId = creedNzTransactionsParse[i].id;
                                 log.debug("vendor findings id", vendorFindingsId);
@@ -323,125 +243,142 @@
                                 var vendorFindingsDescription = creedNzTransactionsParse[i].description;
                                // log.debug("vendorFindingsDescription", vendorFindingsDescription);
                                //setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,j);
-                              if(vendorFindingsType == 'Alert')
-                                 {
+                               if(vendorFindingsId)
+                                {
+                                   creedNzSublist.setSublistValue({
+                                   id: 'custpage_vendor_id',
+                                   line: i,
+                                   value: vendorFindingsId
+                                });
+                                log.debug("vendorFindingsId is set to sublist");
+                             }
+                    
+                             if(vendorFindingsType)
+                                {
+                                   creedNzSublist.setSublistValue({
+                                   id: 'custpage_vendor_type',
+                                   line: i,
+                                   value: vendorFindingsType
+                                });
+                             }
+                    
+                             if(vendorFindingsTitle)
+                                {
+                                   creedNzSublist.setSublistValue({
+                                   id: 'custpage_vendor_title',
+                                   line: i,
+                                   value: vendorFindingsTitle
+                                });
+                             }
+                    
+                             if(vendorFindingsCategory)
+                                {
+                                   creedNzSublist.setSublistValue({
+                                   id: 'custpage_description',
+                                   line: i,
+                                   value: vendorFindingsCategory
+                                });
+                             }
+                    
+                             if(vendorFindingsDescription)
+                                {
+                                   log.debug("vendorFindingsDescription",vendorFindingsDescription);
+                                   creedNzSublist.setSublistValue({
+                                   id: 'custpage_category',
+                                   line: i,
+                                   value: vendorFindingsDescription
+                                });
+                             }
+
+                             // check risk status 
+                             if(vendorFindingsCategory == "BankAccount")
+                             {
+                                if(vendorFindingsType == 'Alert')
+                                {
+                                    bankRiskStatus = 1;
                                     riskFlag = 1;
-                                    log.debug("vendor is on risk");
-                                 }
-                             
-                             
-                               var setSublistValuesFlag = 0;
-                              log.debug("k",k+","+"i"+i);
-                                 // set values in sublist according to filter
-                                 if(bankAccRiskFieldValue ==1)
-                                 {
-                                     if(vendorFindingsType == 'Alert' && vendorFindingsCategory == "BankAccount")
-                                     {
-                                       log.debug("bank account on risk");
-                                       //show findings with on risk
-                                    
-                                       creedNzSublist =  setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,j)
+                                }
+                                
+                             }
+                             else if(vendorFindingsCategory == "PaymentOperations")
+                             {
+                                if(vendorFindingsType == 'Alert')
+                                {
+                                    operationRiskStatus = 1;
+                                    riskFlag = 1;
 
-                                    k++;
-                                     }
+                                }
+                                
+                             }
+                             else if(vendorFindingsCategory == "Sanctions")
+                                {
+                                   if(vendorFindingsType == 'Alert')
+                                   {
+                                       sanctionRiskStatus = 1;
+                                       riskFlag = 1;
 
-                                 }
-                                 else
-                                 {
-                                 if(vendorFindingsType != 'Alert' && vendorFindingsCategory == "BankAccount")
-                                     {
+                                   }
+                                   
+                                }
+                            else if(vendorFindingsCategory == "CyberRisk")
+                                {
+                                   if(vendorFindingsType == 'Alert')
+                                    {
+                                        cyberRiskStatus = 1;
+                                        riskFlag = 1;
 
-                                       log.debug("bank account no risk");
-                                       creedNzSublist =  setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,k)
+                                    }
+                                   
+                                }
 
-                                      
-                                       k++;
-                                     }
-                                 }
-
-                                 if(operationRiskFieldValue ==1)
-                                 {
-                                     if(vendorFindingsType == 'Alert' && vendorFindingsCategory == "PaymentOperations")
-                                     {
-                                       //
-                                       log.debug("operation risk on risk");
-                                       creedNzSublist =  setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,k)
-
-                                    
-                                       k++;
-                                     }
-
-                                 }
-                                 else
-                                 {
-                                 if(vendorFindingsType != 'Alert' && vendorFindingsCategory == "PaymentOperations")
-                                     {
-                                       //
-                                       log.debug("operation risk no risk");
-                                       creedNzSublist =  setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,k)
-
-                                       
-                                       k++;
-                                     }
-                                 }
-                                 if(sanctionRiskFieldValue ==1)
-                                 {
-                                     if(vendorFindingsType == 'Alert' && vendorFindingsCategory == "Sanctions")
-                                     {
-                                       //
-                                       log.debug("sanction risk on risk");
-                                       creedNzSublist =  setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,k)
-
-                                     
-                                       k++;
-                                     }
-
-                                 }
-                                 else
-                                 {
-                                 if(vendorFindingsType != 'Alert' && vendorFindingsCategory == "Sanctions")
-                                     {
-                                       //
-                                       log.debug("sanction risk on risk");
-                                       creedNzSublist =  setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,k)
-
-                                      
-                                       k++;
-                                     }
-                                 }
-                                 if(cyberRiskFieldValue ==1)
-                                 {
-                                     if(vendorFindingsType == 'Alert' && vendorFindingsCategory == "CyberRisk")
-                                     {
-                                       //
-                                       log.debug("cyber risk on risk");
-                                       creedNzSublist =  setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,k)
-
-                                    
-                                       k++;
-                                     }
-
-                                 }
-                                 else
-                                 {
-                                 if(vendorFindingsType != 'Alert' && vendorFindingsCategory == "CyberRisk")
-                                     {
-                                       //
-                                       log.debug("cyber risk no risk");
-                                       creedNzSublist =  setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,k)
-
-                                    
-                                       k++;
-                                     }
-                                 }
-
-
+                            
                              } catch (err) {
                                 log.debug("error in for loop", err);
                              }
                           } //end for loop
                           //update custom record to check vendor is on risk or not
                           log.debug("risk flag",riskFlag);
+                          log.debug("Bank risk flag",bankRiskStatus);
+                          log.debug("operational risk flag",operationRiskStatus);
+                          log.debug("cyber risk flag",cyberRiskStatus);
+                          log.debug("sanction risk flag",sanctionRiskStatus);
+                          if(bankRiskStatus)
+                          {
+                            bankAccRiskField.defaultValue = "ON RISK"
+                          }
+                          else
+                          {
+                            bankAccRiskField.defaultValue = "NO RISK"
+ 
+                          }
+                          if(operationRiskStatus)
+                            {
+                              operationRiskField.defaultValue = "ON RISK"
+                            }
+                            else
+                            {
+                                operationRiskField.defaultValue = "NO RISK"
+   
+                            }
+                         if(sanctionRiskStatus)
+                            {
+                                sanctionRiskField.defaultValue = "ON RISK"
+                            }
+                            else
+                            {
+                                sanctionRiskField.defaultValue = "NO RISK"
+       
+                            }
+                        if(cyberRiskStatus)
+                            {
+                                cyberRiskField.defaultValue = "ON RISK"
+                            }
+                            else
+                            {
+                                cyberRiskField.defaultValue = "NO RISK"
+           
+                            }
+
                           if(filterVendorId)
                            {
                               var vendorEvalRecId = record.submitFields({
@@ -637,7 +574,7 @@
               log.debug('Error on fetchSearchResult', JSON.stringify(er));
            }
         } //end fetch search
-        function setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,k)
+       /* function setSublistValues(creedNzSublist,vendorFindingsId,vendorFindingsType,vendorFindingsTitle,vendorFindingsCategory,vendorFindingsDescription,k)
         {
          log.debug("set sublist value",creedNzSublist +","+ vendorFindingsId+","+vendorFindingsType+","+vendorFindingsCategory);
          if(vendorFindingsId)
@@ -687,9 +624,8 @@
             });
          }
          return creedNzSublist;
-        }
+        }*/
         return {
-           onRequest: onRequest,
-           setSublistValues: setSublistValues
+           onRequest: onRequest
         };
      });
