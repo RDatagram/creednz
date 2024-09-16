@@ -5,7 +5,7 @@
   <notifyadmins>F</notifyadmins>
   <notifyemails></notifyemails>
   <notifyowner>T</notifyowner>
-  <scriptfile>[/SuiteScripts/ss_get_vendor_external_id_on_script.js]</scriptfile>
+  <scriptfile>[/SuiteScripts/creednz/cnzsrc/ss_get_vendor_external_id_on_script.js]</scriptfile>
   <scriptdeployments>
     <scriptdeployment scriptid="customdeploy_ss_get_externalid_in_script">
       <isdeployed>T</isdeployed>

@@ -6,7 +6,7 @@
   <notifyemails></notifyemails>
   <notifyowner>F</notifyowner>
   <notifyuser>F</notifyuser>
-  <scriptfile>[/SuiteScripts/sl_call_scheduled_script.js]</scriptfile>
+  <scriptfile>[/SuiteScripts/creednz/cnzsrc/sl_call_scheduled_script.js]</scriptfile>
   <scriptdeployments>
     <scriptdeployment scriptid="customdeploy_sl_call_scheduled_script_cr">
       <allemployees>T</allemployees>

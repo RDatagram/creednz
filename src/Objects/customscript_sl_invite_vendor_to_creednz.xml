@@ -6,7 +6,7 @@
   <notifyemails></notifyemails>
   <notifyowner>F</notifyowner>
   <notifyuser>F</notifyuser>
-  <scriptfile>[/SuiteScripts/sl_vendor_invite_dialog.js]</scriptfile>
+  <scriptfile>[/SuiteScripts/creednz/cnzsrc/sl_vendor_invite_dialog.js]</scriptfile>
   <scriptdeployments>
     <scriptdeployment scriptid="customdeploy_sl_invite_vendor_to_creednz">
       <allemployees>T</allemployees>

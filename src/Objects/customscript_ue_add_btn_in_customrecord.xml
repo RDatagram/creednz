@@ -6,7 +6,7 @@
   <notifyemails></notifyemails>
   <notifyowner>F</notifyowner>
   <notifyuser>F</notifyuser>
-  <scriptfile>[/SuiteScripts/ue_add_button_to_execute_scheduled_script.js]</scriptfile>
+  <scriptfile>[/SuiteScripts/creednz/cnzsrc/ue_add_button_to_execute_scheduled_script.js]</scriptfile>
   <scriptdeployments>
     <scriptdeployment scriptid="customdeploy_ue_add_btn_in_customrecord">
       <allemployees>T</allemployees>

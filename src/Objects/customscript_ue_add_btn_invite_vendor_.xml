@@ -6,7 +6,7 @@
   <notifyemails></notifyemails>
   <notifyowner>F</notifyowner>
   <notifyuser>F</notifyuser>
-  <scriptfile>[/SuiteScripts/UE_invite_vendor_to_creednz.js]</scriptfile>
+  <scriptfile>[/SuiteScripts/creednz/cnzsrc/UE_invite_vendor_to_creednz.js]</scriptfile>
   <scriptcustomfields>
     <scriptcustomfield scriptid="custscript_invite_vendor_suitelet_link">
       <accesslevel>2</accesslevel>

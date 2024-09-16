@@ -5,7 +5,7 @@
   <notifyadmins>F</notifyadmins>
   <notifyemails></notifyemails>
   <notifyowner>F</notifyowner>
-  <scriptfile>[/SuiteScripts/ss_get_vendor_external_id_V1.js]</scriptfile>
+  <scriptfile>[/SuiteScripts/creednz/cnzsrc/ss_get_vendor_external_id_V1.js]</scriptfile>
   <scriptcustomfields>
     <scriptcustomfield scriptid="custscript_vendor_array">
       <accesslevel>2</accesslevel>
