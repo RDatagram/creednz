@@ -8,7 +8,7 @@ define(['N/search'],
     (search) => {
 
         const customsearch_ss_get_payments_for_creednz = () => {
-            var vendorpaymentSearchObj = search.create({
+            return search.create({
                 type: "vendorpayment",
                 filters:
                     [
@@ -41,7 +41,7 @@ define(['N/search'],
         }
 
         const customsearch_ss_get_vendor_status_frm_cr = () => {
-            var vendorSearchObj = search.create({
+            return search.create({
                 type: "vendor",
                 filters:
                     [
@@ -61,7 +61,7 @@ define(['N/search'],
         }
 
         const customsearch_ss_vendor_creednz_informa = () => {
-            var vendorSearchObj = search.create({
+            return search.create({
                 type: "vendor",
                 filters:
                     [
@@ -82,7 +82,7 @@ define(['N/search'],
         }
 
         const customsearch_ss_vendor_evaluation_tabl_2 = () => {
-            var customrecord_vendor_evaluation_tableSearchObj = search.create({
+            return search.create({
                 type: "customrecord_vendor_evaluation_table",
                 filters:
                     [
@@ -97,7 +97,7 @@ define(['N/search'],
         }
 
         const customsearch_ss_vendor_eval_table_search = () => {
-            var customrecord_vendor_evaluation_tableSearchObj = search.create({
+            return search.create({
                 type: "customrecord_vendor_evaluation_table",
                 filters:
                     [
@@ -117,7 +117,7 @@ define(['N/search'],
         }
 
         const customsearch_ss_vendor_evaluation_table = () => {
-            var customrecord_vendor_evaluation_tableSearchObj = search.create({
+            return search.create({
                 type: "customrecord_vendor_evaluation_table",
                 filters:
                     [
@@ -139,7 +139,7 @@ define(['N/search'],
         }
 
         const customsearch_ss_vendor_search_for_creed = () => {
-            var vendorSearchObj = search.create({
+            return search.create({
                 type: "vendor",
                 filters:
                     [
@@ -188,7 +188,7 @@ define(['N/search'],
         }
 
         const customsearch_ss_get_creednz_external_id = () => {
-            var vendorSearchObj = search.create({
+            return search.create({
                 type: "vendor",
                 filters:
                     [
@@ -210,7 +210,7 @@ define(['N/search'],
         }
 
         const customsearch_ss_vendor_search_creed_paym = () => {
-            var vendorSearchObj = search.create({
+            return search.create({
                 type: "vendor",
                 filters:
                     [
@@ -224,7 +224,7 @@ define(['N/search'],
         }
 
         const customsearch_ss_get_status_from_creednz = () => {
-            var vendorSearchObj = search.create({
+            return search.create({
                 type: "vendor",
                 filters:
                     [
@@ -242,6 +242,19 @@ define(['N/search'],
             });
         }
 
+        const runSearch = (searchId, searchPageSize) => {
+            try {
+                //check sorting method
+                var searchObj = search.load({
+                    id: searchId
+                });
+                return searchObj.runPaged({
+                    pageSize: searchPageSize
+                });
+            } catch (er) {
+                log.debug('Error on runSearch', JSON.stringify(er));
+            }
+        } //end runsearch
 
         return {
             customsearch_ss_get_payments_for_creednz,
@@ -253,7 +266,8 @@ define(['N/search'],
             customsearch_ss_vendor_search_for_creed,
             customsearch_ss_get_creednz_external_id,
             customsearch_ss_vendor_search_creed_paym,
-            customsearch_ss_get_status_from_creednz
+            customsearch_ss_get_status_from_creednz,
+            runSearch
         }
 
     });

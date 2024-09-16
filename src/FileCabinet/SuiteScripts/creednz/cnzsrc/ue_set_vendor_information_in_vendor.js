@@ -27,7 +27,9 @@
             if (nsAccountId == "TSTDRV1255519") {
                form.clientScriptModulePath = 'SuiteScripts/cs_creednz_vendor_evaluation.js';
             } else {
-               form.clientScriptModulePath = 'SuiteBundles/Bundle 537712/cs_creednz_vendor_evaluation.js';
+               //form.clientScriptModulePath = 'SuiteBundles/Bundle 537712/cs_creednz_vendor_evaluation.js';
+               form.clientScriptModulePath = './cs_creednz_vendor_evaluation.js';
+
             }
             //craete subtab and sublist to view creednz information
             // Add subtab

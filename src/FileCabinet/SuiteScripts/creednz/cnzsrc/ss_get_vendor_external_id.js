@@ -15,16 +15,20 @@
  */
     var executionCount;
    
-    define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task'], (https, log, record, encode, format, search, email, runtime, task) => {
+    define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task','./ssearches/searchlib'],
+        (https, log, record, encode, format, search, email, runtime, task,searchlib) => {
        function execute(context) {
           try {
             var startTime = new Date().getTime();
 
             // load vendor search
+              /*
             var vendorEvalTableSearch = search.load({
                 id: 'customsearch_ss_vendor_eval_table_search'
             });
-    
+            */
+              var vendorEvalTableSearch =  searchlib.customsearch_ss_vendor_eval_table_search();
+
             vendorEvalTableSearch.run().each(function(result) {
               
                 var creednzVendorEvaluationId = result.getValue({
