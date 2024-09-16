@@ -6,7 +6,7 @@
   <notifyemails></notifyemails>
   <notifyowner>F</notifyowner>
   <notifyuser>F</notifyuser>
-  <scriptfile>[/SuiteScripts/sl_creednz_vendor_evaluation.js]</scriptfile>
+  <scriptfile>[/SuiteScripts/creednz/cnzsrc/sl_creednz_vendor_evaluation.js]</scriptfile>
   <scriptdeployments>
     <scriptdeployment scriptid="customdeploy_sl_creednz_vendor_evaluatio">
       <allemployees>T</allemployees>

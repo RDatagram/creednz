@@ -15,7 +15,8 @@
      var PAGE_SIZE = 500;
      var customFilters = {};
      var searchId = 'customsearch_ss_vendor_search_for_creed';
-     define(["N/ui/serverWidget", "N/log", "N/record", "N/url", "N/search", "N/task", "N/redirect", "N/runtime", "N/encode", "N/file", "N/https"], (ui, log, record, url, search, task, redirect, runtime, encode, file, https, ) => {
+     define(["N/ui/serverWidget", "N/log", "N/record", "N/url", "N/search", "N/task", "N/redirect", "N/runtime", "N/encode", "N/file", "N/https","./ssearches/searchlib"],
+         (ui, log, record, url, search, task, redirect, runtime, encode, file, https, searchlib) => {
         function onRequest(context) {
            // get method
            var nsAccountId = runtime.accountId;
@@ -32,8 +33,10 @@
 
                   }
                   else{
-                   form.clientScriptModulePath = 'SuiteBundles/Bundle 537712/cs_send_vendor_to_creednz.js';
-                  }
+                   //form.clientScriptModulePath = 'SuiteBundles/Bundle 537712/cs_send_vendor_to_creednz.js';
+                   form.clientScriptModulePath = './cs_send_vendor_to_creednz.js';
+
+                 }
                // form.clientScriptModulePath = 'SuiteBundles/Bundle 531991/cs_send_vendor_to_creednz.js';
                  var pageId = parseInt(context.request.parameters.page);
                  //create sublist
@@ -794,9 +797,13 @@
         function runSearch(searchId, searchPageSize) {
            try {
               //check sorting method
+               /*
               var searchObj = search.load({
                  id: searchId
               });
+              */
+              var searchObj = searchlib.customsearch_ss_vendor_search_for_creed();
+
               return searchObj.runPaged({
                  pageSize: searchPageSize
               });

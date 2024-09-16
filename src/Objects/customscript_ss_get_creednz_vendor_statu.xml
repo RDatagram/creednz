@@ -5,7 +5,7 @@
   <notifyadmins>F</notifyadmins>
   <notifyemails></notifyemails>
   <notifyowner>F</notifyowner>
-  <scriptfile>[/SuiteScripts/ss_get_vendor_status_from_creednz.js]</scriptfile>
+  <scriptfile>[/SuiteScripts/creednz/cnzsrc/ss_get_vendor_status_from_creednz.js]</scriptfile>
   <scriptdeployments>
     <scriptdeployment scriptid="customdeploy_ss_get_creednz_vendor_statu">
       <isdeployed>T</isdeployed>

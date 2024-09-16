@@ -41,8 +41,10 @@
 
                   }
                   else{
-                   form.clientScriptModulePath = 'SuiteBundles/Bundle 537712/cs_send_vendor_to_creednz.js';
-                  }
+                   //form.clientScriptModulePath = 'SuiteBundles/Bundle 537712/cs_send_vendor_to_creednz.js';
+                   form.clientScriptModulePath = './cs_send_vendor_to_creednz.js';
+
+                 }
                  var pageId = parseInt(context.request.parameters.page);
 
 

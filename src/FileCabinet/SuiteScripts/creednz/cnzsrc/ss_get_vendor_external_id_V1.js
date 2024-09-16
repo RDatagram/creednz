@@ -18,7 +18,8 @@
     var executionCount;
     var vendorIdArray = [];
 
-    define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task'], (https, log, record, encode, format, search, email, runtime, task) => {
+    define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task','./ssearches/searchlib']
+        , (https, log, record, encode, format, search, email, runtime, task ,searchlib) => {
        function execute(context) {
           try {
              var startTime = new Date().getTime();
@@ -32,9 +33,13 @@
             });
             validatedVendors = JSON.parse(validatedVendors);
              // load vendor search
+              /*
              var vendorEvalTableSearch = search.load({
                 id: 'customsearch_ss_get_creednz_external_id'
              });
+             */
+              var vendorEvalTableSearch = searchlib.customsearch_ss_get_creednz_external_id();
+
              //check for vendors to be validated
              if(validatedVendors)
              {
@@ -50,6 +55,7 @@
              log.debug("vendorEvalTableSearch",vendorEvalTableSearch);
 
              vendorEvalTableSearch.run().each(function(result) {
+                 log.debug('vendorEvalTableSearchResult',result);
                 var vendorObj = {};
                 var vendorId = result.getValue({
                    name: 'internalid'
@@ -58,7 +64,7 @@
                 if(vendorId)
                 {
                  vendorObj.internalId =  vendorId;
-                 //log.debug("vendorId",vendorId);
+                 log.debug("vendorId",vendorId);
 
 
                 }

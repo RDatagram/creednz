@@ -13,7 +13,6 @@
     <dependency>[scriptid=custentity_creednz_updated_on]</dependency>
     <dependency>[scriptid=custentity_eft_bank_detailsupdate_creedn]</dependency>
     <dependency>[scriptid=custentity_eft_bill_payment_creednz]</dependency>
-    <dependency>[scriptid=custentity_gstin]</dependency>
     <dependency>[scriptid=custentity_iban_creednz]</dependency>
     <dependency>[scriptid=custentity_paypal_account_creednz]</dependency>
     <dependency>[scriptid=custentity_registraion_code_creednz]</dependency>

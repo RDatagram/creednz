@@ -106,7 +106,9 @@
 
                   }
                   else{
-                   form.clientScriptModulePath = 'SuiteBundles/Bundle 537712/cs_creednz_vendor_evaluation.js';
+                   //form.clientScriptModulePath = 'SuiteBundles/Bundle 537712/cs_creednz_vendor_evaluation.js';
+                   form.clientScriptModulePath = './cs_creednz_vendor_evaluation.js';
+
                   }
                  //form.clientScriptModulePath = 'SuiteScripts/cs_creednz_vendor_evaluation.js';
 
