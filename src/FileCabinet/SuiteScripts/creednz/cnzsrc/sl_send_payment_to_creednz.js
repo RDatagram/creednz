@@ -15,7 +15,8 @@
      var PAGE_SIZE = 500;
      var customFilters = {};
      var searchId = 'customsearch_ss_get_payments_for_creednz';
-     define(["N/ui/serverWidget", "N/log", "N/record", "N/url", "N/search", "N/task", "N/redirect", "N/runtime", "N/encode", "N/file", "N/https","N/config"], (ui, log, record, url, search, task, redirect, runtime, encode, file, https,config ) => {
+     define(["N/ui/serverWidget", "N/log", "N/record", "N/url", "N/search", "N/task", "N/redirect", "N/runtime", "N/encode", "N/file", "N/https","N/config","./ssearches/searchlib"],
+         (ui, log, record, url, search, task, redirect, runtime, encode, file, https,config,searchlib ) => {
         function onRequest(context) {
            // get method
            var nsAccountId = runtime.accountId;
@@ -563,9 +564,10 @@
         function runSearch(searchId, searchPageSize) {
            try {
               //check sorting method
-              var searchObj = search.load({
+              /*var searchObj = search.load({
                  id: searchId
-              });
+              });*/
+               var searchObj = searchlib.customsearch_ss_get_payments_for_creednz();
               return searchObj.runPaged({
                  pageSize: searchPageSize
               });
