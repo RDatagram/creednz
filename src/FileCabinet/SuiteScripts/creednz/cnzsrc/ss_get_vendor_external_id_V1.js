@@ -18,8 +18,8 @@ var validatedVendors = [];
 var executionCount;
 var vendorIdArray = [];
 
-define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task', './ssearches/searchlib']
-    , (https, log, record, encode, format, search, email, runtime, task, searchlib) => {
+define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task', './ssearches/searchlib', './lib/creednz_token_lib']
+    , (https, log, record, encode, format, search, email, runtime, task, searchlib,creednz_token_lib) => {
         function execute(context) {
             try {
                 var startTime = new Date().getTime();
@@ -272,9 +272,8 @@ define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/e
                         return true;
                     }
                 });
-                //log.debug("vendorArray", vendorArray);
-                //check access token existing or not and expired or not
-                //get access token from custom record
+
+                // TODO : Checking the token > move to the library
                 var accessTokenLookup = search.lookupFields({
                     type: 'customrecord_creednz_details',
                     id: 1,
@@ -317,6 +316,8 @@ define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/e
                     lastSyncAccessToken = getAccessToken(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience);
                     log.debug("access token created", lastSyncAccessToken);
                 }
+
+
                 //analyse vendor from creednz
                 //creedNzUrl = "https://edge.staging.creednz.com/external/microsoft-dynamics/analyze-vendors";
                 creedNzUrl = creednzBaseUrl + "/external/erp/vendor/analyze";
@@ -373,41 +374,7 @@ define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/e
 
         function getAccessToken(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience) {
             try {
-                // var creedApiUrl = "https://creednz-test.us.auth0.com/oauth/token";
-                var creedApiUrl = creednzAuth0;
-                var creedNzApiHeaders = {
-                    'content-type': 'application/x-www-form-urlencoded'
-                };
-                var newAccessTokenData = {
-                    "client_id": creednzClientId,
-                    "client_secret": creednzClientSecret,
-                    "grant_type": "client_credentials",
-                    //  "audience": "https://creednz-dynamics-integration"
-                    "audience": creednzAudience
-                };
-                var creedNzTokenApiResponse = https.post({
-                    url: creedApiUrl,
-                    headers: creedNzApiHeaders,
-                    body: newAccessTokenData
-                });
-                // log.debug("creedNzTokenApiResponse", creedNzTokenApiResponse);
-                var creedNzTokenBody = creedNzTokenApiResponse.body;
-                // log.debug("creedNzTokenBody", creedNzTokenBody);
-                creedNzTokenBody = JSON.parse(creedNzTokenBody);
-                var accessToken = creedNzTokenBody.access_token;
-                log.debug("accessToken in getAccessToken", accessToken);
-                var currentDate = new Date();
-                // log.debug('currentDate', currentDate);
-                record.submitFields({
-                    type: 'customrecord_creednz_details',
-                    id: 1,
-                    values: {
-                        // 'custrecord_raken_code': 'oLL0r0',
-                        'custrecord_creednz_access_token': accessToken,
-                        'custrecord_creednz_last_updated_date': currentDate
-                    }
-                });
-                return accessToken;
+                return creednz_token_lib.getTokenCreednz(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience);
             } catch (err) {
                 log.debug("error in function getAccessToken", err);
             }

@@ -14,7 +14,8 @@
  * 2023/July/12                            Rajitha         Initial version.
  *          
  */
-    define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file', 'N/https', 'N/search', 'N/format','N/ui/serverWidget'], (runtime, log, record, error, render, file, https, search, format,serverWidget) => {
+    define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file', 'N/https', 'N/search', 'N/format','N/ui/serverWidget','./lib/creednz_token_lib'],
+        (runtime, log, record, error, render, file, https, search, format, serverWidget, creednz_token_lib) => {
       function beforeLoad(context) {
          try {
             var form = context.form;
@@ -220,42 +221,7 @@
    } //end checkAccessToken
    function getAccessToken(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience) {
       try {
-         // var creedApiUrl = "https://creednz-test.us.auth0.com/oauth/token";
-         var creedApiUrl = creednzAuth0;
-         var creedNzApiHeaders = {
-            'content-type': 'application/x-www-form-urlencoded'
-         };
-         var newAccessTokenData = {
-            "client_id": creednzClientId,
-            "client_secret": creednzClientSecret,
-            "grant_type": "client_credentials",
-            //  "audience": "https://creednz-dynamics-integration"
-            "audience": creednzAudience
-         };
-         var creedNzTokenApiResponse = https.post({
-            url: creedApiUrl,
-            headers: creedNzApiHeaders,
-            body: newAccessTokenData
-         });
-         var creedNzTokenBody = creedNzTokenApiResponse.body;
-         log.debug("creedNzTokenBody", creedNzTokenBody);
-         log.debug("creedNzTokenBody", creedNzTokenBody);
-         creedNzTokenBody = JSON.parse(creedNzTokenBody);
-         var accessToken = creedNzTokenBody.access_token;
-         log.debug("accessToken in getAccessToken", accessToken);
-         //alert(accessToken)
-         var currentDate = new Date();
-         log.debug('currentDate', currentDate);
-         record.submitFields({
-            type: 'customrecord_creednz_details',
-            id: 1,
-            values: {
-               // 'custrecord_raken_code': 'oLL0r0',
-               'custrecord_creednz_access_token': accessToken,
-               'custrecord_creednz_last_updated_date': currentDate
-            }
-         });
-         return accessToken;
+         return creednz_token_lib.getTokenCreednz(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience);
       } catch (err) {
          log.debug("error in function getAccessToken", err);
       }

@@ -14,7 +14,8 @@
  * 2024/July/01                                 Rajitha         Initial version.
  *          
  */
-    define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file','N/https','N/search','N/format','N/url'], (runtime, log, record, error, render, file, https, search,format,url) => {
+    define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file','N/https','N/search','N/format','N/url'],
+        (runtime, log, record, error, render, file, https, search,format,url) => {
       function beforeLoad(scriptContext) {
       try{
          let currentRec = scriptContext.newRecord;
