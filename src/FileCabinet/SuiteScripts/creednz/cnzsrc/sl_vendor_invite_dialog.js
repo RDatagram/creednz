@@ -13,7 +13,8 @@
  * 2024/June/17                             Rajitha         Initial version.
  *
  */
-    define(['N/ui/serverWidget', 'N/search', 'N/redirect', 'N/record', 'N/task', 'N/format', 'N/log', 'N/url', 'N/https', 'N/file'], (serverWidget, search, redirect, record, task, format, log, url, https, file) => {
+    define(['N/ui/serverWidget', 'N/search', 'N/redirect', 'N/record', 'N/task', 'N/format', 'N/log', 'N/url', 'N/https', 'N/file','./lib/creednz_token_lib'],
+        (serverWidget, search, redirect, record, task, format, log, url, https, file,creednz_token_lib) => {
         function onRequest(context) {
            try {
               if (context.request.method === "GET") {
@@ -236,30 +237,7 @@
                  }
                  var closeHtml = '<html><body><script type="text/javascript">window.opener.location.reload(); window.close(); </script></body></html>';
                  context.response.write(closeHtml);
-             /* } //end if
-              else{
-            
-                 var contentRequest = https.get({
-                    url: "https://tstdrv1255519.app.netsuite.com/core/media/media.nl?id=21962&c=TSTDRV1255519&h=M6ZtOArW7ayPuGWdTrT3Q-9g2ZUAHD0HF8tGmurfsZ4gRTxk&_xt=.html"
-                 });
-                 var contentDocument = contentRequest.body;
-                 log.debug("contentDocument", contentDocument);
-                 var sponsorid = context.request.parameters.sponsorid;
-                 log.debug("sponsorid", sponsorid);
-                 if (sponsorid && sponsorid != "" && sponsorid != null) {
-                    contentDocument = contentDocument.replace("{{sponsorid}}", sponsorid);
-                    log.debug("Setting Sponsor", sponsorid)
-                 }
-                 var projectid = context.request.parameters.projectid;
-                 log.debug("projectid", projectid);
-                 if (projectid && projectid != "" && projectid != null) {
-                    contentDocument = contentDocument.replace("{{projectid}}", projectid);
-                    log.debug("Setting Project", projectid);
-                 }
-                 context.response.write(contentDocument);
-   
 
-              }*/
            } catch (err) {
               log.debug("error in postFunction", err);
            }
@@ -323,46 +301,11 @@
          }
       } //end checkAccessToken
       function getAccessToken(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience) {
-         try {
-            // var creedApiUrl = "https://creednz-test.us.auth0.com/oauth/token";
-            var creedApiUrl = creednzAuth0;
-            var creedNzApiHeaders = {
-               'content-type': 'application/x-www-form-urlencoded'
-            };
-            var newAccessTokenData = {
-               "client_id": creednzClientId,
-               "client_secret": creednzClientSecret,
-               "grant_type": "client_credentials",
-               //  "audience": "https://creednz-dynamics-integration"
-               "audience": creednzAudience
-            };
-            var creedNzTokenApiResponse = https.post({
-               url: creedApiUrl,
-               headers: creedNzApiHeaders,
-               body: newAccessTokenData
-            });
-            var creedNzTokenBody = creedNzTokenApiResponse.body;
-            log.debug("creedNzTokenBody", creedNzTokenBody);
-            log.debug("creedNzTokenBody", creedNzTokenBody);
-            creedNzTokenBody = JSON.parse(creedNzTokenBody);
-            var accessToken = creedNzTokenBody.access_token;
-            log.debug("accessToken in getAccessToken", accessToken);
-            //alert(accessToken)
-            var currentDate = new Date();
-            log.debug('currentDate', currentDate);
-            record.submitFields({
-               type: 'customrecord_creednz_details',
-               id: 1,
-               values: {
-                  // 'custrecord_raken_code': 'oLL0r0',
-                  'custrecord_creednz_access_token': accessToken,
-                  'custrecord_creednz_last_updated_date': currentDate
-               }
-            });
-            return accessToken;
-         } catch (err) {
-            log.debug("error in function getAccessToken", err);
-         }
+          try {
+              return creednz_token_lib.getTokenCreednz(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience);
+          } catch (err) {
+              log.debug("error in function getAccessToken", err);
+          }
       } //end function
         return {
            onRequest: onRequest,
