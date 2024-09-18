@@ -44,6 +44,39 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             return creedNzResponse;
         }
 
+        const baseCreednzGet = (endPoint) => {
+
+            // get token and baseUrl
+            let creednzObj = creednz_token_lib.checkAccessToken();
+            let lastSyncAccessToken = creednzObj.lastSyncAccessToken;
+            let creednzBaseUrl = creednzObj.creednzBaseUrl;
+
+            let creedNzApiPostHeaders = {
+                'accept': 'application/json',
+                'content-type': 'application/json',
+                'authorization': 'Bearer ' + lastSyncAccessToken
+            };
+            let creedNzUrl = creednzBaseUrl + endPoint;
+
+            let creedNzResponse = https.get({
+                url: creedNzUrl,
+                headers: creedNzApiPostHeaders
+            });
+
+            log.debug({
+                title : 'creedNzResponse',
+                details: JSON.stringify(creedNzResponse)
+            })
+            // check return code
+            if (creedNzResponse.code !== 201) {
+                log.error({
+                    title: 'Response code from CreedNZ API',
+                    details:JSON.stringify({endpoint:endPoint,responseCode:creedNzResponse.code})
+                });
+            }
+            return creedNzResponse;
+        }
+
         const buildAnalyzeVendorDtoFromRecord = (currentRecord) => {
             let vendorObj = {
                 // code to build analyzeVendorDto from currentRecord
@@ -275,6 +308,10 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             return vendorObj;
         }
-        return {baseCreednzPost,buildAnalyzeVendorDtoFromRecord}
+        return {
+            baseCreednzPost,
+            buildAnalyzeVendorDtoFromRecord,
+            baseCreednzGet
+        }
 
     });
