@@ -266,7 +266,6 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 vendorObj.paypalAccount = vendorCreednzPaypalAcc;
             }
 
-
             let vendorAddress = currentRecord.getValue({
                 fieldId: "billaddressee"
             });
@@ -308,10 +307,43 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             return vendorObj;
         }
+
+        const getCreednzVendorFindings = (externalID) => {
+            const creednzVendorInformation = "/external/erp/vendor/findings/externalId/" + externalID;
+
+            let creedNzGetResponse = baseCreednzGet(creednzVendorInformation);
+
+            let creedNzTransactions = creedNzGetResponse.body;
+            let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
+
+            log.debug({
+                title : 'Vendor status result',
+                details: JSON.stringify(creedNzTransactions)
+            });
+
+            return creedNzTransactionsParse;
+        }
+
+        const postCreednzAnalyzeVendor = (dataObj) => {
+
+            let creedNzResponse = baseCreednzPost("/external/erp/vendor/analyze",dataObj);
+            let creedNzTransactions = creedNzResponse.body;
+
+            let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
+            log.debug({
+                title: "creedNzTransactionsParse",
+                details: creedNzTransactionsParse
+            });
+
+            return creedNzTransactionsParse;
+        }
+
         return {
             baseCreednzPost,
             buildAnalyzeVendorDtoFromRecord,
-            baseCreednzGet
+            baseCreednzGet,
+            getCreednzVendorFindings,
+            postCreednzAnalyzeVendor
         }
 
     });
