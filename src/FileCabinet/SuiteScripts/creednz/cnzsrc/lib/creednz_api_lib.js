@@ -68,13 +68,22 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 details: JSON.stringify(creedNzResponse)
             })
             // check return code
-            if (creedNzResponse.code !== 201) {
+            if (creedNzResponse.code !== 200) {
                 log.error({
                     title: 'Response code from CreedNZ API',
                     details:JSON.stringify({endpoint:endPoint,responseCode:creedNzResponse.code})
                 });
             }
-            return creedNzResponse;
+
+            let creedNzTransactions = creedNzResponse.body;
+            let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
+
+            log.debug({
+                title: 'creedNzTransactionsParse from :' + endPoint,
+                details: JSON.stringify(creedNzTransactionsParse)
+            });
+
+            return creedNzTransactionsParse;
         }
 
         const buildAnalyzeVendorDtoFromRecord = (currentRecord) => {
@@ -308,22 +317,6 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             return vendorObj;
         }
 
-        const getCreednzVendorFindings = (externalID) => {
-            const creednzVendorInformation = "/external/erp/vendor/findings/externalId/" + externalID;
-
-            let creedNzGetResponse = baseCreednzGet(creednzVendorInformation);
-
-            let creedNzTransactions = creedNzGetResponse.body;
-            let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
-
-            log.debug({
-                title : 'Vendor status result',
-                details: JSON.stringify(creedNzTransactions)
-            });
-
-            return creedNzTransactionsParse;
-        }
-
         const postCreednzAnalyzeVendor = (dataObj) => {
 
             let creedNzResponse = baseCreednzPost("/external/erp/vendor/analyze",dataObj);
@@ -338,12 +331,28 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             return creedNzTransactionsParse;
         }
 
+        const getCreednzVendorStatus = (externalId) => {
+            const creednzVendorInformation = "/external/erp/vendor/status/" + externalId;
+
+            return  baseCreednzGet(creednzVendorInformation);
+
+        }
+        const getCreednzVendorFindings = (externalId) => {
+            const creednzVendorInformation = "/external/erp/vendor/findings/externalId/" + externalId;
+
+            return  baseCreednzGet(creednzVendorInformation);
+
+        }
+
+
+
         return {
             baseCreednzPost,
             buildAnalyzeVendorDtoFromRecord,
             baseCreednzGet,
             getCreednzVendorFindings,
-            postCreednzAnalyzeVendor
+            postCreednzAnalyzeVendor,
+            getCreednzVendorStatus
         }
 
     });

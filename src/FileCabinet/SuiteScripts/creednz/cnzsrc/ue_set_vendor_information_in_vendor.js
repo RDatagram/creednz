@@ -66,6 +66,9 @@ define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file', 'N/ht
                 let creednzSublist = makeFormSublist(form);
 
                 // let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
+                let status = creednz_api_lib.getCreednzVendorStatus(creednzId);
+                log.debug("status before finding", status || {});
+
                 let creedNzTransactionsParse = creednz_api_lib.getCreednzVendorFindings(creednzId);
                 const creedNzTransactionsLength = creedNzTransactionsParse.length;
                 //set data in the sublist

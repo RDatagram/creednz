@@ -16,7 +16,6 @@ define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file', 'N/ht
                 let currentRec = context.newRecord;
                 let currentRecId = context.newRecord.id;
                 log.debug("currentRecId", currentRecId);
-                log.debug("current record", currentRec);
 
                 let currentRecord = record.load({
                     type: record.Type.VENDOR,
@@ -33,19 +32,26 @@ define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file', 'N/ht
                 let dataObj = {};
                 dataObj.analyzeVendorDtos = vendorArray;
 
-                let creedNzResponse = creednz_api_lib.baseCreednzPost("/external/erp/vendor/analyze",dataObj);
+                //let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
+                let creedNzTransactionsParse = creednz_api_lib.postCreednzAnalyzeVendor(dataObj);
 
-                log.debug("creedNzResponse", creedNzResponse);
-                let creedNzTransactions = creedNzResponse.body;
-                log.debug("creedNzTransactions Body", creedNzTransactions);
-                //get consignment id
-                let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
-                log.debug("creedNzTransactionsParse", creedNzTransactionsParse);
                 if (creedNzTransactionsParse.length > 0) {
 
                     let creednzExternalId = creedNzTransactionsParse[0].vendorExternalId;
                     log.debug("creednzExternalId", creednzExternalId);
 
+
+                    // TODO: Make a delay
+                    let creedNzStatusTransactionsParse = creednz_api_lib.getCreednzVendorStatus(creednzExternalId);
+
+                    log.debug({
+                        title: 'creedNzStatusTransactionsParse.status',
+                        details: creedNzStatusTransactionsParse.status
+                    });
+                    if (creedNzStatusTransactionsParse.status === 'Pending') {
+                        log.debug("Status is Pending");
+                        // Perform some action
+                    }
                     /* TODO:
                         Set status to something like Pending,Analyze...
                         We need to request new status and findings
