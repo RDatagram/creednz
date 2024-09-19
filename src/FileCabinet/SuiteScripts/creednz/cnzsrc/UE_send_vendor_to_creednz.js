@@ -41,8 +41,7 @@ define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file', 'N/ht
                 //get consignment id
                 let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
                 log.debug("creedNzTransactionsParse", creedNzTransactionsParse);
-                if (creedNzTransactionsParse) {
-
+                if (creedNzTransactionsParse.length > 0) {
 
                     let creednzExternalId = creedNzTransactionsParse[0].vendorExternalId;
                     log.debug("creednzExternalId", creednzExternalId);
