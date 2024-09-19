@@ -41,7 +41,7 @@ define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file', 'N/ht
                     log.debug("creednzExternalId", creednzExternalId);
 
 
-                    // TODO: Make a delay
+                    // TODO: Make a delay?
                     let creedNzStatusTransactionsParse = creednz_api_lib.getCreednzVendorStatus(creednzExternalId);
 
                     log.debug({

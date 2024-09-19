@@ -245,7 +245,7 @@ define(['N/search'],
         const runSearch = (searchId, searchPageSize) => {
             try {
                 //check sorting method
-                var searchObj = search.load({
+                let searchObj = search.load({
                     id: searchId
                 });
                 return searchObj.runPaged({
