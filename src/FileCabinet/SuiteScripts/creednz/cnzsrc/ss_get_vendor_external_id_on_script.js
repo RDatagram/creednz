@@ -14,6 +14,11 @@ define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/e
     (https, log, record, encode, format, search, email, runtime, task, searchlib, creednz_token_lib,creednz_api_lib) => {
         function execute(context) {
 
+            /* TODO:
+                make the same function for scheduled and non-scheduled script
+                get status before retrieving data (IF Completed)
+                empty response ignore to avoid JSON parser error
+             */
             log.audit({
                 title: 'Scheduled ss_get_vendor_external_id_on_script.js',
                 details: 'Script started'
@@ -36,7 +41,7 @@ define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/e
 
                     log.debug("creednzVendorEvaluationId and internalid", creednzVendorEvaluationId + "," + VendorEvaluationInternalId);
 
-                    let creedNzStatusTransactionsParse = creednz_api_lib.getCreednzVendorEvaluation_vendor(currentUrlToken);
+                    let creedNzStatusTransactionsParse = creednz_api_lib.getCreednzVendorEvaluation_vendor(creednzVendorEvaluationId);
                     log.debug("creedNzStatusTransactionsParse", creedNzStatusTransactionsParse);
                     const vendorExternalId = creedNzStatusTransactionsParse.externalId;
                     log.debug(creedNzStatusTransactionsParse.externalId);

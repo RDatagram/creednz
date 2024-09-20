@@ -358,7 +358,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
         // /external/erp/vendor-evaluation/
         const getCreednzVendorEvaluation_vendor = (externalId) => {
-            const creednzVendorInformation = "/external/erp/vendor-evaluation/" + externalId + + "/vendor";
+            const creednzVendorInformation = "/external/erp/vendor-evaluation/" + externalId + "/vendor";
 
             return  baseCreednzGet(creednzVendorInformation,null);
 

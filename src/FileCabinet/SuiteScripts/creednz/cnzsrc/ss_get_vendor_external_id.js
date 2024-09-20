@@ -38,7 +38,7 @@ define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/e
                     //check access token existing or not and expired or not
                     //get access token from custom record
 
-                    let creedNzStatusTransactionsParse = creednz_api_lib.getCreednzVendorEvaluation_vendor(currentUrlToken);
+                    let creedNzStatusTransactionsParse = creednz_api_lib.getCreednzVendorEvaluation_vendor(creednzVendorEvaluationId);
                     log.debug("creedNzStatusTransactionsParse", creedNzStatusTransactionsParse);
                     const vendorExternalId = creedNzStatusTransactionsParse.externalId;
                     log.debug(creedNzStatusTransactionsParse.externalId);
