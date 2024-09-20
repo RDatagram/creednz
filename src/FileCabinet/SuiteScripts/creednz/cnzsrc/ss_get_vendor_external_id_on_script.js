@@ -2,109 +2,49 @@
  * @NApiVersion 2.1
  * @NScriptType ScheduledScript
  * @NModuleScope Public
- * @author Rajitha K S
+ * @author Zoran@UCGP
  * Script brief description:
  Scheduled Script is used for following tasks:
  1. update vendor external id in custom record
- * Revision History:
- *
- * Date                 Issue/Case          Author          Issue Fix Summary
- * =============================================================================================
- * 2024/July/02                          Rajitha         Initial version.
- *
+
  */
 var executionCount;
 
-define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task', './ssearches/searchlib','./lib/creednz_token_lib'],
-    (https, log, record, encode, format, search, email, runtime, task, searchlib,creednz_token_lib) => {
+define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task', './ssearches/searchlib','./lib/creednz_token_lib', './lib/creednz_api_lib'],
+    (https, log, record, encode, format, search, email, runtime, task, searchlib, creednz_token_lib,creednz_api_lib) => {
         function execute(context) {
-            try {
-                var startTime = new Date().getTime();
 
-                // load vendor search
-                /*var vendorEvalTableSearch = search.load({
-                    id: 'customsearch_ss_vendor_eval_table_search'
-                });*/
-                var vendorEvalTableSearch = searchlib.customsearch_ss_vendor_eval_table_search();
+            log.audit({
+                title: 'Scheduled ss_get_vendor_external_id_on_script.js',
+                details: 'Script started'
+            });
+
+            try {
+                let startTime = new Date().getTime();
+
+                let vendorEvalTableSearch = searchlib.customsearch_ss_vendor_eval_table_search();
+                let currentUrlToken = creednz_token_lib.checkAccessToken();
+
                 vendorEvalTableSearch.run().each(function (result) {
 
-                    var creednzVendorEvaluationId = result.getValue({
+                    let creednzVendorEvaluationId = result.getValue({
                         name: 'custrecord_creednz_evaluation_id'
                     });
-                    var VendorEvaluationInternalId = result.getValue({
+                    let VendorEvaluationInternalId = result.getValue({
                         name: 'internalid'
                     });
 
                     log.debug("creednzVendorEvaluationId and internalid", creednzVendorEvaluationId + "," + VendorEvaluationInternalId);
                     //check access token existing or not and expired or not
                     //get access token from custom record
-                    var accessTokenLookup = search.lookupFields({
-                        type: 'customrecord_creednz_details',
-                        id: 1,
-                        columns: ['custrecord_creednz_access_token', 'custrecord_creednz_last_updated_date', 'custrecord_creednz_client_id', 'custrecord_creednz_client_secret', 'custrecord_creednz_base_url', 'custrecord_auth0_get_token_api', 'custrecord_audience']
-                    });
-                    var lastSyncAccessToken = accessTokenLookup.custrecord_creednz_access_token;
-                    var lastUpdatedDateTime = accessTokenLookup.custrecord_creednz_last_updated_date;
-                    var creednzClientId = accessTokenLookup.custrecord_creednz_client_id;
-                    var creednzClientSecret = accessTokenLookup.custrecord_creednz_client_secret;
-                    var creednzBaseUrl = accessTokenLookup.custrecord_creednz_base_url;
-                    var creednzAuth0 = accessTokenLookup.custrecord_auth0_get_token_api;
-                    var creednzAudience = accessTokenLookup.custrecord_audience;
-                    //check access token is existing or expired
-                    var currentDate = new Date();
-                    //log.debug("current date", currentDate);
-                    // check if access token is exist or not
-                    if (lastSyncAccessToken) {
-                        //check if the access token is expired or not
-                        log.debug("access token exist, ckeck expired or not");
-                        var lastUpdatedDateTimeNow = format.format({
-                            value: lastUpdatedDateTime,
-                            type: format.Type.DATETIMETZ
-                        });
-                        var parsedDateStringAsRawDateObject = format.parse({
-                            value: lastUpdatedDateTimeNow,
-                            type: format.Type.DATETIMETZ
-                        });
-                        var accessTokenTimeDiff = (currentDate.getTime() - parsedDateStringAsRawDateObject.getTime()) / 1000;
-                        log.debug("time difference in seconds", accessTokenTimeDiff);
-                        // if access token expired, create new access token using refresh token
-                        if (accessTokenTimeDiff > 86400) {
-                            // create new access token
-                            lastSyncAccessToken = getAccessToken(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience);
-                            log.debug("access token created when it expired", lastSyncAccessToken);
-                        }
-                    } //end if(lastSyncAccessToken)
-                    else {
-                        log.debug("no api key exist");
-                        // call function to create new access token
-                        lastSyncAccessToken = getAccessToken(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience);
-                        log.debug("access token created", lastSyncAccessToken);
-                    }
 
-                    //get vendor status from creednz
-                    var creedNzApiHeaders = {
-                        'accept': 'application/json',
-                        'content-type': 'application/json',
-                        'authorization': 'Bearer ' + lastSyncAccessToken
-                    };
-                    //    var creednzVendorStatusUrl = "https://edge.staging.creednz.com/external/microsoft-dynamics//vendor-evaluation/"+ creednzVendorEvaluationId +"/vendor";
-                    var creednzVendorStatusUrl = creednzBaseUrl + "/external/erp/vendor-evaluation/" + creednzVendorEvaluationId + "/vendor";
-
-                    var creedNzStatusResponse = https.get({
-                        url: creednzVendorStatusUrl,
-                        headers: creedNzApiHeaders
-                    });
-                    //  log.debug("creedNzStatusResponse",creedNzStatusResponse);
-                    var creedNzStatusTransactions = creedNzStatusResponse.body;
-                    //   log.debug("creedNzStatusTransactions Body",creedNzStatusTransactions);
-                    //get consignment id
-                    var creedNzStatusTransactionsParse = JSON.parse(creedNzStatusTransactions);
+                    let creedNzStatusTransactionsParse = creednz_api_lib.getCreednzVendorEvaluation_vendor(currentUrlToken);
                     log.debug("creedNzStatusTransactionsParse", creedNzStatusTransactionsParse);
-                    var vendorExternalId = creedNzStatusTransactionsParse.externalId;
+                    const vendorExternalId = creedNzStatusTransactionsParse.externalId;
                     log.debug(creedNzStatusTransactionsParse.externalId);
 
                     //set status in custom field in vendor record
-                    var recId = record.submitFields({
+                    const recId = record.submitFields({
                         type: "customrecord_vendor_evaluation_table",
                         id: VendorEvaluationInternalId,
                         values: {
@@ -119,15 +59,15 @@ define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/e
 
 
                     // Reschedule the task
-                    var endTime = new Date().getTime();
-                    var timeElapsed = (endTime * 0.001) - (startTime * 0.001);
-                    var scriptObj = runtime.getCurrentScript();
-                    var remainingUsage = scriptObj.getRemainingUsage();
+                    let endTime = new Date().getTime();
+                    let timeElapsed = (endTime * 0.001) - (startTime * 0.001);
+                    let scriptObj = runtime.getCurrentScript();
+                    let remainingUsage = scriptObj.getRemainingUsage();
                     if (remainingUsage < 1000 || timeElapsed > 3300) // time more than 55 min
                     {
                         log.debug("Usage Exceeded Resubmitting remainingUsage", remainingUsage);
 
-                        var scheduledScriptTask = task.create({
+                        let scheduledScriptTask = task.create({
                             taskType: task.TaskType.SCHEDULED_SCRIPT,
                             scriptId: runtime.getCurrentScript().id,
                             deploymentId: runtime.getCurrentScript().deploymentId
@@ -148,13 +88,7 @@ define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/e
             }
         }
 
-        function getAccessToken(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience) {
-            try {
-                return creednz_token_lib.getTokenCreednz(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience);
-            } catch (err) {
-                log.debug("error in function getAccessToken", err);
-            }
-        } //end function
+
 
         return {
             execute: execute,
