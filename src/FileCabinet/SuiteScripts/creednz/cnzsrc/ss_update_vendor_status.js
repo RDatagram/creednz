@@ -6,6 +6,9 @@
  * Script brief description:
  Scheduled Script is used for following tasks:
  1.Schedule script to update vendor status
+
+ REVISION
+ 19.09 > using library
  */
 
 define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task', './ssearches/searchlib', './lib/creednz_token_lib', , './lib/creednz_api_lib']
@@ -83,16 +86,7 @@ define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/e
             }
         }
 
-        function getAccessToken(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience) {
-            try {
-                return creednz_token_lib.getTokenCreednz(creednzClientId, creednzClientSecret, creednzAuth0, creednzAudience);
-            } catch (err) {
-                log.debug("error in function getAccessToken", err);
-            }
-        } //end function
-
         return {
-            execute: execute,
-            getAccessToken: getAccessToken
+            execute: execute
         };
     });
