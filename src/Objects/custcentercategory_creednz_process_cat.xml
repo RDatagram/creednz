@@ -21,5 +21,11 @@
       <linktasktype>SCRIPT</linktasktype>
       <shortlist>F</shortlist>
     </link>
+    <link>
+      <linklabel>Vendor Evaluation</linklabel>
+      <linkobject>[scriptid=customrecord_vendor_evaluation_table]</linkobject>
+      <linktasktype>LIST</linktasktype>
+      <shortlist>F</shortlist>
+    </link>
   </links>
 </centercategory>
