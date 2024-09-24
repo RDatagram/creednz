@@ -45,8 +45,8 @@ define(['../lib/creednz_api_lib'],
 
             let creedNzTransactions = creednz_api_lib.postCreednzInviteVendor(dataObj);
 
-
             let creednzEvaluationId = creedNzTransactions.id;
+
 
             if (creednzEvaluationId) {
                 recordVE.setValue({
@@ -59,7 +59,6 @@ define(['../lib/creednz_api_lib'],
                     value: 'Invite Sent'
                 });
 
-                recordVE.save();
                 return creednzEvaluationId;
             } else {
                 throw new Error('Failed to post Creednz invite vendor');
