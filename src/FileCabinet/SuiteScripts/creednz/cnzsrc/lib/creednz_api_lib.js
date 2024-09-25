@@ -366,11 +366,19 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
         // /external/erp/vendor-evaluation/status/:vendorEvaluationId
         const getCreednzVendorEvaluation_status = (externalId) => {
-            const creednzVendorInformation = "/external/erp/vendor-evaluation/status/" + externalId;
+            const baseGetUrl = "/external/erp/vendor-evaluation/status/" + externalId;
 
-            return  baseCreednzGet(creednzVendorInformation,null);
+            return  baseCreednzGet(baseGetUrl,null);
 
         }
+
+        const getCreednzVendorEvaluation_all = () => {
+            const baseGetUrl = "/external/erp/vendor-evaluation";
+
+            return  baseCreednzGet(baseGetUrl,null);
+
+        }
+
         const postCreednzInviteVendor = (dataObj) => {
             let creedNzResponse = baseCreednzPost("/external/erp/vendor-evaluation/invite",dataObj,null);
             let creedNzTransactions = creedNzResponse.body;
@@ -392,7 +400,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             getCreednzVendorStatus,
             postCreednzInviteVendor,
             getCreednzVendorEvaluation_vendor,
-            getCreednzVendorEvaluation_status
+            getCreednzVendorEvaluation_status,
+            getCreednzVendorEvaluation_all
         }
 
     });
