@@ -8,7 +8,7 @@
  1. set Creednz sub tab in vendor record
  */
 define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file', 'N/https', 'N/search', 'N/format', 'N/ui/serverWidget', './lib/creednz_api_lib'],
-    (runtime, log, record, error, render, file, https, search, format, serverWidget, creednz_api_lib,) => {
+    (runtime, log, record, error, render, file, https, search, format, serverWidget, creednz_api_lib) => {
 
 
         const makeFormSublist = (form) => {
