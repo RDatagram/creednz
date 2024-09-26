@@ -11,7 +11,7 @@
  19.09 > using library
  */
 
-define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task', './ssearches/searchlib', './lib/creednz_token_lib', , './lib/creednz_api_lib']
+define(['N/https', 'N/log', 'N/record', 'N/encode', 'N/format', 'N/search', 'N/email', 'N/runtime', 'N/task', './ssearches/searchlib', './lib/creednz_token_lib', './lib/creednz_api_lib']
     , (https, log, record, encode, format, search, email, runtime, task, searchlib, creednz_token_lib, creednz_api_lib) => {
         function execute(context) {
 

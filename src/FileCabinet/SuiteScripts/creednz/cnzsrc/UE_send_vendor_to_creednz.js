@@ -7,6 +7,8 @@
  UserEventScript Script is used for following tasks:
  1. POST vendors from netsuite to Creednz.
  */
+
+// TODO: REMOVE THIS FROM THE SYSTEM!!!!
 define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file', 'N/https', 'N/search', 'N/format','./lib/creednz_api_lib'],
     (runtime, log, record, error, render, file, https, search, format, creednz_api_lib) => {
         function afterSubmit(context) {
@@ -40,18 +42,6 @@ define(['N/runtime', 'N/log', 'N/record', 'N/error', 'N/render', 'N/file', 'N/ht
                     let creednzExternalId = creedNzTransactionsParse[0].vendorExternalId;
                     log.debug("creednzExternalId", creednzExternalId);
 
-
-                    // TODO: Make a delay?
-                    let creedNzStatusTransactionsParse = creednz_api_lib.getCreednzVendorStatus(creednzExternalId);
-
-                    log.debug({
-                        title: 'creedNzStatusTransactionsParse.status',
-                        details: creedNzStatusTransactionsParse.status
-                    });
-                    if (creedNzStatusTransactionsParse.status === 'Pending') {
-                        log.debug("Status is Pending");
-                        // Perform some action
-                    }
                     /* TODO:
                         Set status to something like Pending,Analyze...
                         We need to request new status and findings
