@@ -1,7 +1,7 @@
 <workflowactionscript scriptid="customscript_wfa_creednz_invite_vendor">
   <description></description>
   <isinactive>F</isinactive>
-  <name>WFA : Invite Vendor to CreedNZ</name>
+  <name>CRDNZ : Invite Vendor to CreedNZ</name>
   <notifyadmins>F</notifyadmins>
   <notifyemails></notifyemails>
   <notifyowner>T</notifyowner>
@@ -11,7 +11,7 @@
   <scriptfile>[/SuiteScripts/creednz/cnzsrc/wfa/wfa_creednz_invite_vendor.js]</scriptfile>
   <scriptdeployments>
     <scriptdeployment scriptid="customdeploy_wfa_creednz_invite_vendor">
-      <allemployees>F</allemployees>
+      <allemployees>T</allemployees>
       <allpartners>F</allpartners>
       <allroles>T</allroles>
       <audslctrole></audslctrole>
