@@ -1,14 +1,10 @@
 <transactionbodycustomfield scriptid="custbody_creednz_external_id">
   <accesslevel>2</accesslevel>
   <applyformatting>F</applyformatting>
-  <bodyassemblybuild>F</bodyassemblybuild>
-  <bodybom>F</bodybom>
   <bodycustomerpayment>F</bodycustomerpayment>
-  <bodycustomtransactions></bodycustomtransactions>
   <bodydeposit>F</bodydeposit>
   <bodydepositapplication>F</bodydepositapplication>
   <bodyexpensereport>F</bodyexpensereport>
-  <bodyfulfillmentrequest>F</bodyfulfillmentrequest>
   <bodyinventoryadjustment>F</bodyinventoryadjustment>
   <bodyitemfulfillment>F</bodyitemfulfillment>
   <bodyitemfulfillmentorder>F</bodyitemfulfillmentorder>
@@ -17,8 +13,6 @@
   <bodyjournal>F</bodyjournal>
   <bodyopportunity>F</bodyopportunity>
   <bodyothertransaction>F</bodyothertransaction>
-  <bodypaycheck>F</bodypaycheck>
-  <bodyperiodendjournal>F</bodyperiodendjournal>
   <bodypickingticket>F</bodypickingticket>
   <bodyprintflag>F</bodyprintflag>
   <bodyprintpackingslip>F</bodyprintpackingslip>
@@ -26,10 +20,8 @@
   <bodypurchase>F</bodypurchase>
   <bodysale>F</bodysale>
   <bodystore>F</bodystore>
-  <bodystorepickup>F</bodystorepickup>
   <bodytransferorder>F</bodytransferorder>
   <bodyvendorpayment>T</bodyvendorpayment>
-  <bodyvendorprepayment>F</bodyvendorprepayment>
   <checkspelling>F</checkspelling>
   <defaultchecked>F</defaultchecked>
   <defaultselection></defaultselection>
