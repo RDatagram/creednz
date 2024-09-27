@@ -26,7 +26,7 @@ define(['N/task'],
                 params: {}
             });
             mrTask.submit();
-
+            
             log.debug({
                 title: 'MR Task Id',
                 details: mrTask
