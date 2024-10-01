@@ -45,10 +45,22 @@ define(['../lib/creednz_api_lib'],
                 });
 
                 // TODO: Discuss about this with project manager!
-                recordVE.setValue({
-                    fieldId: 'custentity_creednz_risk_status',
-                    value: 'Pending'
+                const fields = [
+                    'custentity_creednz_risk_status',
+                    'custentity_creednz_bankacc_risk',
+                    'custentity_creednz_operation_risk',
+                    'custentity_creednz_sanction_risk',
+                    'custentity_creednz_cyber_risk'
+                ];
+                const value = 'Pending';
+
+                fields.forEach(field => {
+                    recordVE.setValue({
+                        fieldId: field,
+                        value: value
+                    });
                 });
+
             }
         }
 

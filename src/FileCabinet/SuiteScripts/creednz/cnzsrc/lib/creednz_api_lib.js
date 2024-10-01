@@ -402,7 +402,18 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             }
 
             // iterate array findings
-
+            const CATEGORY_TO_RISK_STATUS = {
+                "BankAccount": "bankRiskStatus",
+                "PaymentOperations": "operationRiskStatus",
+                "Sanctions": "sanctionRiskStatus",
+                "CyberRisk": "cyberRiskStatus"
+            }
+            const CATEGORY_TO_RISK_VALUE = {
+                "BankAccount": "ON RISK",
+                "PaymentOperations": "ON RISK",
+                "Sanctions": "ON RISK",
+                "CyberRisk": "ON RISK"
+            }
             for (let i = 0; i < findings.length; i++) {
 
 
@@ -413,18 +424,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 let vendorFindingsDescription = findings[i].description;
 
                 const ALERT_TYPE = 'Alert'
-                const CATEGORY_TO_RISK_STATUS = {
-                    "BankAccount": "bankRiskStatus",
-                    "PaymentOperations": "operationRiskStatus",
-                    "Sanctions": "sanctionRiskStatus",
-                    "CyberRisk": "cyberRiskStatus"
-                }
-                const CATEGORY_TO_RISK_VALUE = {
-                    "BankAccount": "ON RISK",
-                    "PaymentOperations": "ON RISK",
-                    "Sanctions": "ON RISK",
-                    "CyberRisk": "ON RISK"
-                }
+
                 if (vendorFindingsType === ALERT_TYPE) {
                     let riskStatusProperty = CATEGORY_TO_RISK_STATUS[vendorFindingsCategory]
                     if (riskStatusProperty) {

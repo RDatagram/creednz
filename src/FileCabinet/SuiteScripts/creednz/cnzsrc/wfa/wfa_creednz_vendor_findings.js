@@ -27,10 +27,35 @@ define(['../lib/creednz_api_lib'],
 
             const creedNzTransactionsLength = creedNzTransactionsParse.length;
             log.debug({
-                title: 'creedNzTransactionsLength',
-                details: creedNzTransactionsLength,
+                title: 'creedNzTransactionsParse',
+                details: creedNzTransactionsParse,
             });
 
+            if (creedNzTransactionsLength > 0) {
+                let riskObject = creednz_api_lib.checkRiskFromFindings(creedNzTransactionsParse);
+                log.debug({
+                    title: 'RiskObject',
+                    details: riskObject
+                })
+                const RISK_STATUS_TO_FIELD = {
+                    "bankRiskStatus": "custentity_creednz_bankacc_risk",
+                    "operationRiskStatus": "custentity_creednz_operation_risk",
+                    "sanctionRiskStatus": "custentity_creednz_sanction_risk",
+                    "cyberRiskStatus": "custentity_creednz_cyber_risk"
+                };
+
+                Object.keys(riskObject).forEach(function (key) {
+                    log.debug( key + ' into Field : ' + RISK_STATUS_TO_FIELD[key] + ' with Value' + riskObject[key]);
+
+                    if (riskObject[key]) {
+                        recordVE.setValue({
+                            fieldId: RISK_STATUS_TO_FIELD[key],
+                            value: riskObject[key]
+                        });
+                    }
+
+                });
+            }
             return creedNzTransactionsLength;
         }
 
