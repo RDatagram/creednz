@@ -49,14 +49,7 @@ define(['N/workflow','../ssearches/searchlib'],
             });
 
             let searchResult = JSON.parse(mapContext.value)
-            log.debug({
-                title: 'mapContext.value.recordType',
-                details: searchResult.recordType
-            });
-            log.debug({
-                title: 'mapContext.value.id',
-                details: searchResult.id
-            });
+
 
             let workflowInstanceId = workflow.initiate({
                 workflowId: 'customworkflow_wf_creednz_send_vendor',
@@ -64,10 +57,7 @@ define(['N/workflow','../ssearches/searchlib'],
                 recordId: searchResult.id
             });
 
-            log.debug({
-                title: 'workflowInstance',
-                details: workflowInstanceId || 'Null'
-            })
+
         }
 
         /**

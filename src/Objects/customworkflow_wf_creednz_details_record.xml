@@ -32,7 +32,7 @@
           <contexttypes>USERINTERFACE</contexttypes>
           <eventtypes>VIEW</eventtypes>
           <isinactive>F</isinactive>
-          <label>Start Vendor Sync</label>
+          <label>Initial vendors sync</label>
           <saverecordfirst>F</saverecordfirst>
           <initcondition>
             <formula></formula>
