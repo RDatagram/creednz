@@ -45,7 +45,20 @@
           <contexttypes>USERINTERFACE</contexttypes>
           <eventtypes>VIEW</eventtypes>
           <isinactive>F</isinactive>
-          <label>Get status</label>
+          <label>Get Assess status</label>
+          <saverecordfirst>F</saverecordfirst>
+          <initcondition>
+            <formula></formula>
+            <type>VISUAL_BUILDER</type>
+          </initcondition>
+        </addbuttonaction>
+        <addbuttonaction scriptid="workflowaction9">
+          <checkconditionbeforeexecution>T</checkconditionbeforeexecution>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>USERINTERFACE</contexttypes>
+          <eventtypes>VIEW</eventtypes>
+          <isinactive>F</isinactive>
+          <label>Get evalution status</label>
           <saverecordfirst>F</saverecordfirst>
           <initcondition>
             <formula></formula>
@@ -72,19 +85,6 @@
           <eventtypes>VIEW</eventtypes>
           <isinactive>F</isinactive>
           <label>Get Finding results</label>
-          <saverecordfirst>F</saverecordfirst>
-          <initcondition>
-            <formula></formula>
-            <type>VISUAL_BUILDER</type>
-          </initcondition>
-        </addbuttonaction>
-        <addbuttonaction scriptid="workflowaction9">
-          <checkconditionbeforeexecution>T</checkconditionbeforeexecution>
-          <conditionsavedsearch></conditionsavedsearch>
-          <contexttypes>USERINTERFACE</contexttypes>
-          <eventtypes>VIEW</eventtypes>
-          <isinactive>F</isinactive>
-          <label>Get evalution status</label>
           <saverecordfirst>F</saverecordfirst>
           <initcondition>
             <formula></formula>
@@ -230,8 +230,8 @@
     <workflowstate scriptid="workflowstate4">
       <description></description>
       <donotexitworkflow>F</donotexitworkflow>
-      <name>GetVEndor</name>
-      <positionx>473</positionx>
+      <name>GetVendor</name>
+      <positionx>523</positionx>
       <positiony>243</positiony>
       <workflowactions triggertype="ONENTRY">
         <customaction scriptid="workflowaction6">
@@ -252,13 +252,31 @@
           </initcondition>
         </customaction>
       </workflowactions>
+      <workflowtransitions>
+        <workflowtransition scriptid="workflowtransition12">
+          <buttonaction></buttonaction>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <scheduledelay></scheduledelay>
+          <scheduletimeunit></scheduletimeunit>
+          <tostate>[scriptid=customworkflow_wf_vendor_evaluation.workflowstate5]</tostate>
+          <triggertype></triggertype>
+          <waitforworkflow></waitforworkflow>
+          <waitforworkflowstate></waitforworkflowstate>
+          <initcondition>
+            <formula></formula>
+            <type>VISUAL_BUILDER</type>
+          </initcondition>
+        </workflowtransition>
+      </workflowtransitions>
     </workflowstate>
     <workflowstate scriptid="workflowstate5">
       <description></description>
       <donotexitworkflow>F</donotexitworkflow>
       <name>GetFinding</name>
-      <positionx>633</positionx>
-      <positiony>243</positiony>
+      <positionx>523</positionx>
+      <positiony>363</positiony>
       <workflowactions triggertype="ONENTRY">
         <customaction scriptid="workflowaction7">
           <conditionsavedsearch></conditionsavedsearch>
