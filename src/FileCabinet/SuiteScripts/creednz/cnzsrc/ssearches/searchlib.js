@@ -116,6 +116,34 @@ define(['N/search'],
             });
         }
 
+        /**
+         * GET Vendor Evaluation records for getting data and check RISK
+         * custrecord_creednz_evaluation_id NOT EMPTY => already sent
+         *
+         * @returns {*}
+         */
+        const customsearch_ss_vendor_eval_table_check = () => {
+            return search.create({
+                type: "customrecord_vendor_evaluation_table",
+                filters:
+                    [
+                        ["custrecord_creednz_evaluation_id","isnotempty",""],
+                        "AND",
+                        [["custrecord_vendor_externalid","isempty",""],"OR",["custrecord_assessment_status","isnot","Completed"]]
+                    ],
+                columns:
+                    [
+                        "custrecord_creednz_evaluation_id",
+                        "custrecord_vendor_name",
+                        "custrecord_primary_contact",
+                        "custrecord_vendor_email",
+                        "custrecord_risk_status",
+                        "custrecord_assessment_status",
+                        "internalid"
+                    ]
+            });
+        }
+
         const customsearch_ss_vendor_evaluation_table = () => {
             return search.create({
                 type: "customrecord_vendor_evaluation_table",
@@ -262,6 +290,7 @@ define(['N/search'],
             customsearch_ss_vendor_creednz_informa,
             customsearch_ss_vendor_evaluation_tabl_2,
             customsearch_ss_vendor_eval_table_search,
+            customsearch_ss_vendor_eval_table_check,
             customsearch_ss_vendor_evaluation_table,
             customsearch_ss_vendor_search_for_creed,
             customsearch_ss_get_creednz_external_id,
