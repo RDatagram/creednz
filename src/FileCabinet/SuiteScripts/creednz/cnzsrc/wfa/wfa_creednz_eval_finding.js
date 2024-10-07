@@ -38,6 +38,7 @@ define(['../lib/creednz_api_lib'],
                     details: riskObject
                 })
                 const RISK_STATUS_TO_FIELD = {
+                    "riskFlag":"custrecord_vendor_risk_status",
                     "bankRiskStatus": "custrecord_creednz_bankacc_risk",
                     "operationRiskStatus": "custrecord_creednz_operation_risk",
                     "sanctionRiskStatus": "custrecord_creednz_sanction_risk",
