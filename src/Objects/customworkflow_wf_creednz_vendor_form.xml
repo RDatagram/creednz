@@ -166,23 +166,22 @@
       <positionx>323</positionx>
       <positiony>253</positiony>
       <workflowactions triggertype="ONENTRY">
-        <customaction scriptid="workflowaction15">
+        <initiateworkflowaction scriptid="workflowaction37">
           <conditionsavedsearch></conditionsavedsearch>
           <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
           <eventtypes></eventtypes>
+          <initiatedworkflow>[scriptid=customworkflow_wf_creednz_vendor_all]</initiatedworkflow>
           <isinactive>F</isinactive>
-          <resultfield></resultfield>
           <scheduledelay></scheduledelay>
           <schedulemode>DELAY</schedulemode>
           <schedulerecurrence></schedulerecurrence>
           <scheduletimeofday></scheduletimeofday>
           <scheduletimeunit></scheduletimeunit>
-          <scripttype>[scriptid=customscript_wfa_creednz_vendor_status]</scripttype>
           <initcondition>
             <formula></formula>
             <type>VISUAL_BUILDER</type>
           </initcondition>
-        </customaction>
+        </initiateworkflowaction>
       </workflowactions>
       <workflowtransitions>
         <workflowtransition scriptid="workflowtransition10">
@@ -197,36 +196,8 @@
           <waitforworkflow></waitforworkflow>
           <waitforworkflowstate></waitforworkflowstate>
           <initcondition>
-            <formula><![CDATA["Creednz Risk Status" = 'Pending']]></formula>
+            <formula></formula>
             <type>VISUAL_BUILDER</type>
-            <parameters>
-              <parameter>
-                <name>Creednz Risk Status</name>
-                <value>[scriptid=custentity_creednz_risk_status]</value>
-              </parameter>
-            </parameters>
-          </initcondition>
-        </workflowtransition>
-        <workflowtransition scriptid="workflowtransition11">
-          <buttonaction></buttonaction>
-          <conditionsavedsearch></conditionsavedsearch>
-          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
-          <eventtypes></eventtypes>
-          <scheduledelay></scheduledelay>
-          <scheduletimeunit></scheduletimeunit>
-          <tostate>[scriptid=customworkflow_wf_creednz_vendor_form.workflowstate14]</tostate>
-          <triggertype></triggertype>
-          <waitforworkflow></waitforworkflow>
-          <waitforworkflowstate></waitforworkflowstate>
-          <initcondition>
-            <formula><![CDATA["Creednz Risk Status" != 'Pending']]></formula>
-            <type>VISUAL_BUILDER</type>
-            <parameters>
-              <parameter>
-                <name>Creednz Risk Status</name>
-                <value>[scriptid=custentity_creednz_risk_status]</value>
-              </parameter>
-            </parameters>
           </initcondition>
         </workflowtransition>
       </workflowtransitions>

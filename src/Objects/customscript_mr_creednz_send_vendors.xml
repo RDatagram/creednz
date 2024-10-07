@@ -20,7 +20,7 @@
       <recurrence>
         <daily>
           <everyxdays>1</everyxdays>
-          <repeat></repeat>
+          <repeat>PT15M</repeat>
           <startdate>2024-09-24</startdate>
           <starttime>22:30:00Z</starttime>
         </daily>
