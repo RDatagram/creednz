@@ -123,7 +123,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 vendorObj.registrationCode = vendorCreednzRegCode;
             }
             //  "primarySubsidiary": "string",
-            let vendorSubsidiary = currentRecord.getValue({
+            let vendorSubsidiary = currentRecord.getText({
                 fieldId: "subsidiary"
             });
             if (vendorSubsidiary) {
@@ -187,7 +187,15 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             // TODO:
             // "taxpayerID": "string",
+            // TODO:
             // "taxpayerIdType": "string",
+            let vendorCreednztaxpayerID = currentRecord.getValue({
+                fieldId: "taxidnum"
+            });
+            if (vendorCreednzPaymentMethod) {
+                vendorObj.taxpayerID = vendorCreednztaxpayerID;
+                vendorObj.taxpayerIdType = 'Employer Identification Number'
+            }
 
             // "currency": "string",
             let vendorCurrency = currentRecord.getValue({
@@ -198,15 +206,15 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             }
 
             // "bankAccountName": "string",
+            // TODO:
+            // "bankAccountType": "string",
             let vendorCreednzBankAccName = currentRecord.getValue({
                 fieldId: "custentity_bank_account_name_creednz"
             });
             if (vendorCreednzBankAccName) {
                 vendorObj.bankAccountName = vendorCreednzBankAccName;
+                vendorObj.bankAccountType = 'Checking account';
             }
-
-            // TODO:
-            // "bankAccountType": "string",
 
             // "bankNumber": "string",
             let vendorCreednzBankNumber = currentRecord.getValue({
