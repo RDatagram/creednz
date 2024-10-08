@@ -23,7 +23,7 @@
       <description></description>
       <donotexitworkflow>F</donotexitworkflow>
       <name>Entry</name>
-      <positionx>353</positionx>
+      <positionx>343</positionx>
       <positiony>23</positiony>
       <workflowtransitions>
         <workflowtransition scriptid="workflowtransition13">
@@ -76,8 +76,14 @@
           <label>Vendor Invitation</label>
           <saverecordfirst>F</saverecordfirst>
           <initcondition>
-            <formula></formula>
+            <formula><![CDATA[isEmpty("Creednz Evaluation ID") = 'T']]></formula>
             <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Creednz Evaluation ID</name>
+                <value>[scriptid=customrecord_vendor_evaluation_table.custrecord_creednz_evaluation_id]</value>
+              </parameter>
+            </parameters>
           </initcondition>
         </addbuttonaction>
         <addbuttonaction scriptid="workflowaction3">
@@ -85,7 +91,7 @@
           <conditionsavedsearch></conditionsavedsearch>
           <contexttypes>USERINTERFACE</contexttypes>
           <eventtypes>VIEW</eventtypes>
-          <isinactive>F</isinactive>
+          <isinactive>T</isinactive>
           <label>Get Assess status</label>
           <saverecordfirst>F</saverecordfirst>
           <initcondition>
@@ -98,7 +104,7 @@
           <conditionsavedsearch></conditionsavedsearch>
           <contexttypes>USERINTERFACE</contexttypes>
           <eventtypes>VIEW</eventtypes>
-          <isinactive>F</isinactive>
+          <isinactive>T</isinactive>
           <label>Get evalution status</label>
           <saverecordfirst>F</saverecordfirst>
           <initcondition>
@@ -111,7 +117,7 @@
           <conditionsavedsearch></conditionsavedsearch>
           <contexttypes>USERINTERFACE</contexttypes>
           <eventtypes>VIEW</eventtypes>
-          <isinactive>F</isinactive>
+          <isinactive>T</isinactive>
           <label>Get Vendor data</label>
           <saverecordfirst>F</saverecordfirst>
           <initcondition>
@@ -143,6 +149,44 @@
           <initcondition>
             <formula></formula>
             <type>VISUAL_BUILDER</type>
+          </initcondition>
+        </addbuttonaction>
+        <addbuttonaction scriptid="workflowaction39">
+          <checkconditionbeforeexecution>T</checkconditionbeforeexecution>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>USERINTERFACE</contexttypes>
+          <eventtypes>VIEW</eventtypes>
+          <isinactive>F</isinactive>
+          <label>Create Vendor</label>
+          <saverecordfirst>F</saverecordfirst>
+          <initcondition>
+            <formula><![CDATA["Risk Status" = 'Validated']]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Risk Status</name>
+                <value>[scriptid=customrecord_vendor_evaluation_table.custrecord_risk_status]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </addbuttonaction>
+        <addbuttonaction scriptid="workflowaction41">
+          <checkconditionbeforeexecution>T</checkconditionbeforeexecution>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>USERINTERFACE</contexttypes>
+          <eventtypes>VIEW</eventtypes>
+          <isinactive>F</isinactive>
+          <label>Send Results</label>
+          <saverecordfirst>F</saverecordfirst>
+          <initcondition>
+            <formula><![CDATA["Risk Status" = 'AtRisk']]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Risk Status</name>
+                <value>[scriptid=customrecord_vendor_evaluation_table.custrecord_risk_status]</value>
+              </parameter>
+            </parameters>
           </initcondition>
         </addbuttonaction>
       </workflowactions>
@@ -235,6 +279,38 @@
           <scheduledelay></scheduledelay>
           <scheduletimeunit></scheduletimeunit>
           <tostate>[scriptid=customworkflow_wf_vendor_evaluation.workflowstate24]</tostate>
+          <triggertype></triggertype>
+          <waitforworkflow></waitforworkflow>
+          <waitforworkflowstate></waitforworkflowstate>
+          <initcondition>
+            <formula></formula>
+            <type>VISUAL_BUILDER</type>
+          </initcondition>
+        </workflowtransition>
+        <workflowtransition scriptid="workflowtransition24">
+          <buttonaction>[scriptid=customworkflow_wf_vendor_evaluation.workflowstate1.workflowaction39]</buttonaction>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <scheduledelay></scheduledelay>
+          <scheduletimeunit></scheduletimeunit>
+          <tostate>[scriptid=customworkflow_wf_vendor_evaluation.workflowstate29]</tostate>
+          <triggertype></triggertype>
+          <waitforworkflow></waitforworkflow>
+          <waitforworkflowstate></waitforworkflowstate>
+          <initcondition>
+            <formula></formula>
+            <type>VISUAL_BUILDER</type>
+          </initcondition>
+        </workflowtransition>
+        <workflowtransition scriptid="workflowtransition25">
+          <buttonaction>[scriptid=customworkflow_wf_vendor_evaluation.workflowstate1.workflowaction41]</buttonaction>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <scheduledelay></scheduledelay>
+          <scheduletimeunit></scheduletimeunit>
+          <tostate>[scriptid=customworkflow_wf_vendor_evaluation.workflowstate30]</tostate>
           <triggertype></triggertype>
           <waitforworkflow></waitforworkflow>
           <waitforworkflowstate></waitforworkflowstate>
@@ -495,6 +571,77 @@
             <type>VISUAL_BUILDER</type>
           </initcondition>
         </initiateworkflowaction>
+      </workflowactions>
+    </workflowstate>
+    <workflowstate scriptid="workflowstate29">
+      <description></description>
+      <donotexitworkflow>F</donotexitworkflow>
+      <name>CreateNewVendor</name>
+      <positionx>753</positionx>
+      <positiony>173</positiony>
+      <workflowactions triggertype="ONENTRY">
+        <gotorecordaction scriptid="workflowaction40">
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <ineditmode>T</ineditmode>
+          <isinactive>F</isinactive>
+          <recordidfield></recordidfield>
+          <recordidjoinfield></recordidjoinfield>
+          <recordtype>VENDOR</recordtype>
+          <initcondition>
+            <formula></formula>
+            <type>VISUAL_BUILDER</type>
+          </initcondition>
+          <fieldsettings>
+            <fieldsetting>
+              <targetfield>STDENTITYCOMPANYNAME</targetfield>
+              <valuechecked></valuechecked>
+              <valuedate></valuedate>
+              <valuefield>[scriptid=customrecord_vendor_evaluation_table.custrecord_vendor_name]</valuefield>
+              <valueformula></valueformula>
+              <valuejoinfield></valuejoinfield>
+              <valueselect></valueselect>
+              <valuetext></valuetext>
+            </fieldsetting>
+            <fieldsetting>
+              <targetfield>STDENTITYEMAIL</targetfield>
+              <valuechecked></valuechecked>
+              <valuedate></valuedate>
+              <valuefield>[scriptid=customrecord_vendor_evaluation_table.custrecord_vendor_email]</valuefield>
+              <valueformula></valueformula>
+              <valuejoinfield></valuejoinfield>
+              <valueselect></valueselect>
+              <valuetext></valuetext>
+            </fieldsetting>
+          </fieldsettings>
+        </gotorecordaction>
+      </workflowactions>
+    </workflowstate>
+    <workflowstate scriptid="workflowstate30">
+      <description></description>
+      <donotexitworkflow>F</donotexitworkflow>
+      <name>SendResults</name>
+      <positionx>743</positionx>
+      <positiony>443</positiony>
+      <workflowactions triggertype="ONENTRY">
+        <customaction scriptid="workflowaction42">
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <isinactive>F</isinactive>
+          <resultfield></resultfield>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <scripttype>[scriptid=customscript_wfa_creednz_eval_sendresult]</scripttype>
+          <initcondition>
+            <formula></formula>
+            <type>VISUAL_BUILDER</type>
+          </initcondition>
+        </customaction>
       </workflowactions>
     </workflowstate>
   </workflowstates>
