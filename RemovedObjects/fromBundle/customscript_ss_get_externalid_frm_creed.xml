@@ -8,7 +8,7 @@
   <scriptfile>[/SuiteScripts/creednz/cnzsrc/ss_get_vendor_external_id.js]</scriptfile>
   <scriptdeployments>
     <scriptdeployment scriptid="customdeploy_ss_get_externalid_frm_creed">
-      <isdeployed>T</isdeployed>
+      <isdeployed>F</isdeployed>
       <loglevel>DEBUG</loglevel>
       <status>SCHEDULED</status>
       <title>SS Get Vendor External Id From Creednz</title>

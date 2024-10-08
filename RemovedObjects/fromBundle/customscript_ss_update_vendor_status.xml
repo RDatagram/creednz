@@ -8,7 +8,7 @@
   <scriptfile>[/SuiteScripts/creednz/cnzsrc/ss_update_vendor_status.js]</scriptfile>
   <scriptdeployments>
     <scriptdeployment scriptid="customdeploy_ss_update_vendor_status">
-      <isdeployed>T</isdeployed>
+      <isdeployed>F</isdeployed>
       <loglevel>DEBUG</loglevel>
       <status>SCHEDULED</status>
       <title>SS Update Creednz Vendor Status</title>
