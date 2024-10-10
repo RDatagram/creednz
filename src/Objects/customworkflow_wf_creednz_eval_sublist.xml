@@ -28,7 +28,7 @@
       <workflowactions triggertype="ONENTRY">
         <customaction scriptid="workflowaction11">
           <conditionsavedsearch></conditionsavedsearch>
-          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <contexttypes>USERINTERFACE</contexttypes>
           <eventtypes></eventtypes>
           <isinactive>F</isinactive>
           <resultfield></resultfield>
@@ -39,8 +39,14 @@
           <scheduletimeunit></scheduletimeunit>
           <scripttype>[scriptid=customscript_wfa_creednz_eval_sublist]</scripttype>
           <initcondition>
-            <formula></formula>
+            <formula><![CDATA[isEmpty("Vendor ExternalID") = 'F']]></formula>
             <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Vendor ExternalID</name>
+                <value>[scriptid=customrecord_vendor_evaluation_table.custrecord_vendor_externalid]</value>
+              </parameter>
+            </parameters>
           </initcondition>
         </customaction>
       </workflowactions>
