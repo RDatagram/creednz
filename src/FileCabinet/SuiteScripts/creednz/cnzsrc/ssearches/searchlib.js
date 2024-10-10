@@ -3,8 +3,8 @@
  */
 define(['N/search'],
     /**
- * @param{search} search
- */
+     * @param search
+     */
     (search) => {
 
         const customsearch_ss_get_payments_for_creednz = () => {
@@ -12,9 +12,9 @@ define(['N/search'],
                 type: "vendorpayment",
                 filters:
                     [
-                        ["type","anyof","VendPymt"],
+                        ["type", "anyof", "VendPymt"],
                         "AND",
-                        [["mainline","is","T"],"OR",["linelastmodifieddate","on","today"]]
+                        [["mainline", "is", "T"], "OR", ["linelastmodifieddate", "on", "today"]]
                     ],
                 columns:
                     [
@@ -45,9 +45,9 @@ define(['N/search'],
                 type: "vendor",
                 filters:
                     [
-                        ["custentity_vendor_external_id","isnotempty",""],
+                        ["custentity_vendor_external_id", "isnotempty", ""],
                         "AND",
-                        ["custentity_creednz_risk_status","isnot","Completed"]
+                        ["custentity_creednz_risk_status", "isnot", "Completed"]
                     ],
                 columns:
                     [
@@ -65,7 +65,7 @@ define(['N/search'],
                 type: "vendor",
                 filters:
                     [
-                        ["custentity_vendor_external_id","isnotempty",""]
+                        ["custentity_vendor_external_id", "isnotempty", ""]
                     ],
                 columns:
                     [
@@ -86,7 +86,7 @@ define(['N/search'],
                 type: "customrecord_vendor_evaluation_table",
                 filters:
                     [
-                        ["custrecord_creednz_evaluation_id","is","52"]
+                        ["custrecord_creednz_evaluation_id", "is", "52"]
                     ],
                 columns:
                     [
@@ -101,7 +101,7 @@ define(['N/search'],
                 type: "customrecord_vendor_evaluation_table",
                 filters:
                     [
-                        ["custrecord_creednz_evaluation_id","isnotempty",""]
+                        ["custrecord_creednz_evaluation_id", "isnotempty", ""]
                     ],
                 columns:
                     [
@@ -127,9 +127,9 @@ define(['N/search'],
                 type: "customrecord_vendor_evaluation_table",
                 filters:
                     [
-                        ["custrecord_creednz_evaluation_id","isnotempty",""],
+                        ["custrecord_creednz_evaluation_id", "isnotempty", ""],
                         "AND",
-                        [["custrecord_vendor_externalid","isempty",""],"OR",["custrecord_assessment_status","isnot","Completed"]]
+                        [["custrecord_vendor_externalid", "isempty", ""], "OR", ["custrecord_assessment_status", "isnot", "Completed"]]
                     ],
                 columns:
                     [
@@ -148,8 +148,7 @@ define(['N/search'],
             return search.create({
                 type: "customrecord_vendor_evaluation_table",
                 filters:
-                    [
-                    ],
+                    [],
                 columns:
                     [
                         "id",
@@ -170,8 +169,7 @@ define(['N/search'],
             return search.create({
                 type: "vendor",
                 filters:
-                    [
-                    ],
+                    [],
                 columns:
                     [
                         "internalid",
@@ -220,18 +218,12 @@ define(['N/search'],
                 type: "vendor",
                 filters:
                     [
-                        ["custentity_vendor_external_id","isempty",""]
+                        ["custentity_vendor_external_id", "isempty", ""]
                     ],
                 columns:
                     [
                         "internalid",
-                        "entityid",
-                        "custentity_vendor_external_id",
-                        "subsidiary",
-                        "datecreated",
-                        "lastmodifieddate",
-                        "email",
-                        "phone"
+                        "entityid"
                     ]
             });
 
@@ -241,8 +233,7 @@ define(['N/search'],
             return search.create({
                 type: "vendor",
                 filters:
-                    [
-                    ],
+                    [],
                 columns:
                     [
                         "internalid",
@@ -256,9 +247,9 @@ define(['N/search'],
                 type: "vendor",
                 filters:
                     [
-                        ["custentity_vendor_external_id","isnotempty",""],
+                        ["custentity_vendor_external_id", "isnotempty", ""],
                         "AND",
-                        [["custentity_creednz_risk_status","isnot","Validated"],"AND",["custentity_creednz_risk_status","isnot","At Risk"]]
+                        [["custentity_creednz_risk_status", "isnot", "Validated"], "AND", ["custentity_creednz_risk_status", "isnot", "At Risk"]]
                     ],
                 columns:
                     [

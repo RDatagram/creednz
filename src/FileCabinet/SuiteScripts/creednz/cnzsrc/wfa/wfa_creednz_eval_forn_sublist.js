@@ -106,6 +106,11 @@ define(['N/ui/serverWidget','../lib/creednz_api_lib'],
                     });
 
                 }
+                creednzSublist.setSublistValue({
+                    id: 'custpage_id',
+                    line: creedNzTransactionsLength,
+                    value: 'END'
+                });
             }
 
         }

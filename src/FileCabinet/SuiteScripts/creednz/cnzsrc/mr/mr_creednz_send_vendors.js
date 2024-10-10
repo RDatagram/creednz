@@ -5,7 +5,7 @@
 define(['N/workflow','../ssearches/searchlib'],
     /**
      * @param{workflow} workflow
-     * @param searchlib
+     * @param {Object} searchlib
      */
     (workflow,searchlib) => {
         /**
@@ -22,7 +22,30 @@ define(['N/workflow','../ssearches/searchlib'],
          */
 
         const getInputData = (inputContext) => {
-                return searchlib.customsearch_ss_get_creednz_external_id();
+                log.debug({
+                    title: 'Entry of MR send_vendors',
+                    details: 'START MR'
+                });
+
+                let mySearch = searchlib.customsearch_ss_get_creednz_external_id();
+
+                let mapArray = [];
+
+            let searchResult = mySearch.run().getRange({
+                start: 0,
+                end: 50
+            });
+
+            for (let i = 0; i < searchResult.length; i++) {
+                log.debug({
+                    title: "Vendor " + (i+1),
+                    details: searchResult[i]
+                });
+                mapArray.push(searchResult[i])
+            }
+
+            return mapArray
+                //return searchlib.customsearch_ss_get_creednz_external_id();
         }
 
         /**

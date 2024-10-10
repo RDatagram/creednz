@@ -12,90 +12,105 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
         const baseCreednzPost = (endPoint, dataObj, currentCreedbzObject) => {
 
-            // get token and baseUrl
-            let creednzObj = {};
-            if (currentCreedbzObject) {
-                creednzObj = currentCreedbzObject
-            } else {
-                creednzObj = creednz_token_lib.checkAccessToken();
-            }
+            try { // get token and baseUrl
+                let creednzObj = {};
+                if (currentCreedbzObject) {
+                    creednzObj = currentCreedbzObject
+                } else {
+                    creednzObj = creednz_token_lib.checkAccessToken();
+                }
 
-            let lastSyncAccessToken = creednzObj.lastSyncAccessToken;
-            let creednzBaseUrl = creednzObj.creednzBaseUrl;
+                let lastSyncAccessToken = creednzObj.lastSyncAccessToken;
+                let creednzBaseUrl = creednzObj.creednzBaseUrl;
 
-            let creedNzApiPostHeaders = {
-                'accept': 'application/json',
-                'content-type': 'application/json',
-                'authorization': 'Bearer ' + lastSyncAccessToken
-            };
-            let creedNzUrl = creednzBaseUrl + endPoint;
+                let creedNzApiPostHeaders = {
+                    'accept': 'application/json',
+                    'content-type': 'application/json',
+                    'authorization': 'Bearer ' + lastSyncAccessToken
+                };
+                let creedNzUrl = creednzBaseUrl + endPoint;
 
-            let creedNzResponse = https.post({
-                url: creedNzUrl,
-                headers: creedNzApiPostHeaders,
-                body: JSON.stringify(dataObj)
-            });
-
-            log.debug({
-                title: 'creedNzResponse',
-                details: JSON.stringify(creedNzResponse)
-            })
-            // check return code
-            if (creedNzResponse.code !== 201) {
-                log.error({
-                    title: 'Response code from CreedNZ API',
-                    details: JSON.stringify({endpoint: endPoint, responseCode: creedNzResponse.code})
+                let creedNzResponse = https.post({
+                    url: creedNzUrl,
+                    headers: creedNzApiPostHeaders,
+                    body: JSON.stringify(dataObj)
                 });
+
+                log.debug({
+                    title: 'creedNzResponse',
+                    details: JSON.stringify(creedNzResponse)
+                })
+                // check return code
+                if (creedNzResponse.code !== 201) {
+                    log.error({
+                        title: 'Response code from CreedNZ API',
+                        details: JSON.stringify({endpoint: endPoint, responseCode: creedNzResponse.code})
+                    });
+                }
+                return creedNzResponse;
+            } catch (e) {
+                log.error({
+                    title: 'Error in POST',
+                    details: JSON.stringify({endpoint: endPoint, responseCode: e})
+                });
+                return '';
             }
-            return creedNzResponse;
         }
 
         const baseCreednzGet = (endPoint, currentCreedbzObject) => {
             let creednzObj = {};
 
-            if (currentCreedbzObject) {
-                creednzObj = currentCreedbzObject
-            } else {
-                creednzObj = creednz_token_lib.checkAccessToken();
-            }
-            // get token and baseUrl
+            try {
+                if (currentCreedbzObject) {
+                    creednzObj = currentCreedbzObject
+                } else {
+                    creednzObj = creednz_token_lib.checkAccessToken();
+                }
+                // get token and baseUrl
 
-            let lastSyncAccessToken = creednzObj.lastSyncAccessToken;
-            let creednzBaseUrl = creednzObj.creednzBaseUrl;
+                let lastSyncAccessToken = creednzObj.lastSyncAccessToken;
+                let creednzBaseUrl = creednzObj.creednzBaseUrl;
 
-            let creedNzApiPostHeaders = {
-                'accept': 'application/json',
-                'content-type': 'application/json',
-                'authorization': 'Bearer ' + lastSyncAccessToken
-            };
-            let creedNzUrl = creednzBaseUrl + endPoint;
+                let creedNzApiPostHeaders = {
+                    'accept': 'application/json',
+                    'content-type': 'application/json',
+                    'authorization': 'Bearer ' + lastSyncAccessToken
+                };
+                let creedNzUrl = creednzBaseUrl + endPoint;
 
-            let creedNzResponse = https.get({
-                url: creedNzUrl,
-                headers: creedNzApiPostHeaders
-            });
-
-            log.debug({
-                title: 'creedNzResponse',
-                details: JSON.stringify(creedNzResponse)
-            })
-            // check return code
-            if (creedNzResponse.code !== 200) {
-                log.error({
-                    title: 'Response code from CreedNZ API',
-                    details: JSON.stringify({endpoint: endPoint, responseCode: creedNzResponse.code})
+                let creedNzResponse = https.get({
+                    url: creedNzUrl,
+                    headers: creedNzApiPostHeaders
                 });
+
+                log.debug({
+                    title: 'creedNzResponse',
+                    details: JSON.stringify(creedNzResponse)
+                })
+                // check return code
+                if (creedNzResponse.code !== 200) {
+                    log.error({
+                        title: 'Response code from CreedNZ API',
+                        details: JSON.stringify({endpoint: endPoint, responseCode: creedNzResponse.code})
+                    });
+                }
+
+                let creedNzTransactions = creedNzResponse.body;
+                let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
+
+                log.debug({
+                    title: 'creedNzTransactionsParse from :' + endPoint,
+                    details: JSON.stringify(creedNzTransactionsParse)
+                });
+
+                return creedNzTransactionsParse;
+            } catch (e) {
+                log.error({
+                    title: 'Error in POST',
+                    details: JSON.stringify({endpoint: endPoint, responseCode: e})
+                });
+                return '';
             }
-
-            let creedNzTransactions = creedNzResponse.body;
-            let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
-
-            log.debug({
-                title: 'creedNzTransactionsParse from :' + endPoint,
-                details: JSON.stringify(creedNzTransactionsParse)
-            });
-
-            return creedNzTransactionsParse;
         }
 
         const buildAnalyzeVendorDtoFromRecord = (currentRecord) => {
@@ -123,7 +138,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 vendorObj.registrationCode = vendorCreednzRegCode;
             }
             //  "primarySubsidiary": "string",
-            let vendorSubsidiary = currentRecord.getValue({
+            let vendorSubsidiary = currentRecord.getText({
                 fieldId: "subsidiary"
             });
             if (vendorSubsidiary) {
@@ -187,7 +202,15 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             // TODO:
             // "taxpayerID": "string",
+            // TODO:
             // "taxpayerIdType": "string",
+            let vendorCreednztaxpayerID = currentRecord.getValue({
+                fieldId: "taxidnum"
+            });
+            if (vendorCreednzPaymentMethod) {
+                vendorObj.taxpayerID = vendorCreednztaxpayerID;
+                vendorObj.taxpayerIdType = 'Employer Identification Number'
+            }
 
             // "currency": "string",
             let vendorCurrency = currentRecord.getValue({
@@ -198,15 +221,15 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             }
 
             // "bankAccountName": "string",
+            // TODO:
+            // "bankAccountType": "string",
             let vendorCreednzBankAccName = currentRecord.getValue({
                 fieldId: "custentity_bank_account_name_creednz"
             });
             if (vendorCreednzBankAccName) {
                 vendorObj.bankAccountName = vendorCreednzBankAccName;
+                vendorObj.bankAccountType = 'Checking account';
             }
-
-            // TODO:
-            // "bankAccountType": "string",
 
             // "bankNumber": "string",
             let vendorCreednzBankNumber = currentRecord.getValue({
