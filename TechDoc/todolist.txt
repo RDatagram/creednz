@@ -1,0 +1,8 @@
+// 14.October Munich
+// DONE: Adding another base url for the creednz application (links)
+
+// TODO: Vendor name in vendor evaluation table will be a link to navigate to vendor page on creednz
+
+// TODO: Change all "AtRisk" to "At Risk"
+// TODO: Change 1 to "At risk"
+// DONE: Change "NO RISK" to "No Risk" and "ON RISK" to "On Risk"

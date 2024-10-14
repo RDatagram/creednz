@@ -476,10 +476,10 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
         const checkRiskFromFindings = (findings) => {
             let riskObject = {
                 riskFlag: 0,
-                bankRiskStatus: "NO RISK",
-                operationRiskStatus: "NO RISK",
-                sanctionRiskStatus: "NO RISK",
-                cyberRiskStatus: "NO RISK"
+                bankRiskStatus: "No Risk",
+                operationRiskStatus: "No Risk",
+                sanctionRiskStatus: "No Risk",
+                cyberRiskStatus: "No Risk"
             }
 
             // iterate array findings
@@ -490,13 +490,12 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 "CyberRisk": "cyberRiskStatus"
             }
             const CATEGORY_TO_RISK_VALUE = {
-                "BankAccount": "ON RISK",
-                "PaymentOperations": "ON RISK",
-                "Sanctions": "ON RISK",
-                "CyberRisk": "ON RISK"
+                "BankAccount": "On Risk",
+                "PaymentOperations": "On Risk",
+                "Sanctions": "On Risk",
+                "CyberRisk": "On Risk"
             }
             for (let i = 0; i < findings.length; i++) {
-
 
                 let vendorFindingsId = findings[i].id;
                 let vendorFindingsType = findings[i].type;

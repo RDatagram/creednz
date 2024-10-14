@@ -47,7 +47,7 @@ define(['../lib/creednz_api_lib'],
                 Object.keys(riskObject).forEach(function (key) {
                     log.debug( key + ' into Field : ' + RISK_STATUS_TO_FIELD[key] + ' with Value' + riskObject[key]);
 
-                    if (riskObject[key]) {
+                    if (riskObject[key] && RISK_STATUS_TO_FIELD[key]) {
                         recordVE.setValue({
                             fieldId: RISK_STATUS_TO_FIELD[key],
                             value: riskObject[key]
