@@ -475,7 +475,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
         const checkRiskFromFindings = (findings) => {
             let riskObject = {
-                riskFlag: 0,
+                riskFlag: "Validated",
                 bankRiskStatus: "No Risk",
                 operationRiskStatus: "No Risk",
                 sanctionRiskStatus: "No Risk",
@@ -509,14 +509,25 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                     let riskStatusProperty = CATEGORY_TO_RISK_STATUS[vendorFindingsCategory]
                     if (riskStatusProperty) {
                         riskObject[riskStatusProperty] = CATEGORY_TO_RISK_VALUE[vendorFindingsCategory];
-                        riskObject.riskFlag = 1;
+                        riskObject.riskFlag = "At Risk";
                     }
                 }
             }
 
             return riskObject;
         }
+        const reDefineRiskStatus = (inputValue) => {
+            const mapValues = {
+                "AtRisk" : "At Risk"
+            }
 
+            if (mapValues[inputValue]) {
+                return mapValues[inputValue]
+            } else {
+                return inputValue
+            }
+
+        }
         return {
             baseCreednzPost,
             buildAnalyzeVendorDtoFromRecord,
@@ -529,7 +540,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             getCreednzVendorEvaluation_status,
             getCreednzVendorEvaluation_all,
             postCreednzVendorEvaluation_send_results,
-            checkRiskFromFindings
+            checkRiskFromFindings,
+            reDefineRiskStatus
         }
 
     });

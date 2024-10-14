@@ -15,6 +15,8 @@ define(['../lib/creednz_api_lib'],
          * @param {Form} scriptContext.form - Current form that the script uses to interact with the record
          * @since 2016.1
          */
+
+
         const onAction = (scriptContext) => {
             const recordVE = scriptContext.newRecord;
 
@@ -43,7 +45,7 @@ define(['../lib/creednz_api_lib'],
                     isFound = true;
                     recordVE.setValue({
                         fieldId:'custrecord_risk_status',
-                        value: transaction.riskStatus
+                        value: creednz_api_lib.reDefineRiskStatus(transaction.riskStatus)
                     });
                     recordVE.setValue({
                         fieldId:'custrecord_assessment_status',
