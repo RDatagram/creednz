@@ -97,12 +97,12 @@ define(['N/ui/serverWidget','../lib/creednz_api_lib'],
                     creednzSublist.setSublistValue({
                         id: 'custpage_description',
                         line: i,
-                        value: vendorFindingsCategory
+                        value: vendorFindingsDescription.substring(0,299)
                     });
                     creednzSublist.setSublistValue({
                         id: 'custpage_category',
                         line: i,
-                        value: vendorFindingsDescription
+                        value: vendorFindingsCategory
                     });
 
                 }
