@@ -130,7 +130,7 @@
           <conditionsavedsearch></conditionsavedsearch>
           <contexttypes>USERINTERFACE</contexttypes>
           <eventtypes>VIEW</eventtypes>
-          <isinactive>F</isinactive>
+          <isinactive>T</isinactive>
           <label>Get Finding results</label>
           <saverecordfirst>F</saverecordfirst>
           <initcondition>
@@ -144,7 +144,7 @@
           <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
           <eventtypes></eventtypes>
           <isinactive>F</isinactive>
-          <label>GET All data</label>
+          <label>Retrieve Creednz Data</label>
           <saverecordfirst>F</saverecordfirst>
           <initcondition>
             <formula></formula>
@@ -473,7 +473,7 @@
       <description></description>
       <donotexitworkflow>F</donotexitworkflow>
       <name>CreateEvent</name>
-      <positionx>603</positionx>
+      <positionx>753</positionx>
       <positiony>23</positiony>
       <workflowactions triggertype="BEFORELOAD">
         <setdisplaytypeaction scriptid="workflowaction23">
@@ -614,6 +614,36 @@
               <valueselect></valueselect>
               <valuetext></valuetext>
             </fieldsetting>
+            <fieldsetting>
+              <targetfield>[scriptid=custentity_creednz_created_from_eval]</targetfield>
+              <valuechecked></valuechecked>
+              <valuedate></valuedate>
+              <valuefield></valuefield>
+              <valueformula>{recordid}</valueformula>
+              <valuejoinfield></valuejoinfield>
+              <valueselect></valueselect>
+              <valuetext></valuetext>
+            </fieldsetting>
+            <fieldsetting>
+              <targetfield>[scriptid=custentity_vendor_external_id]</targetfield>
+              <valuechecked></valuechecked>
+              <valuedate></valuedate>
+              <valuefield>[scriptid=customrecord_vendor_evaluation_table.custrecord_vendor_externalid]</valuefield>
+              <valueformula></valueformula>
+              <valuejoinfield></valuejoinfield>
+              <valueselect></valueselect>
+              <valuetext></valuetext>
+            </fieldsetting>
+            <fieldsetting>
+              <targetfield>STDENTITYENTITYID</targetfield>
+              <valuechecked></valuechecked>
+              <valuedate></valuedate>
+              <valuefield>[scriptid=customrecord_vendor_evaluation_table.custrecord_vendor_name]</valuefield>
+              <valueformula></valueformula>
+              <valuejoinfield></valuejoinfield>
+              <valueselect></valueselect>
+              <valuetext></valuetext>
+            </fieldsetting>
           </fieldsettings>
         </gotorecordaction>
       </workflowactions>
@@ -622,8 +652,8 @@
       <description></description>
       <donotexitworkflow>F</donotexitworkflow>
       <name>SendResults</name>
-      <positionx>743</positionx>
-      <positiony>443</positiony>
+      <positionx>23</positionx>
+      <positiony>433</positiony>
       <workflowactions triggertype="ONENTRY">
         <customaction scriptid="workflowaction42">
           <conditionsavedsearch></conditionsavedsearch>
