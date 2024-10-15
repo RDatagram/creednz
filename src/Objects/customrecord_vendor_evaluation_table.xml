@@ -307,7 +307,7 @@
       <searchdefault></searchdefault>
       <searchlevel>2</searchlevel>
       <selectrecordtype></selectrecordtype>
-      <showinlist>T</showinlist>
+      <showinlist>F</showinlist>
       <sourcefilterby></sourcefilterby>
       <sourcefrom></sourcefrom>
       <sourcelist></sourcelist>
@@ -324,7 +324,7 @@
       <defaultvalue></defaultvalue>
       <description>This field is used to know whether this record is  updated(deleted risk status and assessment status) because the vendor is on risk</description>
       <displayheight></displayheight>
-      <displaytype>NORMAL</displaytype>
+      <displaytype>HIDDEN</displaytype>
       <displaywidth></displaywidth>
       <dynamicdefault></dynamicdefault>
       <encryptatrest>F</encryptatrest>
@@ -346,7 +346,46 @@
       <searchdefault></searchdefault>
       <searchlevel>2</searchlevel>
       <selectrecordtype></selectrecordtype>
-      <showinlist>T</showinlist>
+      <showinlist>F</showinlist>
+      <sourcefilterby></sourcefilterby>
+      <sourcefrom></sourcefrom>
+      <sourcelist></sourcelist>
+      <storevalue>T</storevalue>
+      <subtab></subtab>
+    </customrecordcustomfield>
+    <customrecordcustomfield scriptid="custrecord_vendor_app_id">
+      <accesslevel>2</accesslevel>
+      <allowquickadd>F</allowquickadd>
+      <applyformatting>F</applyformatting>
+      <checkspelling>F</checkspelling>
+      <defaultchecked>F</defaultchecked>
+      <defaultselection></defaultselection>
+      <defaultvalue></defaultvalue>
+      <description></description>
+      <displayheight></displayheight>
+      <displaytype>NORMAL</displaytype>
+      <displaywidth></displaywidth>
+      <dynamicdefault></dynamicdefault>
+      <encryptatrest>F</encryptatrest>
+      <fieldtype>TEXT</fieldtype>
+      <globalsearch>F</globalsearch>
+      <help></help>
+      <isformula>F</isformula>
+      <ismandatory>F</ismandatory>
+      <isparent>F</isparent>
+      <label>Vendor App ID</label>
+      <linktext></linktext>
+      <maxlength></maxlength>
+      <maxvalue></maxvalue>
+      <minvalue></minvalue>
+      <onparentdelete></onparentdelete>
+      <parentsubtab></parentsubtab>
+      <rolerestrict>F</rolerestrict>
+      <searchcomparefield></searchcomparefield>
+      <searchdefault></searchdefault>
+      <searchlevel>2</searchlevel>
+      <selectrecordtype></selectrecordtype>
+      <showinlist>F</showinlist>
       <sourcefilterby></sourcefilterby>
       <sourcefrom></sourcefrom>
       <sourcelist></sourcelist>
@@ -547,6 +586,45 @@
       <sourcelist></sourcelist>
       <storevalue>T</storevalue>
       <subtab>[scriptid=customrecord_vendor_evaluation_table.tab_5_td2950916_973]</subtab>
+    </customrecordcustomfield>
+    <customrecordcustomfield scriptid="custrecord_vendor_app_url">
+      <accesslevel>2</accesslevel>
+      <allowquickadd>F</allowquickadd>
+      <applyformatting>F</applyformatting>
+      <checkspelling>F</checkspelling>
+      <defaultchecked>F</defaultchecked>
+      <defaultselection></defaultselection>
+      <defaultvalue></defaultvalue>
+      <description></description>
+      <displayheight></displayheight>
+      <displaytype>NORMAL</displaytype>
+      <displaywidth></displaywidth>
+      <dynamicdefault></dynamicdefault>
+      <encryptatrest>F</encryptatrest>
+      <fieldtype>URL</fieldtype>
+      <globalsearch>F</globalsearch>
+      <help></help>
+      <isformula>F</isformula>
+      <ismandatory>F</ismandatory>
+      <isparent>F</isparent>
+      <label>View Vendor at Creednz</label>
+      <linktext>Open page</linktext>
+      <maxlength></maxlength>
+      <maxvalue></maxvalue>
+      <minvalue></minvalue>
+      <onparentdelete></onparentdelete>
+      <parentsubtab></parentsubtab>
+      <rolerestrict>F</rolerestrict>
+      <searchcomparefield></searchcomparefield>
+      <searchdefault></searchdefault>
+      <searchlevel>2</searchlevel>
+      <selectrecordtype></selectrecordtype>
+      <showinlist>T</showinlist>
+      <sourcefilterby></sourcefilterby>
+      <sourcefrom></sourcefrom>
+      <sourcelist></sourcelist>
+      <storevalue>T</storevalue>
+      <subtab></subtab>
     </customrecordcustomfield>
   </customrecordcustomfields>
   <subtabs>

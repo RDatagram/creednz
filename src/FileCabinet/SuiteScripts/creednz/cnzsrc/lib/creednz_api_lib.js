@@ -10,12 +10,12 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
      */
     (https, record, search, creednz_token_lib, format) => {
 
-        const baseCreednzPost = (endPoint, dataObj, currentCreedbzObject) => {
+        const baseCreednzPost = (endPoint, dataObj, currentCreednzObject) => {
 
             try { // get token and baseUrl
                 let creednzObj = {};
-                if (currentCreedbzObject) {
-                    creednzObj = currentCreedbzObject
+                if (currentCreednzObject) {
+                    creednzObj = currentCreednzObject
                 } else {
                     creednzObj = creednz_token_lib.checkAccessToken();
                 }
@@ -57,12 +57,12 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             }
         }
 
-        const baseCreednzGet = (endPoint, currentCreedbzObject) => {
+        const baseCreednzGet = (endPoint, currentCreednzObject) => {
             let creednzObj = {};
 
             try {
-                if (currentCreedbzObject) {
-                    creednzObj = currentCreedbzObject
+                if (currentCreednzObject) {
+                    creednzObj = currentCreednzObject
                 } else {
                     creednzObj = creednz_token_lib.checkAccessToken();
                 }
@@ -106,7 +106,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 return creedNzTransactionsParse;
             } catch (e) {
                 log.error({
-                    title: 'Error in POST',
+                    title: 'Error in GET',
                     details: JSON.stringify({endpoint: endPoint, responseCode: e})
                 });
                 return '';
@@ -422,8 +422,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
         }
 
         // /external/erp/vendor-evaluation/
-        const getCreednzVendorEvaluation_vendor = (externalId) => {
-            const creednzVendorInformation = "/external/erp/vendor-evaluation/" + externalId + "/vendor";
+        const getCreednzVendorEvaluation_vendor = (evaluationId) => {
+            const creednzVendorInformation = "/external/erp/vendor-evaluation/" + evaluationId + "/vendor";
 
             return baseCreednzGet(creednzVendorInformation, null);
 
@@ -453,8 +453,15 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             return creedNzTransactionsParse;
         }
+
         const getCreednzVendorEvaluation_all = () => {
             const baseGetUrl = "/external/erp/vendor-evaluation";
+
+            return baseCreednzGet(baseGetUrl, null);
+
+        }
+        const getCreednzVendorEvaluation_one = (evalutionId) => {
+            const baseGetUrl = "/external/erp/vendor-evaluation/"+evalutionId;
 
             return baseCreednzGet(baseGetUrl, null);
 
@@ -528,6 +535,22 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             }
 
         }
+
+        const buildVendprAppURL = (vendorID) => {
+            let baseLookUp = search.lookupFields({
+                type: 'customrecord_creednz_details',
+                id: 1,
+                columns: ['custrecord_creednz_app_base_url']
+            });
+            let baseUrl = baseLookUp.custrecord_creednz_app_base_url;
+
+            log.debug({
+                title: "buildVendprAppURL",
+                details: baseUrl
+            });
+
+            return baseUrl + "/vendors/" + vendorID;
+        }
         return {
             baseCreednzPost,
             buildAnalyzeVendorDtoFromRecord,
@@ -539,9 +562,11 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             getCreednzVendorEvaluation_vendor,
             getCreednzVendorEvaluation_status,
             getCreednzVendorEvaluation_all,
+            getCreednzVendorEvaluation_one,
             postCreednzVendorEvaluation_send_results,
             checkRiskFromFindings,
-            reDefineRiskStatus
+            reDefineRiskStatus,
+            buildVendprAppURL
         }
 
     });

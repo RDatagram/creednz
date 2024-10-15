@@ -30,6 +30,8 @@ define(['../lib/creednz_api_lib'],
 
             let externalId = creedNzTransactions.externalId;
 
+            // custrecord_vendor_app_id
+            let vendorAppId = creedNzTransactions.id
             // NOTE: externalId is for VENDOR - FINDINGS
 
             // set externalid in recordVE
@@ -38,9 +40,18 @@ define(['../lib/creednz_api_lib'],
                 value: externalId
             });
 
+            recordVE.setValue({
+                fieldId: 'custrecord_vendor_app_id',
+                value: vendorAppId
+            });
+            recordVE.setValue({
+                fieldId: 'custrecord_vendor_app_url',
+                value: creednz_api_lib.buildVendprAppURL(vendorAppId)
+            });
             log.debug({
-                title: 'creedNzTransactions.externalId',
-                details: creedNzTransactions.externalId,
+                title: 'creedNzTransactions.IDs',
+                details: { "external" : creedNzTransactions.externalId,
+                            "id" : creedNzTransactions.id},
             });
 
             return externalId
