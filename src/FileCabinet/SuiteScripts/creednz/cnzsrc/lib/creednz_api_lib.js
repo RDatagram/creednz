@@ -496,6 +496,12 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 "Sanctions": "sanctionRiskStatus",
                 "CyberRisk": "cyberRiskStatus"
             }
+            const CATEGORY_TO_MODERATE_VALUE = {
+                "BankAccount": "Moderate Risk",
+                "PaymentOperations": "Moderate Risk",
+                "Sanctions": "Moderate Risk",
+                "CyberRisk": "Moderate Risk"
+            }
             const CATEGORY_TO_RISK_VALUE = {
                 "BankAccount": "On Risk",
                 "PaymentOperations": "On Risk",
@@ -510,7 +516,15 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 let vendorFindingsCategory = findings[i].category;
                 let vendorFindingsDescription = findings[i].description;
 
-                const ALERT_TYPE = 'Alert'
+                const GAP_TYPE = 'Gap';
+                const ALERT_TYPE = 'Alert';
+
+                if (vendorFindingsType === GAP_TYPE) {
+                    let riskStatusProperty = CATEGORY_TO_RISK_STATUS[vendorFindingsCategory]
+                    if (riskStatusProperty) {
+                        riskObject[riskStatusProperty] = CATEGORY_TO_MODERATE_VALUE[vendorFindingsCategory];
+                    }
+                }
 
                 if (vendorFindingsType === ALERT_TYPE) {
                     let riskStatusProperty = CATEGORY_TO_RISK_STATUS[vendorFindingsCategory]
@@ -519,6 +533,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                         riskObject.riskFlag = "At Risk";
                     }
                 }
+
             }
 
             return riskObject;
