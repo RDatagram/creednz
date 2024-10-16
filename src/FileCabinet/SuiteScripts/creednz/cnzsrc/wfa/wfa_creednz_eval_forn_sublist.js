@@ -5,18 +5,10 @@
 define(['N/ui/serverWidget','../lib/creednz_api_lib'],
     /**
  * @param{serverWidget} serverWidget
+     * @param creednz_api_lib
  */
     (serverWidget,creednz_api_lib) => {
-        /**
-         * Defines the WorkflowAction script trigger point.
-         * @param {Object} scriptContext
-         * @param {Record} scriptContext.newRecord - New record
-         * @param {Record} scriptContext.oldRecord - Old record
-         * @param {string} scriptContext.workflowId - Internal ID of workflow which triggered this action
-         * @param {string} scriptContext.type - Event type
-         * @param {Form} scriptContext.form - Current form that the script uses to interact with the record
-         * @since 2016.1
-         */
+
         const makeFormSublist = (form) => {
             let creednzSubtabId = 'custpage_creednz_subtab';
             form.addTab({
@@ -47,19 +39,29 @@ define(['N/ui/serverWidget','../lib/creednz_api_lib'],
                 label: 'Title'
             });
             creednzSublist.addField({
-                id: 'custpage_description',
-                type: serverWidget.FieldType.TEXT,
-                label: 'Description'
-            });
-            creednzSublist.addField({
                 id: 'custpage_category',
                 type: serverWidget.FieldType.TEXT,
                 label: 'Category'
+            });
+            creednzSublist.addField({
+                id: 'custpage_description',
+                type: serverWidget.FieldType.TEXT,
+                label: 'Description'
             });
 
             return creednzSublist;
 
         }
+        /**
+         * Defines the WorkflowAction script trigger point.
+         * @param {Object} scriptContext
+         * @param {Record} scriptContext.newRecord - New record
+         * @param {Record} scriptContext.oldRecord - Old record
+         * @param {string} scriptContext.workflowId - Internal ID of workflow which triggered this action
+         * @param {string} scriptContext.type - Event type
+         * @param {Form} scriptContext.form - Current form that the script uses to interact with the record
+         * @since 2016.1
+         */
         const onAction = (scriptContext) => {
             let wfaForm = scriptContext.form;
             let recordVE = scriptContext.newRecord;
@@ -102,7 +104,7 @@ define(['N/ui/serverWidget','../lib/creednz_api_lib'],
                     creednzSublist.setSublistValue({
                         id: 'custpage_category',
                         line: i,
-                        value: vendorFindingsCategory
+                        value: creednz_api_lib.regexCategory(vendorFindingsCategory)
                     });
 
                 }

@@ -538,7 +538,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             return riskObject;
         }
-        const reDefineRiskStatus = (inputValue) => {
+        const regexRiskStatus = (inputValue) => {
             const mapValues = {
                 "AtRisk" : "At Risk"
             }
@@ -549,6 +549,18 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 return inputValue
             }
 
+        }
+        const regexCategory = (inputValue) => {
+            const mapValues = {
+                "BankAccount" : "Bank Account",
+                "PaymentOperations" : "Payment Operations",
+            }
+
+            if (mapValues[inputValue]) {
+                return mapValues[inputValue]
+            } else {
+                return inputValue
+            }
         }
 
         const buildVendprAppURL = (vendorID) => {
@@ -580,7 +592,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             getCreednzVendorEvaluation_one,
             postCreednzVendorEvaluation_send_results,
             checkRiskFromFindings,
-            reDefineRiskStatus,
+            regexRiskStatus: regexRiskStatus,
+            regexCategory,
             buildVendprAppURL
         }
 

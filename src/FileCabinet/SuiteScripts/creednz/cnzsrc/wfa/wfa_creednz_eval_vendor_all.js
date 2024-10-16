@@ -45,7 +45,7 @@ define(['../lib/creednz_api_lib'],
                     isFound = true;
                     recordVE.setValue({
                         fieldId:'custrecord_risk_status',
-                        value: creednz_api_lib.reDefineRiskStatus(transaction.riskStatus)
+                        value: creednz_api_lib.regexRiskStatus(transaction.riskStatus)
                     });
                     recordVE.setValue({
                         fieldId:'custrecord_assessment_status',

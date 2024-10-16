@@ -10,6 +10,6 @@
 - [x] DONE: Change "NO RISK" to "No Risk" and "ON RISK" to "On Risk"
 
 ### 15.October Munich
-- [ ] Add Gap-> Moderate Risk
-- [ ] change from OPERATION to Payment Operation
+- [x] Add Gap-> Moderate Risk
+- [x] change from OPERATION to Payment Operation
 - [ ] Regex make BankAcoount -> Bank Account, PaymentOperation -> Payment Operation

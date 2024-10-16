@@ -29,7 +29,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Operation Risk</label>
+  <label>Payment Operation Risk</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>
