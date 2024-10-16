@@ -36,15 +36,16 @@ define(['N/ui/serverWidget', '../lib/creednz_api_lib'],
                 label: 'Title'
             });
             creednzSublist.addField({
-                id: 'custpage_description',
-                type: serverWidget.FieldType.TEXT,
-                label: 'Description'
-            });
-            creednzSublist.addField({
                 id: 'custpage_category',
                 type: serverWidget.FieldType.TEXT,
                 label: 'Category'
             });
+            creednzSublist.addField({
+                id: 'custpage_description',
+                type: serverWidget.FieldType.TEXT,
+                label: 'Description'
+            });
+
 
             return creednzSublist;
 
@@ -109,7 +110,7 @@ define(['N/ui/serverWidget', '../lib/creednz_api_lib'],
                     creednzSublist.setSublistValue({
                         id: 'custpage_category',
                         line: i,
-                        value: vendorFindingsCategory
+                        value: creednz_api_lib.regexCategory(vendorFindingsCategory)
                     });
                 }
                 creednzSublist.setSublistValue({

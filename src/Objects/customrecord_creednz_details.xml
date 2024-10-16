@@ -73,12 +73,12 @@
       <searchdefault></searchdefault>
       <searchlevel>2</searchlevel>
       <selectrecordtype></selectrecordtype>
-      <showinlist>T</showinlist>
+      <showinlist>F</showinlist>
       <sourcefilterby></sourcefilterby>
       <sourcefrom></sourcefrom>
       <sourcelist></sourcelist>
       <storevalue>T</storevalue>
-      <subtab></subtab>
+      <subtab>[scriptid=customrecord_creednz_details.tab_6_td2950916_553]</subtab>
     </customrecordcustomfield>
     <customrecordcustomfield scriptid="custrecord_creednz_last_updated_date">
       <accesslevel>2</accesslevel>
@@ -117,7 +117,7 @@
       <sourcefrom></sourcefrom>
       <sourcelist></sourcelist>
       <storevalue>T</storevalue>
-      <subtab></subtab>
+      <subtab>[scriptid=customrecord_creednz_details.tab_6_td2950916_553]</subtab>
     </customrecordcustomfield>
     <customrecordcustomfield scriptid="custrecord_creednz_client_id">
       <accesslevel>2</accesslevel>
@@ -314,5 +314,50 @@
       <storevalue>T</storevalue>
       <subtab></subtab>
     </customrecordcustomfield>
+    <customrecordcustomfield scriptid="custrecord_creednz_app_base_url">
+      <accesslevel>2</accesslevel>
+      <allowquickadd>F</allowquickadd>
+      <applyformatting>F</applyformatting>
+      <checkspelling>F</checkspelling>
+      <defaultchecked>F</defaultchecked>
+      <defaultselection></defaultselection>
+      <defaultvalue></defaultvalue>
+      <description></description>
+      <displayheight></displayheight>
+      <displaytype>NORMAL</displaytype>
+      <displaywidth></displaywidth>
+      <dynamicdefault></dynamicdefault>
+      <encryptatrest>F</encryptatrest>
+      <fieldtype>TEXT</fieldtype>
+      <globalsearch>F</globalsearch>
+      <help></help>
+      <isformula>F</isformula>
+      <ismandatory>F</ismandatory>
+      <isparent>F</isparent>
+      <label>Creednz APP Base URL</label>
+      <linktext></linktext>
+      <maxlength></maxlength>
+      <maxvalue></maxvalue>
+      <minvalue></minvalue>
+      <onparentdelete></onparentdelete>
+      <parentsubtab></parentsubtab>
+      <rolerestrict>F</rolerestrict>
+      <searchcomparefield></searchcomparefield>
+      <searchdefault></searchdefault>
+      <searchlevel>2</searchlevel>
+      <selectrecordtype></selectrecordtype>
+      <showinlist>T</showinlist>
+      <sourcefilterby></sourcefilterby>
+      <sourcefrom></sourcefrom>
+      <sourcelist></sourcelist>
+      <storevalue>T</storevalue>
+      <subtab></subtab>
+    </customrecordcustomfield>
   </customrecordcustomfields>
+  <subtabs>
+    <subtab scriptid="tab_6_td2950916_553">
+      <tabparent></tabparent>
+      <tabtitle>Token</tabtitle>
+    </subtab>
+  </subtabs>
 </customrecordtype>

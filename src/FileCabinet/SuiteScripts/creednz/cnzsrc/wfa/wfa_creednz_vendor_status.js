@@ -38,7 +38,7 @@ define(['../lib/creednz_api_lib'],
 
                 scriptContext.newRecord.setValue({
                     fieldId: 'custentity_creednz_risk_status',
-                    value: creednzRiskStatus
+                    value: creednz_api_lib.regexRiskStatus(creednzRiskStatus)
                 });
                 scriptContext.newRecord.setValue({
                     fieldId: 'custentity_creednz_updated_on',

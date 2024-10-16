@@ -10,12 +10,12 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
      */
     (https, record, search, creednz_token_lib, format) => {
 
-        const baseCreednzPost = (endPoint, dataObj, currentCreedbzObject) => {
+        const baseCreednzPost = (endPoint, dataObj, currentCreednzObject) => {
 
             try { // get token and baseUrl
                 let creednzObj = {};
-                if (currentCreedbzObject) {
-                    creednzObj = currentCreedbzObject
+                if (currentCreednzObject) {
+                    creednzObj = currentCreednzObject
                 } else {
                     creednzObj = creednz_token_lib.checkAccessToken();
                 }
@@ -57,12 +57,12 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             }
         }
 
-        const baseCreednzGet = (endPoint, currentCreedbzObject) => {
+        const baseCreednzGet = (endPoint, currentCreednzObject) => {
             let creednzObj = {};
 
             try {
-                if (currentCreedbzObject) {
-                    creednzObj = currentCreedbzObject
+                if (currentCreednzObject) {
+                    creednzObj = currentCreednzObject
                 } else {
                     creednzObj = creednz_token_lib.checkAccessToken();
                 }
@@ -106,7 +106,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 return creedNzTransactionsParse;
             } catch (e) {
                 log.error({
-                    title: 'Error in POST',
+                    title: 'Error in GET',
                     details: JSON.stringify({endpoint: endPoint, responseCode: e})
                 });
                 return '';
@@ -422,8 +422,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
         }
 
         // /external/erp/vendor-evaluation/
-        const getCreednzVendorEvaluation_vendor = (externalId) => {
-            const creednzVendorInformation = "/external/erp/vendor-evaluation/" + externalId + "/vendor";
+        const getCreednzVendorEvaluation_vendor = (evaluationId) => {
+            const creednzVendorInformation = "/external/erp/vendor-evaluation/" + evaluationId + "/vendor";
 
             return baseCreednzGet(creednzVendorInformation, null);
 
@@ -453,8 +453,15 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             return creedNzTransactionsParse;
         }
+
         const getCreednzVendorEvaluation_all = () => {
             const baseGetUrl = "/external/erp/vendor-evaluation";
+
+            return baseCreednzGet(baseGetUrl, null);
+
+        }
+        const getCreednzVendorEvaluation_one = (evalutionId) => {
+            const baseGetUrl = "/external/erp/vendor-evaluation/"+evalutionId;
 
             return baseCreednzGet(baseGetUrl, null);
 
@@ -475,11 +482,11 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
         const checkRiskFromFindings = (findings) => {
             let riskObject = {
-                riskFlag: 0,
-                bankRiskStatus: "NO RISK",
-                operationRiskStatus: "NO RISK",
-                sanctionRiskStatus: "NO RISK",
-                cyberRiskStatus: "NO RISK"
+                riskFlag: "Validated",
+                bankRiskStatus: "No Risk",
+                operationRiskStatus: "No Risk",
+                sanctionRiskStatus: "No Risk",
+                cyberRiskStatus: "No Risk"
             }
 
             // iterate array findings
@@ -489,14 +496,19 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 "Sanctions": "sanctionRiskStatus",
                 "CyberRisk": "cyberRiskStatus"
             }
+            const CATEGORY_TO_MODERATE_VALUE = {
+                "BankAccount": "Moderate Risk",
+                "PaymentOperations": "Moderate Risk",
+                "Sanctions": "Moderate Risk",
+                "CyberRisk": "Moderate Risk"
+            }
             const CATEGORY_TO_RISK_VALUE = {
-                "BankAccount": "ON RISK",
-                "PaymentOperations": "ON RISK",
-                "Sanctions": "ON RISK",
-                "CyberRisk": "ON RISK"
+                "BankAccount": "On Risk",
+                "PaymentOperations": "On Risk",
+                "Sanctions": "On Risk",
+                "CyberRisk": "On Risk"
             }
             for (let i = 0; i < findings.length; i++) {
-
 
                 let vendorFindingsId = findings[i].id;
                 let vendorFindingsType = findings[i].type;
@@ -504,20 +516,68 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 let vendorFindingsCategory = findings[i].category;
                 let vendorFindingsDescription = findings[i].description;
 
-                const ALERT_TYPE = 'Alert'
+                const GAP_TYPE = 'Gap';
+                const ALERT_TYPE = 'Alert';
+
+                if (vendorFindingsType === GAP_TYPE) {
+                    let riskStatusProperty = CATEGORY_TO_RISK_STATUS[vendorFindingsCategory]
+                    if (riskStatusProperty) {
+                        riskObject[riskStatusProperty] = CATEGORY_TO_MODERATE_VALUE[vendorFindingsCategory];
+                    }
+                }
 
                 if (vendorFindingsType === ALERT_TYPE) {
                     let riskStatusProperty = CATEGORY_TO_RISK_STATUS[vendorFindingsCategory]
                     if (riskStatusProperty) {
                         riskObject[riskStatusProperty] = CATEGORY_TO_RISK_VALUE[vendorFindingsCategory];
-                        riskObject.riskFlag = 1;
+                        riskObject.riskFlag = "At Risk";
                     }
                 }
+
             }
 
             return riskObject;
         }
+        const regexRiskStatus = (inputValue) => {
+            const mapValues = {
+                "AtRisk" : "At Risk"
+            }
 
+            if (mapValues[inputValue]) {
+                return mapValues[inputValue]
+            } else {
+                return inputValue
+            }
+
+        }
+        const regexCategory = (inputValue) => {
+            const mapValues = {
+                "BankAccount" : "Bank Account",
+                "PaymentOperations" : "Payment Operations",
+            }
+
+            if (mapValues[inputValue]) {
+                return mapValues[inputValue]
+            } else {
+                return inputValue
+            }
+        }
+
+        const buildVendprAppURL = (vendorID) => {
+            let baseLookUp = search.lookupFields({
+                type: 'customrecord_creednz_details',
+                id: 1,
+                columns: ['custrecord_creednz_app_base_url']
+            });
+            let baseUrl = baseLookUp.custrecord_creednz_app_base_url;
+
+            log.debug({
+                title: "buildVendprAppURL",
+                details: baseUrl
+            });
+
+            return baseUrl + "/vendors/" + vendorID;
+        }
         return {
             baseCreednzPost,
             buildAnalyzeVendorDtoFromRecord,
@@ -529,8 +589,12 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             getCreednzVendorEvaluation_vendor,
             getCreednzVendorEvaluation_status,
             getCreednzVendorEvaluation_all,
+            getCreednzVendorEvaluation_one,
             postCreednzVendorEvaluation_send_results,
-            checkRiskFromFindings
+            checkRiskFromFindings,
+            regexRiskStatus: regexRiskStatus,
+            regexCategory,
+            buildVendprAppURL
         }
 
     });
