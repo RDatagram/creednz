@@ -5,7 +5,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
     /**
      * @param{https} https
      * @param{record} record
-     * @param{search} search
+     * @param search
      * @param{format} format
      * @param creednz_token_lib
      */
@@ -613,7 +613,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 "amount": 0,
                 "currencyCode": "ARS",
                 "routingNumber": "string",
-                "type": "string",
+                //"type": "string",
                 "payerBankAccountNumber": "string",
                 "payeeBankAccountNumber": "string",
                 "payerName": "string",
@@ -621,7 +621,35 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 "description": "string"
             }
 
+            paymentObj.paymentDate = currentRecord.getValue('trandate');
             paymentObj.amount = currentRecord.getValue('total');
+
+            const isoCodeLookUp = search.lookupFields({
+                type: 'currency',
+                id: currentRecord.getValue('currency'),
+                columns: ['symbol']
+            });
+            paymentObj.currencyCode = isoCodeLookUp.symbol;
+
+
+            const accountPayment = currentRecord.getValue('account');
+
+            const entityPayment = currentRecord.getValue('entity');
+            /**
+             *
+             * @type {Object}
+             * @property companyname
+             */
+            const payeeLookup = search.lookupFields({
+                type: 'vendor',
+                id: entityPayment,
+                columns : ['companyname']
+            });
+
+            paymentObj.payeeName = payeeLookup.companyname;
+
+            paymentObj.description = currentRecord.getValue('memo');
+
             log.debug({
                 title : 'buildAnalyzePaymentDtoFromTransaction',
                 details: paymentObj
