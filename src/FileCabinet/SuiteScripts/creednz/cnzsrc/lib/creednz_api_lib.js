@@ -408,12 +408,16 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             return creedNzTransactionsParse;
         }
 
+
+
         const getCreednzVendorStatus = (externalId) => {
             const creednzVendorInformation = "/external/erp/vendor/status/" + externalId;
 
             return baseCreednzGet(creednzVendorInformation, null);
 
         }
+
+
         const getCreednzVendorFindings = (externalId) => {
             const creednzVendorInformation = "/external/erp/vendor/findings/externalId/" + externalId;
 
@@ -578,6 +582,26 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             return baseUrl + "/vendors/" + vendorID;
         }
+
+        const postCreednzAnalyzePayment = (dataObj) => {
+
+            let creedNzResponse = baseCreednzPost("/external/erp/payment/analyze", dataObj, null);
+            let creedNzTransactions = creedNzResponse.body;
+
+            let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
+            log.debug({
+                title: "creedNzTransactionsParse",
+                details: creedNzTransactionsParse
+            });
+
+            return creedNzTransactionsParse;
+        }
+        const getCreednzVPaymentStatus = (externalId) => {
+            const creednzVendorInformation = "/external/erp/vendor/status/" + externalId;
+
+            return baseCreednzGet(creednzVendorInformation, null);
+
+        }
         return {
             baseCreednzPost,
             buildAnalyzeVendorDtoFromRecord,
@@ -594,7 +618,9 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             checkRiskFromFindings,
             regexRiskStatus: regexRiskStatus,
             regexCategory,
-            buildVendprAppURL
+            buildVendprAppURL,
+            postCreednzAnalyzePayment,
+            getCreednzVPaymentStatus
         }
 
     });
