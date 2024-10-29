@@ -16,47 +16,37 @@ define(['../lib/creednz_api_lib'],
          * @since 2016.1
          */
         const onAction = (scriptContext) => {
+            const recordPayment = scriptContext.newRecord;
 
-            // create recordVE for newRecord
-            const recordVE = scriptContext.newRecord;
+            let paymentArray = [];
 
-            let vendorArray = [];
-
-            let vendorObj = creednz_api_lib.buildAnalyzeVendorDtoFromRecord(recordVE);
-            vendorArray.push(vendorObj);
+            let paymentObj = creednz_api_lib.buildAnalyzePaymentDtoFromTransaction(recordPayment);
+            paymentArray.push(paymentObj);
 
             let dataObj = {};
-            dataObj.analyzeVendorDtos = vendorArray;
+            dataObj.analyzePaymentDtos = paymentArray;
 
-            let creedNzTransactionsParse = creednz_api_lib.postCreednzAnalyzeVendor(dataObj);
+            let creedNzTransactionsParse = creednz_api_lib.postCreednzAnalyzePayment(dataObj);
 
             if (creedNzTransactionsParse.length > 0) {
 
                 let creednzExternalId = creedNzTransactionsParse[0].vendorExternalId;
 
-                recordVE.setValue({
-                    fieldId: 'custentity_vendor_external_id',
+                recordPayment.setValue({
+                    fieldId: 'custbody_creednz_external_id',
                     value: creednzExternalId
                 });
 
-                recordVE.setValue({
-                    fieldId: 'custentity_creednz_updated_on',
-                    value: new Date()
-                });
-
                 const fields = [
-                    'custentity_creednz_risk_status',
-                    'custentity_creednz_bankacc_risk',
-                    'custentity_creednz_operation_risk',
-                    'custentity_creednz_sanction_risk',
-                    'custentity_creednz_cyber_risk'
+                    'custbody_creednz_payment_status'
                 ];
-                const value = 'Pending';
+
+                const defaultValue = 'Pending';
 
                 fields.forEach(field => {
-                    recordVE.setValue({
+                    recordPayment.setValue({
                         fieldId: field,
-                        value: value
+                        value: defaultValue
                     });
                 });
 

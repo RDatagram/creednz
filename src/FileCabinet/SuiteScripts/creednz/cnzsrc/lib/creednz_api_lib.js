@@ -7,6 +7,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
      * @param{record} record
      * @param{search} search
      * @param{format} format
+     * @param creednz_token_lib
      */
     (https, record, search, creednz_token_lib, format) => {
 
@@ -112,6 +113,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 return '';
             }
         }
+
 
         const buildAnalyzeVendorDtoFromRecord = (currentRecord) => {
             let vendorObj = {
@@ -583,6 +585,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             return baseUrl + "/vendors/" + vendorID;
         }
 
+
         const postCreednzAnalyzePayment = (dataObj) => {
 
             let creedNzResponse = baseCreednzPost("/external/erp/payment/analyze", dataObj, null);
@@ -596,12 +599,27 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             return creedNzTransactionsParse;
         }
+
         const getCreednzVPaymentStatus = (externalId) => {
             const creednzVendorInformation = "/external/erp/vendor/status/" + externalId;
 
             return baseCreednzGet(creednzVendorInformation, null);
 
         }
+
+        const buildAnalyzePaymentDtoFromTransaction = (currentRecord) => {
+            let paymentObj = {
+
+            }
+
+            log.debug({
+                title : 'buildAnalyzePaymentDtoFromTransaction',
+                details: paymentObj
+            });
+
+            return paymentObj;
+        }
+
         return {
             baseCreednzPost,
             buildAnalyzeVendorDtoFromRecord,
@@ -620,7 +638,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             regexCategory,
             buildVendprAppURL,
             postCreednzAnalyzePayment,
-            getCreednzVPaymentStatus
+            getCreednzVPaymentStatus,
+            buildAnalyzePaymentDtoFromTransaction
         }
 
     });
