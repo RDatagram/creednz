@@ -601,7 +601,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
         }
 
         const getCreednzVPaymentStatus = (externalId) => {
-            const creednzVendorInformation = "/external/erp/vendor/status/" + externalId;
+            const creednzVendorInformation = "/external/erp/payment/status/" + externalId;
 
             return baseCreednzGet(creednzVendorInformation, null);
 
