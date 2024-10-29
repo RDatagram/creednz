@@ -30,7 +30,7 @@ define(['../lib/creednz_api_lib'],
 
             if (creedNzTransactionsParse.length > 0) {
 
-                let creednzExternalId = creedNzTransactionsParse[0].vendorExternalId;
+                let creednzExternalId = creedNzTransactionsParse[0].paymentExternalId;
 
                 recordPayment.setValue({
                     fieldId: 'custbody_creednz_external_id',

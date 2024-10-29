@@ -609,9 +609,19 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
         const buildAnalyzePaymentDtoFromTransaction = (currentRecord) => {
             let paymentObj = {
-
+                "paymentDate": "2024-10-29T10:56:57.952Z",
+                "amount": 0,
+                "currencyCode": "ARS",
+                "routingNumber": "string",
+                "type": "string",
+                "payerBankAccountNumber": "string",
+                "payeeBankAccountNumber": "string",
+                "payerName": "string",
+                "payeeName": "string",
+                "description": "string"
             }
 
+            paymentObj.amount = currentRecord.getValue('total');
             log.debug({
                 title : 'buildAnalyzePaymentDtoFromTransaction',
                 details: paymentObj
