@@ -31,6 +31,11 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 };
                 let creedNzUrl = creednzBaseUrl + endPoint;
 
+                log.debug({
+                    title: 'POST DataObj',
+                    details:dataObj
+                });
+
                 let creedNzResponse = https.post({
                     url: creedNzUrl,
                     headers: creedNzApiPostHeaders,
@@ -339,7 +344,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             // "billingAddress": "string",
             let vendorAddress = currentRecord.getValue({
-                fieldId: "billaddressee"
+                fieldId: "defaultaddress"
             });
             if (vendorAddress) {
                 vendorObj.billingAddress = vendorAddress;
