@@ -5,8 +5,8 @@
       "internalId": "string",
       "registrationCode": "string",
       "primarySubsidiary": "string",
-      "dateCreated": "2024-09-18T10:39:46.451Z",
-      "lastModified": "2024-09-18T10:39:46.451Z",
+      "dateCreated": "2024-10-31T11:55:44.519Z",
+      "lastModified": "2024-10-31T11:55:44.519Z",
       "email": "string",
       "phone": "string",
       "primaryContact": "string",
@@ -30,16 +30,18 @@
       "routingNumber": "string",
       "paypalAccount": "string",
       "billingAddress": "string",
-      "billingCountry": "string",
+      "billingStreet": "string",
       "billingCity": "string",
       "billingRegion": "string",
       "billingZip": "string",
+      "billingCountry": "string",
       "reportingTax1099": true,
       "paymentTerms": "string",
       "createdByFpVisitorId": "string",
       "createdByFpRequestId": "string",
       "shippingAddress": "string",
-      "bankAccountCheckApproval": true
+      "bankAccountCheckApproval": true,
+      "isIndividual": true
     }
   ]
 }

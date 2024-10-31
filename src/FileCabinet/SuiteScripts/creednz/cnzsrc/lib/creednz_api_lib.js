@@ -350,6 +350,13 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 vendorObj.billingAddress = vendorAddress;
             }
 
+            //"billingStreet": "string",
+            let vendorStreet = currentRecord.getValue({
+                fieldId: "billaddr1"
+            });
+            if (vendorStreet) {
+                vendorObj.billingStreet = vendorStreet;
+            }
             //  "billingCountry": "string",
             let vendorBillCountry = currentRecord.getValue({
                 fieldId: "billcountry"
@@ -366,9 +373,14 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 vendorObj.billingCity = vendorBillCity;
             }
 
-            // TODO:
-            // "billingRegion": "string",
 
+            // "billingRegion": "string",<billstate>AZ</billstate>
+            let vendorRegion = currentRecord.getValue({
+                fieldId: "billstate"
+            });
+            if (vendorRegion) {
+                vendorObj.billingRegion = vendorRegion;
+            }
 
             // "billingZip": "string",
             let vendorBillZip = currentRecord.getValue({
