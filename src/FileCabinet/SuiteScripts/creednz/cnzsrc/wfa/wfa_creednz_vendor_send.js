@@ -44,7 +44,6 @@ define(['../lib/creednz_api_lib'],
                     value: new Date()
                 });
 
-                // TODO: Discuss about this with project manager!
                 const fields = [
                     'custentity_creednz_risk_status',
                     'custentity_creednz_bankacc_risk',

@@ -5,8 +5,9 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
     /**
      * @param{https} https
      * @param{record} record
-     * @param{search} search
+     * @param search
      * @param{format} format
+     * @param creednz_token_lib
      */
     (https, record, search, creednz_token_lib, format) => {
 
@@ -29,6 +30,11 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                     'authorization': 'Bearer ' + lastSyncAccessToken
                 };
                 let creedNzUrl = creednzBaseUrl + endPoint;
+
+                log.debug({
+                    title: 'POST DataObj',
+                    details:dataObj
+                });
 
                 let creedNzResponse = https.post({
                     url: creedNzUrl,
@@ -112,6 +118,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 return '';
             }
         }
+
 
         const buildAnalyzeVendorDtoFromRecord = (currentRecord) => {
             let vendorObj = {
@@ -337,12 +344,19 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             // "billingAddress": "string",
             let vendorAddress = currentRecord.getValue({
-                fieldId: "billaddressee"
+                fieldId: "defaultaddress"
             });
             if (vendorAddress) {
                 vendorObj.billingAddress = vendorAddress;
             }
 
+            //"billingStreet": "string",
+            let vendorStreet = currentRecord.getValue({
+                fieldId: "billaddr1"
+            });
+            if (vendorStreet) {
+                vendorObj.billingStreet = vendorStreet;
+            }
             //  "billingCountry": "string",
             let vendorBillCountry = currentRecord.getValue({
                 fieldId: "billcountry"
@@ -359,9 +373,14 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 vendorObj.billingCity = vendorBillCity;
             }
 
-            // TODO:
-            // "billingRegion": "string",
 
+            // "billingRegion": "string",<billstate>AZ</billstate>
+            let vendorRegion = currentRecord.getValue({
+                fieldId: "billstate"
+            });
+            if (vendorRegion) {
+                vendorObj.billingRegion = vendorRegion;
+            }
 
             // "billingZip": "string",
             let vendorBillZip = currentRecord.getValue({
@@ -408,12 +427,16 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             return creedNzTransactionsParse;
         }
 
+
+
         const getCreednzVendorStatus = (externalId) => {
             const creednzVendorInformation = "/external/erp/vendor/status/" + externalId;
 
             return baseCreednzGet(creednzVendorInformation, null);
 
         }
+
+
         const getCreednzVendorFindings = (externalId) => {
             const creednzVendorInformation = "/external/erp/vendor/findings/externalId/" + externalId;
 
@@ -578,6 +601,80 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
 
             return baseUrl + "/vendors/" + vendorID;
         }
+
+
+        const postCreednzAnalyzePayment = (dataObj) => {
+
+            let creedNzResponse = baseCreednzPost("/external/erp/payment/analyze", dataObj, null);
+            let creedNzTransactions = creedNzResponse.body;
+
+            let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
+            log.debug({
+                title: "creedNzTransactionsParse",
+                details: creedNzTransactionsParse
+            });
+
+            return creedNzTransactionsParse;
+        }
+
+        const getCreednzVPaymentStatus = (externalId) => {
+            const creednzVendorInformation = "/external/erp/payment/status/" + externalId;
+
+            return baseCreednzGet(creednzVendorInformation, null);
+
+        }
+
+        const buildAnalyzePaymentDtoFromTransaction = (currentRecord) => {
+            let paymentObj = {
+                "paymentDate": "2024-10-29T10:56:57.952Z",
+                "amount": 0,
+                "currencyCode": "ARS",
+                "routingNumber": "string",
+                //"type": "string",
+                "payerBankAccountNumber": "string",
+                "payeeBankAccountNumber": "string",
+                "payerName": "string",
+                "payeeName": "string",
+                "description": "string"
+            }
+
+            paymentObj.paymentDate = currentRecord.getValue('trandate');
+            paymentObj.amount = currentRecord.getValue('total');
+
+            const isoCodeLookUp = search.lookupFields({
+                type: 'currency',
+                id: currentRecord.getValue('currency'),
+                columns: ['symbol']
+            });
+            paymentObj.currencyCode = isoCodeLookUp.symbol;
+
+
+            const accountPayment = currentRecord.getValue('account');
+
+            const entityPayment = currentRecord.getValue('entity');
+            /**
+             *
+             * @type {Object}
+             * @property companyname
+             */
+            const payeeLookup = search.lookupFields({
+                type: 'vendor',
+                id: entityPayment,
+                columns : ['companyname']
+            });
+
+            paymentObj.payeeName = payeeLookup.companyname;
+
+            paymentObj.description = currentRecord.getValue('memo');
+
+            log.debug({
+                title : 'buildAnalyzePaymentDtoFromTransaction',
+                details: paymentObj
+            });
+
+            return paymentObj;
+        }
+
         return {
             baseCreednzPost,
             buildAnalyzeVendorDtoFromRecord,
@@ -594,7 +691,10 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
             checkRiskFromFindings,
             regexRiskStatus: regexRiskStatus,
             regexCategory,
-            buildVendprAppURL
+            buildVendprAppURL,
+            postCreednzAnalyzePayment,
+            getCreednzVPaymentStatus,
+            buildAnalyzePaymentDtoFromTransaction
         }
 
     });
