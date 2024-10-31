@@ -355,7 +355,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 fieldId: "billaddr1"
             });
             if (vendorStreet) {
-                vendorObj.billingStreet = vendorStreet;
+                //vendorObj.billingStreet = vendorStreet;
             }
             //  "billingCountry": "string",
             let vendorBillCountry = currentRecord.getValue({

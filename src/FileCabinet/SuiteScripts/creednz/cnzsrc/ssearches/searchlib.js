@@ -228,6 +228,21 @@ define(['N/search'],
             });
 
         }
+        const customsearch_ss_get_creednz_resend = () => {
+            return search.create({
+                type: "vendor",
+                filters:
+                    [
+                        ["custentity_vendor_external_id", "isnotempty", ""]
+                    ],
+                columns:
+                    [
+                        "internalid",
+                        "entityid"
+                    ]
+            });
+
+        }
 
         const customsearch_ss_vendor_search_creed_paym = () => {
             return search.create({
@@ -285,6 +300,7 @@ define(['N/search'],
             customsearch_ss_vendor_evaluation_table,
             customsearch_ss_vendor_search_for_creed,
             customsearch_ss_get_creednz_external_id,
+            customsearch_ss_get_creednz_resend,
             customsearch_ss_vendor_search_creed_paym,
             customsearch_ss_get_status_from_creednz,
             runSearch
