@@ -1,7 +1,7 @@
 <mapreducescript scriptid="customscript_mr_creednz_vendors_check">
   <description></description>
   <isinactive>F</isinactive>
-  <name>CRDNZ : MR Get Vendors Status/Risk</name>
+  <name>CRDNZ: MR Get Vendors Status/Risk</name>
   <notifyadmins>F</notifyadmins>
   <notifyemails></notifyemails>
   <notifyowner>T</notifyowner>
