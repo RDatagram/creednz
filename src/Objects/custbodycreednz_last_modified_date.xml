@@ -56,5 +56,5 @@
   <sourcefrom></sourcefrom>
   <sourcelist></sourcelist>
   <storevalue>T</storevalue>
-  <subtab>TRANSACTIONMAIN</subtab>
+  <subtab>[scriptid=custtab_creednz_payment]</subtab>
 </transactionbodycustomfield>
