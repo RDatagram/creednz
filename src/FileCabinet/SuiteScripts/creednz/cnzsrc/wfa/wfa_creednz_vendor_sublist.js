@@ -76,11 +76,6 @@ define(['N/ui/serverWidget', '../lib/creednz_api_lib'],
             if (creedNzTransactionsLength > 0) {
                 for (let i = 0; i < creedNzTransactionsLength; i++) {
 
-                    log.debug({
-                        title: 'Adding sublist row',
-                        details: creedNzTransactionsParse[i].title
-                    });
-
                     let vendorFindingsId = creedNzTransactionsParse[i].id;
                     let vendorFindingsType = creedNzTransactionsParse[i].type;
                     let vendorFindingsTitle = creedNzTransactionsParse[i].title;

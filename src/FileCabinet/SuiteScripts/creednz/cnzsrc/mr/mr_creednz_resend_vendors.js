@@ -2,12 +2,12 @@
  * @NApiVersion 2.1
  * @NScriptType MapReduceScript
  */
-define(['N/workflow','../ssearches/searchlib'],
+define(['N/workflow', '../ssearches/searchlib'],
     /**
      * @param{workflow} workflow
      * @param {Object} searchlib
      */
-    (workflow,searchlib) => {
+    (workflow, searchlib) => {
         /**
          * Defines the function that is executed at the beginning of the map/reduce process and generates the input data.
          * @param {Object} inputContext
@@ -27,7 +27,7 @@ define(['N/workflow','../ssearches/searchlib'],
                 details: 'START MR'
             });
 
-            let mySearch = searchlib.customsearch_ss_get_creednz_external_id();
+            let mySearch = searchlib.customsearch_ss_get_creednz_resend();
 
             let mapArray = [];
 
@@ -45,7 +45,6 @@ define(['N/workflow','../ssearches/searchlib'],
             }
 
             return mapArray
-                //return searchlib.customsearch_ss_get_creednz_external_id();
         }
 
         /**
@@ -79,8 +78,6 @@ define(['N/workflow','../ssearches/searchlib'],
                 recordType: searchResult.recordType,
                 recordId: searchResult.id
             });
-
-
         }
 
         /**
