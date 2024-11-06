@@ -1,7 +1,7 @@
 <mapreducescript scriptid="customscript_mr_creednz_send_vendors">
   <description></description>
   <isinactive>F</isinactive>
-  <name>CRDNZ : MR Send Vendors</name>
+  <name>CRDNZ: MR Send Vendors</name>
   <notifyadmins>F</notifyadmins>
   <notifyemails></notifyemails>
   <notifyowner>T</notifyowner>

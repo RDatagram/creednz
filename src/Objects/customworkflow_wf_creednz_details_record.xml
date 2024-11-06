@@ -39,6 +39,19 @@
             <type>VISUAL_BUILDER</type>
           </initcondition>
         </addbuttonaction>
+        <addbuttonaction scriptid="workflowaction51">
+          <checkconditionbeforeexecution>T</checkconditionbeforeexecution>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>USERINTERFACE</contexttypes>
+          <eventtypes>VIEW</eventtypes>
+          <isinactive>F</isinactive>
+          <label>Resend All Vendors</label>
+          <saverecordfirst>F</saverecordfirst>
+          <initcondition>
+            <formula></formula>
+            <type>VISUAL_BUILDER</type>
+          </initcondition>
+        </addbuttonaction>
       </workflowactions>
       <workflowtransitions>
         <workflowtransition scriptid="workflowtransition8">
@@ -57,13 +70,29 @@
             <type>VISUAL_BUILDER</type>
           </initcondition>
         </workflowtransition>
+        <workflowtransition scriptid="workflowtransition31">
+          <buttonaction>[scriptid=customworkflow_wf_creednz_details_record.workflowstate12.workflowaction51]</buttonaction>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <scheduledelay></scheduledelay>
+          <scheduletimeunit></scheduletimeunit>
+          <tostate>[scriptid=customworkflow_wf_creednz_details_record.workflowstate38]</tostate>
+          <triggertype></triggertype>
+          <waitforworkflow></waitforworkflow>
+          <waitforworkflowstate></waitforworkflowstate>
+          <initcondition>
+            <formula></formula>
+            <type>VISUAL_BUILDER</type>
+          </initcondition>
+        </workflowtransition>
       </workflowtransitions>
     </workflowstate>
     <workflowstate scriptid="workflowstate13">
       <description></description>
       <donotexitworkflow>F</donotexitworkflow>
       <name>InitMR</name>
-      <positionx>243</positionx>
+      <positionx>83</positionx>
       <positiony>233</positiony>
       <workflowactions triggertype="ONENTRY">
         <customaction scriptid="workflowaction20">
@@ -78,6 +107,32 @@
           <scheduletimeofday></scheduletimeofday>
           <scheduletimeunit></scheduletimeunit>
           <scripttype>[scriptid=customscript_wfa_creednz_mr_send_vendors]</scripttype>
+          <initcondition>
+            <formula></formula>
+            <type>VISUAL_BUILDER</type>
+          </initcondition>
+        </customaction>
+      </workflowactions>
+    </workflowstate>
+    <workflowstate scriptid="workflowstate38">
+      <description></description>
+      <donotexitworkflow>F</donotexitworkflow>
+      <name>Init Resend VN</name>
+      <positionx>403</positionx>
+      <positiony>233</positiony>
+      <workflowactions triggertype="ONENTRY">
+        <customaction scriptid="workflowaction52">
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <isinactive>F</isinactive>
+          <resultfield></resultfield>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <scripttype>[scriptid=customscript_creednz_init_mr_resend_vn]</scripttype>
           <initcondition>
             <formula></formula>
             <type>VISUAL_BUILDER</type>
