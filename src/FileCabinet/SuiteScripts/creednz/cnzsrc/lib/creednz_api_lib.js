@@ -1,15 +1,16 @@
 /**
  * @NApiVersion 2.1
  */
-define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
+define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N/config'],
     /**
      * @param{https} https
      * @param{record} record
      * @param search
      * @param{format} format
      * @param creednz_token_lib
+     * @param config
      */
-    (https, record, search, creednz_token_lib, format) => {
+    (https, record, search, creednz_token_lib, format, config) => {
 
         const baseCreednzPost = (endPoint, dataObj, currentCreednzObject) => {
 
@@ -630,7 +631,6 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 "amount": 0,
                 "currencyCode": "ARS",
                 "routingNumber": "string",
-                //"type": "string",
                 "payerBankAccountNumber": "string",
                 "payeeBankAccountNumber": "string",
                 "payerName": "string",
@@ -663,8 +663,20 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format'],
                 columns : ['companyname']
             });
 
+            function getCompanyName() {
+                const companyConfig = config.load({
+                    type: config.Type.COMPANY_INFORMATION
+                });
+                return companyConfig.getValue({
+                    fieldId: 'companyname',
+                });
+            }
+            paymentObj.payerName = getCompanyName();
             paymentObj.payeeName = payeeLookup.companyname;
 
+            paymentObj.routingNumber = currentRecord.getValue('custbody_creednz_routing_number');
+            paymentObj.payerBankAccountNumber = currentRecord.getValue('custbody_payer_bank_acc_number');
+            paymentObj.payeeBankAccountNumber = currentRecord.getValue('custbody_payee_bank_acc_number');
             paymentObj.description = currentRecord.getValue('memo');
 
             log.debug({

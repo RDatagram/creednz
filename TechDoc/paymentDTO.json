@@ -1,0 +1,16 @@
+{
+  "analyzePaymentDtos": [
+    {
+      "paymentDate": "2024-11-06T10:09:44.007Z",
+      "amount": 0,
+      "currencyCode": "ARS",
+      "routingNumber": "string",
+      "type": "string",
+      "payerBankAccountNumber": "string",
+      "payeeBankAccountNumber": "string",
+      "payerName": "string",
+      "payeeName": "string",
+      "description": "string"
+    }
+  ]
+}
