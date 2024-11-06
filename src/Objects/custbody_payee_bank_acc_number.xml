@@ -1,4 +1,4 @@
-<transactionbodycustomfield scriptid="custbody_creednz_payment_status">
+<transactionbodycustomfield scriptid="custbody_payee_bank_acc_number">
   <accesslevel>2</accesslevel>
   <applyformatting>F</applyformatting>
   <bodycustomerpayment>F</bodycustomerpayment>
@@ -26,7 +26,7 @@
   <defaultchecked>F</defaultchecked>
   <defaultselection></defaultselection>
   <defaultvalue></defaultvalue>
-  <description>used to store the status of the payment in creednz</description>
+  <description></description>
   <displayheight></displayheight>
   <displaytype>NORMAL</displaytype>
   <displaywidth></displaywidth>
@@ -39,7 +39,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Creednz Payment Status</label>
+  <label>Payee Bank Account number</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>
@@ -51,7 +51,7 @@
   <searchlevel>2</searchlevel>
   <selectrecordtype></selectrecordtype>
   <showhierarchy>F</showhierarchy>
-  <showinlist>T</showinlist>
+  <showinlist>F</showinlist>
   <sourcefilterby></sourcefilterby>
   <sourcefrom></sourcefrom>
   <sourcelist></sourcelist>
