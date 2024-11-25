@@ -3,9 +3,9 @@
  * @NScriptType MapReduceScript
  *
  */
-define(['../lib/creednz_api_lib'],
+define(['../lib/creednz_api_lib', '../lib/creednz_delta_lib'],
     
-    (creednz_api_lib) => {
+    (creednz_api_lib,creednz_delta_lib) => {
         /**
          * Defines the function that is executed at the beginning of the map/reduce process and generates the input data.
          * @param {Object} inputContext
@@ -52,7 +52,37 @@ define(['../lib/creednz_api_lib'],
                 log.debug({
                         title: 'Map Context',
                         details: mapContext
-                })
+                });
+
+                const deltaResult = JSON.parse(mapContext.value);
+
+                const deltaName = deltaResult.name;
+
+
+                const isExisting = creednz_delta_lib.isExistingDelta(deltaName);
+                // log.debug isExisting
+
+
+                if (isExisting.found) {
+                        log.debug({
+                                title: deltaName,
+                                details: '... is Existing'
+                        });
+
+                        const updatedId = creednz_delta_lib.updateDelta(isExisting.internalid,deltaResult);
+                        // log.debug update deltaName
+
+
+                } else {
+                        log.debug({
+                            title: deltaName,
+                            details: '... is not Existing'
+                        });
+
+                        const newId = creednz_delta_lib.insertDelta(deltaResult);
+                        // log.debug newId
+
+                }
         }
 
         /**
