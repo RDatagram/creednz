@@ -30,6 +30,11 @@ define(['N/workflow','../ssearches/searchlib','../lib/creednz_api_lib'],
 
             let creednzOptions = creednz_api_lib.getCreednzOptions();
 
+            log.debug({
+                title: 'creednzOptions',
+                details: creednzOptions
+            });
+
             if (creednzOptions.skipVendorSend) {
                 log.audit({
                     title: 'MR send Vendors',

@@ -25,7 +25,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             });
 
             options.icaPayable = searchResult.custrecord_ica_payable || false;
-            options.skipVendorSend = searchResult.custrecord_skip_vendor_send || false;
+            options.skipVendorSend = searchResult.custrecord_skip_mr_vendor_send || false;
 
             return options;
 
