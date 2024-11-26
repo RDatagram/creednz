@@ -9,5 +9,11 @@
       <linktasktype>LIST</linktasktype>
       <shortlist>F</shortlist>
     </link>
+    <link>
+      <linklabel>Vendor Delta</linklabel>
+      <linkobject>[scriptid=customrecord_creednz_vendor_delta]</linkobject>
+      <linktasktype>LIST</linktasktype>
+      <shortlist>F</shortlist>
+    </link>
   </links>
 </centercategory>

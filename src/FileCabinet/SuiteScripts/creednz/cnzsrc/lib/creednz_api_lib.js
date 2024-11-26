@@ -15,7 +15,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
         const baseCreednzPost = (endPoint, dataObj, currentCreednzObject) => {
 
             try { // get token and baseUrl
-                let creednzObj = {};
+                let creednzObj;
                 if (currentCreednzObject) {
                     creednzObj = currentCreednzObject
                 } else {
@@ -403,13 +403,14 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             "shippingAddress": "string",
             "bankAccountCheckApproval": true
              */
-            let vendorCreednzRisk = currentRecord.getValue({
+
+           /* let vendorCreednzRisk = currentRecord.getValue({
                 fieldId: "custentity_creednz_risk_status"
             });
 
             let vendorCreednzLastUpdated = currentRecord.getValue({
                 fieldId: "custentity_creednz_updated_on"
-            });
+            });*/
 
             return vendorObj;
         }
@@ -437,6 +438,31 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
         }
 
+        /**
+         *
+         * @return {any|string}
+         *
+         * Return delta (not existing Vendors in Netsuite)
+         */
+        const getCreednzVendorDelta = () => {
+            const creednzVendorInformation = "/external/erp/vendor/delta";
+
+            return baseCreednzGet(creednzVendorInformation, null);
+
+        }
+
+        /**
+         *
+         * @return {any|string}
+         *
+         * Return list of vendors if data are different
+         */
+        const getCreednzVendorDifferentPoints = () => {
+            const creednzVendorInformation = "/external/erp/vendor/with-different-data-points";
+
+            return baseCreednzGet(creednzVendorInformation, null);
+
+        }
 
         const getCreednzVendorFindings = (externalId) => {
             const creednzVendorInformation = "/external/erp/vendor/findings/externalId/" + externalId;
@@ -534,11 +560,11 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             }
             for (let i = 0; i < findings.length; i++) {
 
-                let vendorFindingsId = findings[i].id;
+                //let vendorFindingsId = findings[i].id;
                 let vendorFindingsType = findings[i].type;
-                let vendorFindingsTitle = findings[i].title;
+                //let vendorFindingsTitle = findings[i].title;
                 let vendorFindingsCategory = findings[i].category;
-                let vendorFindingsDescription = findings[i].description;
+                //let vendorFindingsDescription = findings[i].description;
 
                 const GAP_TYPE = 'Gap';
                 const ALERT_TYPE = 'Alert';
@@ -649,7 +675,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             paymentObj.currencyCode = isoCodeLookUp.symbol;
 
 
-            const accountPayment = currentRecord.getValue('account');
+            //const accountPayment = currentRecord.getValue('account');
 
             const entityPayment = currentRecord.getValue('entity');
             /**
@@ -694,6 +720,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             getCreednzVendorFindings,
             postCreednzAnalyzeVendor,
             getCreednzVendorStatus,
+            getCreednzVendorDelta,
+            getCreednzVendorDifferentPoints,
             postCreednzInviteVendor,
             getCreednzVendorEvaluation_vendor,
             getCreednzVendorEvaluation_status,
