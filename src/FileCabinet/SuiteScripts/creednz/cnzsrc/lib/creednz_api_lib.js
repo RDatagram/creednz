@@ -12,6 +12,24 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
      */
     (https, record, search, creednz_token_lib, format, config) => {
 
+        const getCreednzOptions = () => {
+            const options = {
+                skipVendorSend: false,
+                icaPayable: false
+            };
+
+            let searchResult = search.lookupFields({
+                type: 'customrecord_creednz_details',
+                id: 1,
+                columns: ['custrecord_skip_mr_vendor_send', 'custrecord_ica_payable']
+            });
+
+            options.icaPayable = searchResult.custrecord_ica_payable || false;
+            options.skipVendorSend = searchResult.custrecord_skip_vendor_send || false;
+
+            return options;
+
+        }
         const baseCreednzPost = (endPoint, dataObj, currentCreednzObject) => {
 
             try { // get token and baseUrl
@@ -34,7 +52,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
                 log.debug({
                     title: 'POST DataObj',
-                    details:dataObj
+                    details: dataObj
                 });
 
                 let creedNzResponse = https.post({
@@ -120,11 +138,89 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             }
         }
 
+        const mapVendorDTO = (jsonkey, creedNzOptions, currentRecord) => {
+
+            let sourceField;
+            let fieldtype;
+            let creednzMap = {
+
+                "vendorPaymentMethod": {
+                    sourcefield: "custentity_vendor_payment_method_creeedn",
+                    fieldtype: "text"
+                },
+                "bankAccountType": {
+                    sourcefield: 'Checking account',
+                    fieldtype: "fixed"
+                },
+                "bankAccountNumber": {
+                    sourcefield: 'custentity_bank_account_number_creednz',
+                    fieldtype: "text"
+                },
+                "routingNumber": {
+                    sourcefield: 'custentity_routing_number_creednz',
+                    fieldtype: "text"
+                },
+                "bankAccountName": {
+                    sourcefield: "custentity_bank_account_name_creednz",
+                    fieldtype: "text"
+                }
+            }
+
+            let icaMap = {
+
+                //vendorPaymentMethod
+                "vendorPaymentMethod": {
+                    sourcefield: "custentity_paymentmethod",
+                    fieldtype: "list"
+                },
+                // bank Account Type
+                "bankAccountType": {
+                    sourcefield: 'custentity_recbankprimidtype',
+                    fieldtype: "list"
+                },
+                // custentity_recpartyaccount=> bankAccountNumber
+                "bankAccountNumber": {
+                    sourcefield: 'custentity_recpartyaccount',
+                    fieldtype: "text"
+                },
+
+                // routing number
+                "routingNumber": {
+                    sourcefield: 'custentity_recbankprimid',
+                    fieldtype: "text"
+                },
+                // custentity_vendorbranchbankircid => bank Account Name
+                "bankAccountName": {
+                    sourcefield: "custentity_vendorbranchbankircid",
+                    fieldtype: "text"
+                }
+            }
+
+            if (creedNzOptions.icaPayable) {
+                sourceField = icaMap[jsonkey].sourcefield;
+                fieldtype = icaMap[jsonkey].fieldtype;
+            } else {
+                sourceField = creednzMap[jsonkey].sourcefield;
+                fieldtype = creednzMap[jsonkey].fieldtype;
+            }
+
+
+            if (fieldtype === "text") {
+                return currentRecord.getValue(sourceField)
+            } else if (fieldtype === "list") {
+                return currentRecord.getText(sourceField)
+            } else if (fieldtype === "fixed") {
+                return sourceField
+            }
+        }
 
         const buildAnalyzeVendorDtoFromRecord = (currentRecord) => {
             let vendorObj = {
                 // code to build analyzeVendorDto from currentRecord
             };
+
+            const creedNzOptions = getCreednzOptions();
+
             //"name": "string",
             let vendorName = currentRecord.getValue({
                 fieldId: "entityid"
@@ -201,9 +297,12 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             // "primaryContact": "string",
 
             //"vendorPaymentMethod": "string",
-            let vendorCreednzPaymentMethod = currentRecord.getValue({
-                fieldId: "custentity_vendor_payment_method_creeedn"
-            });
+
+            /*   let vendorCreednzPaymentMethod = currentRecord.getValue({
+                   fieldId: "custentity_vendor_payment_method_creeedn"
+               });
+             */
+            let vendorCreednzPaymentMethod = mapVendorDTO("vendorPaymentMethod", creedNzOptions, currentRecord);
             if (vendorCreednzPaymentMethod) {
                 vendorObj.vendorPaymentMethod = vendorCreednzPaymentMethod;
             }
@@ -215,7 +314,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             let vendorCreednztaxpayerID = currentRecord.getValue({
                 fieldId: "taxidnum"
             });
-            if (vendorCreednzPaymentMethod) {
+            if (vendorCreednztaxpayerID) {
                 vendorObj.taxpayerID = vendorCreednztaxpayerID;
                 vendorObj.taxpayerIdType = 'Employer Identification Number'
             }
@@ -229,15 +328,23 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             }
 
             // "bankAccountName": "string",
-            // TODO:
             // "bankAccountType": "string",
+
+            /*
             let vendorCreednzBankAccName = currentRecord.getValue({
-                fieldId: "custentity_bank_account_name_creednz"
-            });
+                         fieldId: "custentity_bank_account_name_creednz"
+                     });
+             */
+            let vendorCreednzBankAccName = mapVendorDTO("bankAccountName", creedNzOptions, currentRecord);
             if (vendorCreednzBankAccName) {
                 vendorObj.bankAccountName = vendorCreednzBankAccName;
-                vendorObj.bankAccountType = 'Checking account';
             }
+
+            let vendorCreednzBankAccountType = mapVendorDTO("bankAccountType", creedNzOptions, currentRecord);
+            if (vendorCreednzBankAccountType) {
+                vendorObj.bankAccountType = vendorCreednzBankAccountType;
+            }
+
 
             // "bankNumber": "string",
             let vendorCreednzBankNumber = currentRecord.getValue({
@@ -271,10 +378,15 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 vendorObj.bankCode = vendorCreednzBankCode;
             }
 
-            // "bankAccountNumber": "string",
+       /*     // "bankAccountNumber": "string",
             let vendorCreednzBankAccNumber = currentRecord.getValue({
                 fieldId: "custentity_bank_account_number_creednz"
             });
+
+        */
+
+            let vendorCreednzBankAccNumber = mapVendorDTO("bankAccountNumber",creedNzOptions,currentRecord)
+
             if (vendorCreednzBankAccNumber) {
                 vendorObj.bankAccountNumber = vendorCreednzBankAccNumber;
             }
@@ -327,10 +439,16 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 vendorObj.swift = vendorCreednzSwift;
             }
 
+        /*
             // "routingNumber": "string",
             let vendorCreednzRoutingNumber = currentRecord.getValue({
                 fieldId: "custentity_routing_number_creednz"
             });
+
+        */
+
+
+            let vendorCreednzRoutingNumber = mapVendorDTO("routingNumber",creedNzOptions,currentRecord);
             if (vendorCreednzRoutingNumber) {
                 vendorObj.routingNumber = vendorCreednzRoutingNumber;
             }
@@ -404,13 +522,13 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             "bankAccountCheckApproval": true
              */
 
-           /* let vendorCreednzRisk = currentRecord.getValue({
-                fieldId: "custentity_creednz_risk_status"
-            });
+            /* let vendorCreednzRisk = currentRecord.getValue({
+                 fieldId: "custentity_creednz_risk_status"
+             });
 
-            let vendorCreednzLastUpdated = currentRecord.getValue({
-                fieldId: "custentity_creednz_updated_on"
-            });*/
+             let vendorCreednzLastUpdated = currentRecord.getValue({
+                 fieldId: "custentity_creednz_updated_on"
+             });*/
 
             return vendorObj;
         }
@@ -428,7 +546,6 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
             return creedNzTransactionsParse;
         }
-
 
 
         const getCreednzVendorStatus = (externalId) => {
@@ -511,7 +628,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
         }
         const getCreednzVendorEvaluation_one = (evalutionId) => {
-            const baseGetUrl = "/external/erp/vendor-evaluation/"+evalutionId;
+            const baseGetUrl = "/external/erp/vendor-evaluation/" + evalutionId;
 
             return baseCreednzGet(baseGetUrl, null);
 
@@ -590,7 +707,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
         }
         const regexRiskStatus = (inputValue) => {
             const mapValues = {
-                "AtRisk" : "At Risk"
+                "AtRisk": "At Risk"
             }
 
             if (mapValues[inputValue]) {
@@ -602,8 +719,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
         }
         const regexCategory = (inputValue) => {
             const mapValues = {
-                "BankAccount" : "Bank Account",
-                "PaymentOperations" : "Payment Operations",
+                "BankAccount": "Bank Account",
+                "PaymentOperations": "Payment Operations",
             }
 
             if (mapValues[inputValue]) {
@@ -686,7 +803,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             const payeeLookup = search.lookupFields({
                 type: 'vendor',
                 id: entityPayment,
-                columns : ['companyname']
+                columns: ['companyname']
             });
 
             function getCompanyName() {
@@ -697,6 +814,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                     fieldId: 'companyname',
                 });
             }
+
             paymentObj.payerName = getCompanyName();
             paymentObj.payeeName = payeeLookup.companyname;
 
@@ -706,7 +824,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             paymentObj.description = currentRecord.getValue('memo');
 
             log.debug({
-                title : 'buildAnalyzePaymentDtoFromTransaction',
+                title: 'buildAnalyzePaymentDtoFromTransaction',
                 details: paymentObj
             });
 
@@ -714,6 +832,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
         }
 
         return {
+            getCreednzOptions,
             baseCreednzPost,
             buildAnalyzeVendorDtoFromRecord,
             baseCreednzGet,
