@@ -13,7 +13,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
     (https, record, search, creednz_token_lib, format, config) => {
 
         const getCreednzOptions = () => {
-            const options = {
+            let options = {
                 skipVendorSend: false,
                 icaPayable: false,
                 mapset : "ANY",
@@ -148,6 +148,11 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
         const mapVendorDTO = (jsonkey, creedNzOptions, currentRecord) => {
 
+            log.debug({
+                title: 'creedNzOptions in mapVendorDTO',
+                details: creedNzOptions
+            });
+
             let sourceField;
             let fieldtype;
             let creednzMap = {};
@@ -159,6 +164,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
             let icaMapRoot = {};
 
+            creednzMap["ANY"] ={};
+            creednzMap["ANY"]["ANY"]  ={};
             icaMapRoot["SWT"] = {};
             icaMapRoot["SWT"]["notEmpty"] = {};
             icaMapRoot["SWT"]["Empty"] = {};
@@ -212,7 +219,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             // iban
             addMapKey(creednzMap["ANY"]['ANY'],"iban",'custentity_iban_creednz',"text");
             addMapKey(icaMapRoot["SWT"]["notEmpty"],"iban",'',"fixed");
-            addMapKey(icaMapRoot["SWT"]["Empty"],"iban",'custentity_recbankprimid',"text");
+            addMapKey(icaMapRoot["SWT"]["Empty"],"iban",'custentity_recpartyaccount',"text");
             addMapKey(icaMapRoot["ABA"]["Any"],"iban",'',"fixed");
             addMapKey(icaMapRoot["OTHER"]["Any"],"iban",'',"fixed");
 
@@ -263,7 +270,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 // code to build analyzeVendorDto from currentRecord
             };
 
-            const creedNzOptions = getCreednzOptions();
+            let creedNzOptions = getCreednzOptions();
 
             /*
 
@@ -287,31 +294,48 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
             if (creedNzOptions.icaPayable) {
 
-                let custentity_vendorpaymeth = currentRecord.getValue('custentity_vendorpaymeth');
-                let custentity_recbankprimidtype = currentRecord.getValue('custentity_recbankprimidtype');
+                let custentity_vendorpaymeth = currentRecord.getText('custentity_vendorpaymeth');
+                let custentity_recbankprimidtype = currentRecord.getText('custentity_recbankprimidtype');
                 let custentity_vendorbranchbankircid = currentRecord.getValue('custentity_vendorbranchbankircid');
 
+                log.debug({title: 'custentity_vendorpaymeth',details:custentity_vendorpaymeth});
+                log.debug({title: 'custentity_recbankprimidtype',details:custentity_recbankprimidtype});
+                log.debug({title: 'custentity_vendorbranchbankircid',details:custentity_vendorbranchbankircid});
+
                 if (custentity_vendorpaymeth === 'iCA') {
+
+                    log.debug({title: 'iCA',details:'true'});
+
                     if (custentity_recbankprimidtype === 'SWT') {
+                        log.debug({title: 'iCA.SWT',details:'true'});
                         creedNzOptions.mapset = 'SWT';
                         if (custentity_vendorbranchbankircid !== '') {
+                            log.debug({title: 'iCA.SWT.notEmpty',details:'true'});
                             creedNzOptions.mapsubset = 'notEmpty';
                         } else {
+                            log.debug({title: 'iCA.SWT.Empty',details:'true'});
                             creedNzOptions.mapsubset = 'Empty';
                         }
                     } else if (custentity_recbankprimidtype === 'ABA') {
+                        log.debug({title: 'iCA.ABA',details:'true'});
                         creedNzOptions.mapset = 'ABA';
                         creedNzOptions.mapsubset = 'Any';
                     }
                 } else {
+                    log.debug({title: 'iCA',details:'false'});
                     creedNzOptions.mapset = 'OTHER';
                     creedNzOptions.mapsubset = 'Any';
                 }
             }
 
+            log.debug({
+                title: 'creednzOptions AFTER iCA testing',
+                details: creedNzOptions
+            })
+
             //"name": "string",
             let vendorName = currentRecord.getValue({
-                fieldId: "entityid"
+                fieldId: "companyname"
             });
             if (vendorName) {
                 vendorObj.name = vendorName;
