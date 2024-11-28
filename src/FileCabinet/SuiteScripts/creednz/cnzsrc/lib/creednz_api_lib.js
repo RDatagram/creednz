@@ -234,7 +234,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             addMapKey(creednzMap["ANY"]['ANY'],"routingNumber",'custentity_routing_number_creednz',"text");
             addMapKey(icaMapRoot["SWT"]["notEmpty"],"routingNumber",'',"fixed");
             addMapKey(icaMapRoot["SWT"]["Empty"],"routingNumber",'',"fixed");
-            addMapKey(icaMapRoot["ABA"]["Any"],"routingNumber",'custentity_recpartyaccount',"text");
+            addMapKey(icaMapRoot["ABA"]["Any"],"routingNumber",'custentity_recbankprimid',"text");
             addMapKey(icaMapRoot["OTHER"]["Any"],"routingNumber",'',"fixed");
 
 
