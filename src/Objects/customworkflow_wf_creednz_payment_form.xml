@@ -8,11 +8,11 @@
   <initsavedsearchcondition></initsavedsearchcondition>
   <inittriggertype>BEFORELOAD</inittriggertype>
   <isinactive>F</isinactive>
-  <islogenabled>F</islogenabled>
-  <keephistory>ONLYWHENTESTING</keephistory>
+  <islogenabled>T</islogenabled>
+  <keephistory>ALWAYS</keephistory>
   <name>CRDNZ: WF Payment Form</name>
   <recordtypes>VENDORPAYMENT</recordtypes>
-  <releasestatus>TESTING</releasestatus>
+  <releasestatus>RELEASED</releasestatus>
   <runasadmin>F</runasadmin>
   <initcondition>
     <formula></formula>
