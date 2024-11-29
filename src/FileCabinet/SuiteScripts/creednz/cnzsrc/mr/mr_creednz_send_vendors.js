@@ -2,12 +2,13 @@
  * @NApiVersion 2.1
  * @NScriptType MapReduceScript
  */
-define(['N/workflow','../ssearches/searchlib'],
+define(['N/workflow','../ssearches/searchlib','../lib/creednz_api_lib'],
     /**
      * @param{workflow} workflow
      * @param {Object} searchlib
+     * @param creednz_api_lib
      */
-    (workflow,searchlib) => {
+    (workflow,searchlib,creednz_api_lib) => {
         /**
          * Defines the function that is executed at the beginning of the map/reduce process and generates the input data.
          * @param {Object} inputContext
@@ -26,6 +27,21 @@ define(['N/workflow','../ssearches/searchlib'],
                 title: 'Entry of MR send_vendors',
                 details: 'START MR'
             });
+
+            let creednzOptions = creednz_api_lib.getCreednzOptions();
+
+            log.debug({
+                title: 'creednzOptions',
+                details: creednzOptions
+            });
+
+            if (creednzOptions.skipVendorSend) {
+                log.audit({
+                    title: 'MR send Vendors',
+                    details: 'SKIP Sending due to options'
+                })
+                return [];
+            }
 
             let mySearch = searchlib.customsearch_ss_get_creednz_external_id();
 
