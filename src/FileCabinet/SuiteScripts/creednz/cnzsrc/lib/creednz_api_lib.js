@@ -237,16 +237,6 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             addMapKey(icaMapRoot["ABA"]["Any"],"routingNumber",'custentity_recbankprimid',"text");
             addMapKey(icaMapRoot["OTHER"]["Any"],"routingNumber",'',"fixed");
 
-
-            log.debug({
-                title:'creednzMap',
-                details:creednzMap
-            });
-            log.debug({
-                title: 'icaMapRoot',
-                details: icaMapRoot
-            });
-
             if (creedNzOptions.icaPayable) {
                 sourceField = icaMapRoot[mapset][mapsubset][jsonkey].sourcefield;
                 fieldtype = icaMapRoot[mapset][mapsubset][jsonkey].fieldtype;
