@@ -49,7 +49,7 @@ define(['N/workflow','../ssearches/searchlib','../lib/creednz_api_lib'],
 
             let searchResult = mySearch.run().getRange({
                 start: 0,
-                end: 50
+                end: 150
             });
 
             for (let i = 0; i < searchResult.length; i++) {
