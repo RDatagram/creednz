@@ -301,6 +301,9 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                     log.debug({title: 'iCA.ABA',details:'true'});
                     creedNzOptions.mapset = 'ABA';
                     creedNzOptions.mapsubset = 'Any';
+                } else {
+                    creedNzOptions.mapset = 'OTHER';
+                    creedNzOptions.mapsubset = 'Any';
                 }
             } else {
                 log.debug({title: 'iCA',details:'false'});
