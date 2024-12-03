@@ -849,13 +849,30 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
         }
 
         const getCreednzVPaymentStatus = (externalId) => {
-            const creednzVendorInformation = "/external/erp/payment/status/" + externalId;
+            const creednzEndpoint = "/external/erp/payment/status/" + externalId;
 
-            return baseCreednzGet(creednzVendorInformation, null);
+            return baseCreednzGet(creednzEndpoint, null);
 
         }
 
+        /**
+         *
+         * @param externalId
+         *
+         * @returns {Object[]}
+         * @property {string} id
+         * @property {string} type
+         * @property {string} category
+         * @property {string} title
+         * @property {string} description
+         * @property {string} remediation
+         *
+         */
+        const getCreednzPaymentFindings = (externalId) => {
+            const creednzEndpoint = "/external/erp/payment/findings/externalId/" + externalId;
 
+            return baseCreednzGet(creednzEndpoint, null);
+        }
         const buildAnalyzePaymentDtoFromTransaction = (currentRecord) => {
 
             let creedNzOptions = getCreednzOptions();
@@ -972,6 +989,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             buildVendprAppURL,
             postCreednzAnalyzePayment,
             getCreednzVPaymentStatus,
+            getCreednzPaymentFindings,
             buildAnalyzePaymentDtoFromTransaction
         }
 
