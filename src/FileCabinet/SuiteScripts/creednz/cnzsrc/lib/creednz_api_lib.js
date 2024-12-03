@@ -237,16 +237,6 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             addMapKey(icaMapRoot["ABA"]["Any"],"routingNumber",'custentity_recbankprimid',"text");
             addMapKey(icaMapRoot["OTHER"]["Any"],"routingNumber",'',"fixed");
 
-
-            log.debug({
-                title:'creednzMap',
-                details:creednzMap
-            });
-            log.debug({
-                title: 'icaMapRoot',
-                details: icaMapRoot
-            });
-
             if (creedNzOptions.icaPayable) {
                 sourceField = icaMapRoot[mapset][mapsubset][jsonkey].sourcefield;
                 fieldtype = icaMapRoot[mapset][mapsubset][jsonkey].fieldtype;
@@ -311,6 +301,9 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                     log.debug({title: 'iCA.ABA',details:'true'});
                     creedNzOptions.mapset = 'ABA';
                     creedNzOptions.mapsubset = 'Any';
+                } else {
+                    creedNzOptions.mapset = 'OTHER';
+                    creedNzOptions.mapsubset = 'Any';
                 }
             } else {
                 log.debug({title: 'iCA',details:'false'});
@@ -356,6 +349,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             if (vendorCreednzRegCode) {
                 vendorObj.registrationCode = vendorCreednzRegCode;
             }
+
+            /* REMOVED
             //  "primarySubsidiary": "string",
             let vendorSubsidiary = currentRecord.getText({
                 fieldId: "subsidiary"
@@ -363,6 +358,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             if (vendorSubsidiary) {
                 vendorObj.primarySubsidiary = vendorSubsidiary;
             }
+            */
+
             // "dateCreated": "2024-09-18T10:39:46.451Z",
             let vendorCreatedDate = currentRecord.getValue({
                 fieldId: "datecreated"
@@ -486,6 +483,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 vendorObj.bankNumber = vendorCreednzBankNumber;
             }
 
+            /* REMOVED
             // "branchName": "string",
             let vendorCreednzBranchName = currentRecord.getValue({
                 fieldId: "custentity_branch_name_creednz"
@@ -501,6 +499,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             if (vendorCreednzBranchNumber) {
                 vendorObj.branchNumber = vendorCreednzBranchNumber;
             }
+            */
 
             // "bankAddress": "string",
             let vendorCreednzBankAddress = currentRecord.getValue({
@@ -510,6 +509,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 vendorObj.bankAddress = vendorCreednzBankAddress;
             }
 
+            /* REMOVED
             // "bankDetailsUpdate": "string",
             let vendorCreednzBankDetailsUpdate = currentRecord.getValue({
                 fieldId: "custentity_bank_details_update_creednz"
@@ -517,7 +517,9 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             if (vendorCreednzBankDetailsUpdate) {
                 vendorObj.bankDetailsUpdate = vendorCreednzBankDetailsUpdate;
             }
+            */
 
+            /* REMOVED
             // "eftBankDetailsUpdate": "string",
             let vendorCreednzEftBankUpdate = currentRecord.getValue({
                 fieldId: "custentity_eft_bank_detailsupdate_creedn"
@@ -525,7 +527,9 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             if (vendorCreednzEftBankUpdate) {
                 vendorObj.eftBankDetailsUpdate = vendorCreednzEftBankUpdate;
             }
+            */
 
+            /* REMOVED
             // "eftBillPayment": "string",
             let vendorCreednzEftBillPayment = currentRecord.getValue({
                 fieldId: "custentity_eft_bill_payment_creednz"
@@ -533,7 +537,9 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             if (vendorCreednzEftBillPayment) {
                 vendorObj.eftBillPayment = vendorCreednzEftBillPayment;
             }
+            */
 
+            /* REMOVED
             // "paypalAccount": "string",
             let vendorCreednzPaypalAcc = currentRecord.getValue({
                 fieldId: "custentity_paypal_account_creednz"
@@ -541,6 +547,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             if (vendorCreednzPaypalAcc) {
                 vendorObj.paypalAccount = vendorCreednzPaypalAcc;
             }
+            */
 
             // "billingAddress": "string",
             let vendorAddress = currentRecord.getValue({

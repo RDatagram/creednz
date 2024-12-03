@@ -27,9 +27,28 @@ define(['N/workflow', '../ssearches/searchlib'],
                 details: 'START MR'
             });
 
-            let mySearch = searchlib.customsearch_ss_get_creednz_resend();
+            let mySearch = searchlib.customsearch_ss_get_creednz_resend().run();
 
-            let mapArray = [];
+            let mapArray = [],
+                start = 0,
+                end = 1000;
+
+
+            while (true) {
+                // getRange returns an array of Result objects
+                let tempList = mySearch.getRange({
+                    start: start,
+                    end: end
+                });
+                if (tempList.length === 0) {
+                    break;
+                }
+                // Push tempList results into ssResults array
+                Array.prototype.push.apply(mapArray, tempList);
+                start += 1000;
+                end += 1000;
+            }
+/*
 
             let searchResult = mySearch.run().getRange({
                 start: 0,
@@ -43,6 +62,7 @@ define(['N/workflow', '../ssearches/searchlib'],
                 });
                 mapArray.push(searchResult[i])
             }
+*/
 
             return mapArray
         }

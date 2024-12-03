@@ -218,7 +218,10 @@ define(['N/search'],
                 type: "vendor",
                 filters:
                     [
-                        ["custentity_vendor_external_id", "isempty", ""]
+                        ["custentity_vendor_external_id", "isempty", ""],
+                        "AND",
+                        ["isperson", "is", "F"],
+
                     ],
                 columns:
                     [
