@@ -323,6 +323,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             };
 
             let creedNzOptions = getCreednzOptions();
+            const isIndividual = currentRecord.getValue('isperson');
 
             if (creedNzOptions.icaPayable) {
 
@@ -336,9 +337,21 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             })
 
             //"name": "string",
-            let vendorName = currentRecord.getValue({
-                fieldId: "companyname"
-            });
+            let vendorName;
+            if (isIndividual) {
+                vendorName = currentRecord.getValue({
+                    fieldId: "firstname"
+                });
+                vendorName += " ";
+                vendorName += currentRecord.getValue({
+                    fieldId: "lastname"
+                });
+            } else {
+                vendorName = currentRecord.getValue({
+                    fieldId: "companyname"
+                });
+            }
+
             if (vendorName) {
                 vendorObj.name = vendorName;
             }
