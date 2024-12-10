@@ -374,7 +374,10 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
             let creedNzOptions = getCreednzOptions();
             const isIndividual = currentRecord.getValue('isperson');
-            vendorObj.isIndividual = isIndividual;
+            vendorObj.isIndividual = false;
+            if (isIndividual == "T") {
+                vendorObj.isIndividual = true;
+            }
 
             if (creedNzOptions.icaPayable) {
                 calculateMapset(currentRecord,creedNzOptions);
@@ -388,7 +391,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
             //"name": "string",
             let vendorName;
-            if (isIndividual) {
+            if (vendorObj.isIndividual) {
                 vendorName = currentRecord.getValue({
                     fieldId: "firstname"
                 });
