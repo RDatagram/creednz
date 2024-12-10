@@ -187,6 +187,27 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 }
             }
 
+            // paymentCategory
+            // TODO: Check with Creednz
+            // iCA => set paymentCategory with "iCA", else empty string
+            // VENDOR_PAYMENT_METHOD (custentity_vendorpaymeth) -> paymentCategory
+
+            addMapKey(creednzMap["ANY"]['ANY'],"paymentCategory","","fixed");
+            addMapKey(icaMapRoot["SWT"]["notEmpty"],"paymentCategory","custentity_vendorpaymeth","list");
+            addMapKey(icaMapRoot["SWT"]["Empty"],"paymentCategory","custentity_vendorpaymeth","list");
+            addMapKey(icaMapRoot["ABA"]["Any"],"paymentCategory","custentity_vendorpaymeth","list");
+            addMapKey(icaMapRoot["OTHER"]["Any"],"paymentCategory","custentity_vendorpaymeth","list");
+
+            // paymentFormat
+            // TODO: Check with Creednz
+            // iCA => set paymentFormat with "custentity_paymentformat", else empty string
+            // PAYMENT_FORMAT (custentity_paymentformat) -> paymentFormat
+            addMapKey(creednzMap["ANY"]['ANY'],"paymentFormat","","fixed");
+            addMapKey(icaMapRoot["SWT"]["notEmpty"],"paymentFormat","custentity_paymentformat","list");
+            addMapKey(icaMapRoot["SWT"]["Empty"],"paymentFormat","custentity_paymentformat","list");
+            addMapKey(icaMapRoot["ABA"]["Any"],"paymentFormat","custentity_paymentformat","list");
+            addMapKey(icaMapRoot["OTHER"]["Any"],"paymentFormat","custentity_paymentformat","list");
+
             // bankAccountName
             addMapKey(creednzMap["ANY"]['ANY'],"bankAccountName","custentity_bank_account_name_creednz","text");
             addMapKey(icaMapRoot["SWT"]["notEmpty"],"bankAccountName","custentity_bank_account_name_creednz","text");
@@ -194,12 +215,25 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             addMapKey(icaMapRoot["ABA"]["Any"],"bankAccountName","custentity_bank_account_name_creednz","text");
             addMapKey(icaMapRoot["OTHER"]["Any"],"bankAccountName","custentity_bank_account_name_creednz","text");
 
+            // bankName
+            // TODO: Check with Creednz
+            addMapKey(creednzMap["ANY"]['ANY'],"bankName","custentity_bank_account_name_creednz","text");
+            addMapKey(icaMapRoot["SWT"]["notEmpty"],"bankName","custentity_bankname","text");
+            addMapKey(icaMapRoot["SWT"]["Empty"],"bankName","custentity_bankname","text");
+            addMapKey(icaMapRoot["ABA"]["Any"],"bankName","custentity_bankname","text");
+            addMapKey(icaMapRoot["OTHER"]["Any"],"bankName","custentity_bankname","text");
+
             //vendorPaymentMethod
+            // TODO: Check with Creednz
+            // PAYMENT_METHOD (2) (custentity_paymentmethod) -> vendorPaymentMethod
+            // VENDOR_PAYMENT_METHOD (custentity_vendorpaymeth) -> vendorPaymentMethod (not iCA)
             addMapKey(creednzMap["ANY"]['ANY'],"vendorPaymentMethod","custentity_vendor_payment_method_creeedn","text");
             addMapKey(icaMapRoot["SWT"]["notEmpty"],"vendorPaymentMethod","custentity_paymentmethod","list");
             addMapKey(icaMapRoot["SWT"]["Empty"],"vendorPaymentMethod","custentity_paymentmethod","list");
-            addMapKey(icaMapRoot["ABA"]["Any"],"vendorPaymentMethod","custentity_vendorpaymeth","list");
+            addMapKey(icaMapRoot["ABA"]["Any"],"vendorPaymentMethod","custentity_paymentmethod","list");
             addMapKey(icaMapRoot["OTHER"]["Any"],"vendorPaymentMethod","custentity_vendorpaymeth","list");
+            // TODO: CHECK WITH Creednz
+            //addMapKey(icaMapRoot["ABA"]["Any"],"vendorPaymentMethod","custentity_vendorpaymeth","list");
 
             // bankAccountType
             addMapKey(creednzMap["ANY"]['ANY'],"bankAccountType",'Checking account',"fixed");
@@ -209,11 +243,19 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             addMapKey(icaMapRoot["OTHER"]["Any"],"bankAccountType","","fixed");
 
             // bankCode
+            // usWireInternationalData
+            // TODO: Check with Creednz
             addMapKey(creednzMap["ANY"]['ANY'],"bankCode",'custentity_bank_code_creednz',"text");
-            addMapKey(icaMapRoot["SWT"]["notEmpty"],"bankCode",'custentity_vendorbranchbankircid',"text");
-            addMapKey(icaMapRoot["SWT"]["Empty"],"bankCode",'custentity_vendorbranchbankircid',"text");
-            addMapKey(icaMapRoot["ABA"]["Any"],"bankCode",'custentity_vendorbranchbankircid',"text");
+            addMapKey(icaMapRoot["SWT"]["notEmpty"],"bankCode","","fixed");
+            addMapKey(icaMapRoot["SWT"]["Empty"],"bankCode","","fixed");
+            addMapKey(icaMapRoot["ABA"]["Any"],"bankCode","","fixed");
             addMapKey(icaMapRoot["OTHER"]["Any"],"bankCode","","fixed");
+
+            addMapKey(creednzMap["ANY"]['ANY'],"usWireInternationalData","","fixed");
+            addMapKey(icaMapRoot["SWT"]["notEmpty"],"usWireInternationalData",'custentity_vendorbranchbankircid',"text");
+            addMapKey(icaMapRoot["SWT"]["Empty"],"usWireInternationalData",'custentity_vendorbranchbankircid',"text");
+            addMapKey(icaMapRoot["ABA"]["Any"],"usWireInternationalData",'custentity_vendorbranchbankircid',"text");
+            addMapKey(icaMapRoot["OTHER"]["Any"],"usWireInternationalData","","fixed");
 
             // swift
             addMapKey(creednzMap["ANY"]['ANY'],"swift",'custentity_swift_creednz',"text");
@@ -242,6 +284,14 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             addMapKey(icaMapRoot["SWT"]["Empty"],"routingNumber",'',"fixed");
             addMapKey(icaMapRoot["ABA"]["Any"],"routingNumber",'custentity_recbankprimid',"text");
             addMapKey(icaMapRoot["OTHER"]["Any"],"routingNumber",'',"fixed");
+
+            // PAYEE_EMAIL_ADDRESS  (custentity_payee_email) -> payeeEmail
+            // TODO: Check with Creednz
+            addMapKey(creednzMap["ANY"]['ANY'],"payeeEmail",'email',"text");
+            addMapKey(icaMapRoot["SWT"]["notEmpty"],"payeeEmail",'custentity_payee_email',"text");
+            addMapKey(icaMapRoot["SWT"]["Empty"],"payeeEmail",'custentity_payee_email',"text");
+            addMapKey(icaMapRoot["ABA"]["Any"],"payeeEmail",'custentity_payee_email',"text");
+            addMapKey(icaMapRoot["OTHER"]["Any"],"payeeEmail",'custentity_payee_email',"text");
 
             if (creedNzOptions.icaPayable) {
                 sourceField = icaMapRoot[mapset][mapsubset][jsonkey].sourcefield;
@@ -324,17 +374,17 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
             let creedNzOptions = getCreednzOptions();
             const isIndividual = currentRecord.getValue('isperson');
+            vendorObj.isIndividual = isIndividual;
 
             if (creedNzOptions.icaPayable) {
-
                 calculateMapset(currentRecord,creedNzOptions);
-
             }
 
             log.debug({
                 title: 'creednzOptions AFTER iCA testing',
                 details: creedNzOptions
             })
+
 
             //"name": "string",
             let vendorName;
@@ -455,6 +505,30 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 vendorObj.currency = vendorCurrency;
             }
 
+            // TODO: Check with Creednz
+            let vendorPaymentCategory = mapVendorDTO("paymentCategory", creedNzOptions, currentRecord);
+            if (vendorPaymentCategory) {
+                vendorObj.paymentCategory = vendorPaymentCategory;
+            }
+
+            // TODO: Check with Creednz
+            let vendorPaymentFormat = mapVendorDTO("paymentFormat", creedNzOptions, currentRecord);
+            if (vendorPaymentFormat) {
+                vendorObj.paymentFormat = vendorPaymentFormat;
+            }
+
+            // TODO: Check with Creednz
+            let vendorPayeeEmail = mapVendorDTO("payeeEmail", creedNzOptions, currentRecord);
+            if (vendorPayeeEmail) {
+                vendorObj.payeeEmail = vendorPayeeEmail;
+            }
+
+            // // TODO: Check with Creednz
+            let vendorBankName = mapVendorDTO("bankName", creedNzOptions, currentRecord);
+            if (vendorBankName) {
+                vendorObj.bankName = vendorBankName;
+            }
+
             let vendorCreednzBankAccName = mapVendorDTO("bankAccountName", creedNzOptions, currentRecord);
             if (vendorCreednzBankAccName) {
                 vendorObj.bankAccountName = vendorCreednzBankAccName;
@@ -473,6 +547,11 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             let vendorCreednzBankCode = mapVendorDTO("bankCode", creedNzOptions, currentRecord);
             if (vendorCreednzBankCode) {
                 vendorObj.bankCode = vendorCreednzBankCode;
+            }
+
+            let vendorusWireInternationalData = mapVendorDTO("usWireInternationalData", creedNzOptions, currentRecord);
+            if (vendorusWireInternationalData) {
+                vendorObj.usWireInternationalData = vendorusWireInternationalData;
             }
 
             let vendorCreednzSwift = mapVendorDTO("swift",creedNzOptions,currentRecord);
@@ -495,6 +574,37 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 vendorObj.routingNumber = vendorCreednzRoutingNumber;
             }
 
+            let vendorCreednzBankAddress = "";
+            if (creedNzOptions.icaPayable) {
+
+                // iCA Bundle existing, get from custom field
+                /*
+                BANK_ADDRESS_LINE1 (custentity_bankaddressline1) + BANK_CITY (custentity_bankcity) + BANK STATE/PROVINCE (custentity_bankstate) + BANK_COUNTRY_CODE (custentity_bankcountrycode) + BANK_POSTEL_CODE (custentity_bankpostcode) -> bankAddress
+                 */
+
+                const buildAddress = (textLine) => {
+                    if (textLine.length > 0) {
+                        vendorCreednzBankAddress = vendorCreednzBankAddress + textLine + '\n';
+                    }
+                }
+                buildAddress(currentRecord.getValue("custentity_bankaddressline1"));
+                buildAddress(currentRecord.getValue("custentity_bankcity"));
+                buildAddress(currentRecord.getValue("custentity_bankstate"));
+                buildAddress(currentRecord.getText("custentity_bankcountrycode"));
+                buildAddress(currentRecord.getValue("custentity_bankpostcode"));
+
+
+            } else {
+                // not iCA Bundle installed get from Creednz Field
+                // "bankAddress": "string",
+                vendorCreednzBankAddress = currentRecord.getValue({
+                    fieldId: "custentity_bank_address_creednz"
+                });
+
+            }
+            if (vendorCreednzBankAddress) {
+                vendorObj.bankAddress = vendorCreednzBankAddress;
+            }
             let vendorCreednzBankNumber = currentRecord.getValue({
                 fieldId: "custentity_bank_number_creednz"
             });
@@ -520,13 +630,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             }
             */
 
-            // "bankAddress": "string",
-            let vendorCreednzBankAddress = currentRecord.getValue({
-                fieldId: "custentity_bank_address_creednz"
-            });
-            if (vendorCreednzBankAddress) {
-                vendorObj.bankAddress = vendorCreednzBankAddress;
-            }
+
 
             /* REMOVED
             // "bankDetailsUpdate": "string",
