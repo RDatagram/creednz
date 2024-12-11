@@ -15,5 +15,11 @@
       <linktasktype>LIST</linktasktype>
       <shortlist>F</shortlist>
     </link>
+    <link>
+      <linklabel></linklabel>
+      <linkobject>[scriptid=customrecord_creednz_details]</linkobject>
+      <linktasktype>LIST</linktasktype>
+      <shortlist>F</shortlist>
+    </link>
   </links>
 </centercategory>

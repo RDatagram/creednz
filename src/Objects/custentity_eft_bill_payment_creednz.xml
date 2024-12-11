@@ -7,12 +7,14 @@
   <appliestoothername>F</appliestoothername>
   <appliestopartner>F</appliestopartner>
   <appliestopricelist>F</appliestopricelist>
+  <appliestoproject>F</appliestoproject>
   <appliestoprojecttemplate>F</appliestoprojecttemplate>
   <appliestostatement>F</appliestostatement>
   <appliestovendor>T</appliestovendor>
   <appliestowebsite>F</appliestowebsite>
   <applyformatting>F</applyformatting>
   <availableexternally>F</availableexternally>
+  <availabletosso>F</availabletosso>
   <checkspelling>F</checkspelling>
   <defaultchecked>F</defaultchecked>
   <defaultselection></defaultselection>
@@ -29,7 +31,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>EFT Bill Payment</label>
+  <label>EFT Bill Payment (2)</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>
