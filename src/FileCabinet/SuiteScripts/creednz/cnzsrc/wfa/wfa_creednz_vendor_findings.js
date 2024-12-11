@@ -38,10 +38,10 @@ define(['../lib/creednz_api_lib'],
                 "cyberRiskStatus": "custentity_creednz_cyber_risk"
             };
             let riskObject = {
-                bankRiskStatus: "N/A",
-                operationRiskStatus: "N/A",
-                sanctionRiskStatus: "N/A",
-                cyberRiskStatus: "N/A"
+                bankRiskStatus: "No Risk",
+                operationRiskStatus: "No Risk",
+                sanctionRiskStatus: "No Risk",
+                cyberRiskStatus: "No Risk"
             }
             if (creedNzTransactionsLength > 0) {
                 riskObject = creednz_api_lib.checkRiskFromFindings(creedNzTransactionsParse);
