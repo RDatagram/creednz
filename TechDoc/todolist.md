@@ -12,4 +12,4 @@
 ### 15.October Munich
 - [x] Add Gap-> Moderate Risk
 - [x] change from OPERATION to Payment Operation
-- [ ] Regex make BankAcoount -> Bank Account, PaymentOperation -> Payment Operation
+- [x] Regex make BankAcoount -> Bank Account, PaymentOperation -> Payment Operation
