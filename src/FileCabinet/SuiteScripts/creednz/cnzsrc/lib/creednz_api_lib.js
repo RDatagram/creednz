@@ -240,7 +240,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             addMapKey(icaMapRoot["SWT"]["notEmpty"],"bankAccountType","custentity_recbankprimidtype","list");
             addMapKey(icaMapRoot["SWT"]["Empty"],"bankAccountType","custentity_recbankprimidtype","list");
             addMapKey(icaMapRoot["ABA"]["Any"],"bankAccountType","custentity_recbankprimidtype","list");
-            addMapKey(icaMapRoot["OTHER"]["Any"],"bankAccountType","","fixed");
+            addMapKey(icaMapRoot["OTHER"]["Any"],"bankAccountType","custentity_recbankprimidtype","list");
 
             // bankCode
             // usWireInternationalData
@@ -255,7 +255,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             addMapKey(icaMapRoot["SWT"]["notEmpty"],"usWireInternationalData",'custentity_vendorbranchbankircid',"text");
             addMapKey(icaMapRoot["SWT"]["Empty"],"usWireInternationalData",'custentity_vendorbranchbankircid',"text");
             addMapKey(icaMapRoot["ABA"]["Any"],"usWireInternationalData",'custentity_vendorbranchbankircid',"text");
-            addMapKey(icaMapRoot["OTHER"]["Any"],"usWireInternationalData","","fixed");
+            addMapKey(icaMapRoot["OTHER"]["Any"],"usWireInternationalData","custentity_vendorbranchbankircid","list");
 
             // swift
             addMapKey(creednzMap["ANY"]['ANY'],"swift",'custentity_swift_creednz',"text");
