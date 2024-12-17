@@ -231,7 +231,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             addMapKey(icaMapRoot["SWT"]["notEmpty"],"vendorPaymentMethod","custentity_paymentmethod","list");
             addMapKey(icaMapRoot["SWT"]["Empty"],"vendorPaymentMethod","custentity_paymentmethod","list");
             addMapKey(icaMapRoot["ABA"]["Any"],"vendorPaymentMethod","custentity_paymentmethod","list");
-            addMapKey(icaMapRoot["OTHER"]["Any"],"vendorPaymentMethod","custentity_vendorpaymeth","list");
+            addMapKey(icaMapRoot["OTHER"]["Any"],"vendorPaymentMethod","custentity_paymentmethod","list");
             // TODO: CHECK WITH Creednz
             //addMapKey(icaMapRoot["ABA"]["Any"],"vendorPaymentMethod","custentity_vendorpaymeth","list");
 
