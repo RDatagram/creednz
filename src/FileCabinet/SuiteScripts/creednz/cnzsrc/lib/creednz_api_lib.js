@@ -363,8 +363,24 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 }
             } else {
                 log.debug({title: 'iCA',details:'false'});
-                creedNzOptions.mapset = 'OTHER';
-                creedNzOptions.mapsubset = 'Any';
+                if (custentity_recbankprimidtype === 'SWT') {
+                    log.debug({title: 'iCA.SWT',details:'true'});
+                    creedNzOptions.mapset = 'SWT';
+                    if (custentity_vendorbranchbankircid !== '') {
+                        log.debug({title: 'iCA.SWT.notEmpty',details:'true'});
+                        creedNzOptions.mapsubset = 'notEmpty';
+                    } else {
+                        log.debug({title: 'iCA.SWT.Empty',details:'true'});
+                        creedNzOptions.mapsubset = 'Empty';
+                    }
+                } else if (custentity_recbankprimidtype === 'ABA') {
+                    log.debug({title: 'iCA.ABA',details:'true'});
+                    creedNzOptions.mapset = 'ABA';
+                    creedNzOptions.mapsubset = 'Any';
+                } else {
+                    creedNzOptions.mapset = 'OTHER';
+                    creedNzOptions.mapsubset = 'Any';
+                }
             }
         }
         const buildAnalyzeVendorDtoFromRecord = (currentRecord) => {
