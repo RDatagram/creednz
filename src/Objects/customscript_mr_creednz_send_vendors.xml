@@ -39,8 +39,8 @@
         <daily>
           <everyxdays>1</everyxdays>
           <repeat>PT15M</repeat>
-          <startdate>2024-09-24</startdate>
-          <starttime>22:30:00Z</starttime>
+          <startdate>2024-09-25</startdate>
+          <starttime>10:00:00Z</starttime>
         </daily>
       </recurrence>
     </scriptdeployment>
