@@ -1,4 +1,4 @@
-<entitycustomfield scriptid="custentity_eft_bill_payment_creednz">
+<entitycustomfield scriptid="custentity_paypal_account_creednz">
   <accesslevel>2</accesslevel>
   <appliestocontact>F</appliestocontact>
   <appliestocustomer>F</appliestocustomer>
@@ -31,7 +31,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>EFT Bill Payment (2)</label>
+  <label>Creednz Paypal Account</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>

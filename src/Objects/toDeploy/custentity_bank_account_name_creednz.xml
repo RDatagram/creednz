@@ -1,4 +1,4 @@
-<entitycustomfield scriptid="custentity_bank_number_creednz">
+<entitycustomfield scriptid="custentity_bank_account_name_creednz">
   <accesslevel>2</accesslevel>
   <appliestocontact>F</appliestocontact>
   <appliestocustomer>F</appliestocustomer>
@@ -31,7 +31,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Bank Number</label>
+  <label>Creednz Bank Account Name</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>

@@ -1,4 +1,4 @@
-<entitycustomfield scriptid="custentity_eft_bank_detailsupdate_creedn">
+<entitycustomfield scriptid="custentity_registraion_code_creednz">
   <accesslevel>2</accesslevel>
   <appliestocontact>F</appliestocontact>
   <appliestocustomer>F</appliestocustomer>
@@ -19,7 +19,7 @@
   <defaultchecked>F</defaultchecked>
   <defaultselection></defaultselection>
   <defaultvalue></defaultvalue>
-  <description></description>
+  <description>used to store the reg code</description>
   <displayheight></displayheight>
   <displaytype>NORMAL</displaytype>
   <displaywidth></displaywidth>
@@ -31,7 +31,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>EFT Bank Details Update</label>
+  <label>Creednz Registration Code</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>

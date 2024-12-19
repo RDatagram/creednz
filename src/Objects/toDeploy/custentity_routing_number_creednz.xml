@@ -1,4 +1,4 @@
-<entitycustomfield scriptid="custentity_vendor_payment_method_creeedn">
+<entitycustomfield scriptid="custentity_routing_number_creednz">
   <accesslevel>2</accesslevel>
   <appliestocontact>F</appliestocontact>
   <appliestocustomer>F</appliestocustomer>
@@ -31,7 +31,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Vendor Payment Method (2)</label>
+  <label>Creednz Routing Number</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>

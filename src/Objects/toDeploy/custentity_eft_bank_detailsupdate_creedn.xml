@@ -1,4 +1,4 @@
-<entitycustomfield scriptid="custentity_creednz_sanction_risk">
+<entitycustomfield scriptid="custentity_eft_bank_detailsupdate_creedn">
   <accesslevel>2</accesslevel>
   <appliestocontact>F</appliestocontact>
   <appliestocustomer>F</appliestocustomer>
@@ -31,7 +31,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Sanction Risk</label>
+  <label>Creednz EFT Bank Details Update</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>
@@ -43,10 +43,10 @@
   <searchlevel>2</searchlevel>
   <selectrecordtype></selectrecordtype>
   <showhierarchy>F</showhierarchy>
-  <showinlist>F</showinlist>
+  <showinlist>T</showinlist>
   <sourcefilterby></sourcefilterby>
   <sourcefrom></sourcefrom>
   <sourcelist></sourcelist>
   <storevalue>T</storevalue>
-  <subtab>[scriptid=custtab_creednz_data_tab]</subtab>
+  <subtab>ENTITYMAIN</subtab>
 </entitycustomfield>

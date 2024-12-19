@@ -1,4 +1,4 @@
-<entitycustomfield scriptid="custentity_bank_code_creednz">
+<entitycustomfield scriptid="custentity_creednz_created_from_eval">
   <accesslevel>2</accesslevel>
   <appliestocontact>F</appliestocontact>
   <appliestocustomer>F</appliestocustomer>
@@ -21,32 +21,32 @@
   <defaultvalue></defaultvalue>
   <description></description>
   <displayheight></displayheight>
-  <displaytype>NORMAL</displaytype>
+  <displaytype>STATICTEXT</displaytype>
   <displaywidth></displaywidth>
   <dynamicdefault></dynamicdefault>
   <encryptatrest>F</encryptatrest>
-  <fieldtype>TEXT</fieldtype>
+  <fieldtype>SELECT</fieldtype>
   <globalsearch>F</globalsearch>
   <help></help>
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Bank Code</label>
+  <label>Creednz Created from Evaluation</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>
   <minvalue></minvalue>
-  <onparentdelete></onparentdelete>
+  <onparentdelete>NO_ACTION</onparentdelete>
   <parentsubtab></parentsubtab>
   <searchcomparefield></searchcomparefield>
   <searchdefault></searchdefault>
   <searchlevel>2</searchlevel>
-  <selectrecordtype></selectrecordtype>
+  <selectrecordtype>[scriptid=customrecord_vendor_evaluation_table]</selectrecordtype>
   <showhierarchy>F</showhierarchy>
-  <showinlist>T</showinlist>
+  <showinlist>F</showinlist>
   <sourcefilterby></sourcefilterby>
   <sourcefrom></sourcefrom>
   <sourcelist></sourcelist>
   <storevalue>T</storevalue>
-  <subtab>ENTITYMAIN</subtab>
+  <subtab></subtab>
 </entitycustomfield>

@@ -1,4 +1,4 @@
-<entitycustomfield scriptid="custentity_bank_details_update_creednz">
+<entitycustomfield scriptid="custentity_iban_creednz">
   <accesslevel>2</accesslevel>
   <appliestocontact>F</appliestocontact>
   <appliestocustomer>F</appliestocustomer>
@@ -31,7 +31,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Bank details Update</label>
+  <label>Creednz IBAN</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>
