@@ -164,6 +164,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             let creednzMap = {};
             let mapset = creedNzOptions.mapset;
             let mapsubset = creedNzOptions.mapsubset;
+            const paymentMethod2 = currentRecord.getText('custentity_paymentmethod');
 
             creednzMap[mapset] = {};
             creednzMap[mapset][mapsubset] = {};
@@ -202,11 +203,15 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             // TODO: Check with Creednz
             // iCA => set paymentFormat with "custentity_paymentformat", else empty string
             // PAYMENT_FORMAT (custentity_paymentformat) -> paymentFormat
-            addMapKey(creednzMap["ANY"]['ANY'],"paymentFormat","","fixed");
-            addMapKey(icaMapRoot["SWT"]["notEmpty"],"paymentFormat","custentity_paymentformat","list");
-            addMapKey(icaMapRoot["SWT"]["Empty"],"paymentFormat","custentity_paymentformat","list");
-            addMapKey(icaMapRoot["ABA"]["Any"],"paymentFormat","custentity_paymentformat","list");
-            addMapKey(icaMapRoot["OTHER"]["Any"],"paymentFormat","custentity_paymentformat","list");
+            if (paymentMethod2 === 'MTS') {
+                addMapKey(icaMapRoot[mapset][mapsubset],"paymentFormat","WIRE","fixed");
+            } else {
+                addMapKey(creednzMap["ANY"]['ANY'], "paymentFormat", "", "fixed");
+                addMapKey(icaMapRoot["SWT"]["notEmpty"], "paymentFormat", "custentity_paymentformat", "list");
+                addMapKey(icaMapRoot["SWT"]["Empty"], "paymentFormat", "custentity_paymentformat", "list");
+                addMapKey(icaMapRoot["ABA"]["Any"], "paymentFormat", "custentity_paymentformat", "list");
+                addMapKey(icaMapRoot["OTHER"]["Any"], "paymentFormat", "custentity_paymentformat", "list");
+            }
 
             // bankAccountName
             addMapKey(creednzMap["ANY"]['ANY'],"bankAccountName","custentity_bank_account_name_creednz","text");
@@ -231,7 +236,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             addMapKey(icaMapRoot["SWT"]["notEmpty"],"vendorPaymentMethod","custentity_paymentmethod","list");
             addMapKey(icaMapRoot["SWT"]["Empty"],"vendorPaymentMethod","custentity_paymentmethod","list");
             addMapKey(icaMapRoot["ABA"]["Any"],"vendorPaymentMethod","custentity_paymentmethod","list");
-            addMapKey(icaMapRoot["OTHER"]["Any"],"vendorPaymentMethod","custentity_vendorpaymeth","list");
+            addMapKey(icaMapRoot["OTHER"]["Any"],"vendorPaymentMethod","custentity_paymentmethod","list");
             // TODO: CHECK WITH Creednz
             //addMapKey(icaMapRoot["ABA"]["Any"],"vendorPaymentMethod","custentity_vendorpaymeth","list");
 
@@ -363,8 +368,24 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 }
             } else {
                 log.debug({title: 'iCA',details:'false'});
-                creedNzOptions.mapset = 'OTHER';
-                creedNzOptions.mapsubset = 'Any';
+                if (custentity_recbankprimidtype === 'SWT') {
+                    log.debug({title: 'iCA.SWT',details:'true'});
+                    creedNzOptions.mapset = 'SWT';
+                    if (custentity_vendorbranchbankircid !== '') {
+                        log.debug({title: 'iCA.SWT.notEmpty',details:'true'});
+                        creedNzOptions.mapsubset = 'notEmpty';
+                    } else {
+                        log.debug({title: 'iCA.SWT.Empty',details:'true'});
+                        creedNzOptions.mapsubset = 'Empty';
+                    }
+                } else if (custentity_recbankprimidtype === 'ABA') {
+                    log.debug({title: 'iCA.ABA',details:'true'});
+                    creedNzOptions.mapset = 'ABA';
+                    creedNzOptions.mapsubset = 'Any';
+                } else {
+                    creedNzOptions.mapset = 'OTHER';
+                    creedNzOptions.mapsubset = 'Any';
+                }
             }
         }
         const buildAnalyzeVendorDtoFromRecord = (currentRecord) => {
