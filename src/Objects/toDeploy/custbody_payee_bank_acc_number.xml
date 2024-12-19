@@ -1,4 +1,4 @@
-<transactionbodycustomfield scriptid="custbody_payer_bank_acc_number">
+<transactionbodycustomfield scriptid="custbody_payee_bank_acc_number">
   <accesslevel>2</accesslevel>
   <applyformatting>F</applyformatting>
   <bodycustomerpayment>F</bodycustomerpayment>
@@ -26,7 +26,7 @@
   <defaultchecked>F</defaultchecked>
   <defaultselection></defaultselection>
   <defaultvalue></defaultvalue>
-  <description>used to store the payer bank account number(company bank account number)</description>
+  <description></description>
   <displayheight></displayheight>
   <displaytype>NORMAL</displaytype>
   <displaywidth></displaywidth>
@@ -39,7 +39,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Payer Bank Account Number</label>
+  <label>Creednz Payee Bank Account number</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>

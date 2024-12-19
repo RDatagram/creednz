@@ -6,7 +6,7 @@
         <path>~/FileCabinet/*</path>
     </files>
     <objects>
-        <path>~/Objects/skip/*</path>
+        <path>~/Objects/toDeploy/*</path>
     </objects>
     <translationimports>
         <path>~/Translations/*</path>
