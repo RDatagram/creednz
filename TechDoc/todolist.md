@@ -13,3 +13,8 @@
 - [x] Add Gap-> Moderate Risk
 - [x] change from OPERATION to Payment Operation
 - [x] Regex make BankAcoount -> Bank Account, PaymentOperation -> Payment Operation
+
+### 26.December
+- [ ] WFA init Delta MR
+- [ ] Creednz details button to init delta MR
+- 
