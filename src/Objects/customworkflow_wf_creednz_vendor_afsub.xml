@@ -39,11 +39,11 @@
           <scheduletimeunit></scheduletimeunit>
           <scripttype>[scriptid=customscript_creednz_create_ns_vendor]</scripttype>
           <initcondition>
-            <formula><![CDATA[isEmpty("Created from Evaluation") = 'F']]></formula>
+            <formula><![CDATA[isEmpty("Creednz Created from Evaluation") = 'F']]></formula>
             <type>VISUAL_BUILDER</type>
             <parameters>
               <parameter>
-                <name>Created from Evaluation</name>
+                <name>Creednz Created from Evaluation</name>
                 <value>[scriptid=custentity_creednz_created_from_eval]</value>
               </parameter>
             </parameters>
