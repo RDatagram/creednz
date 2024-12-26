@@ -13,3 +13,9 @@
 - [x] Add Gap-> Moderate Risk
 - [x] change from OPERATION to Payment Operation
 - [x] Regex make BankAcoount -> Bank Account, PaymentOperation -> Payment Operation
+
+### 26.December
+- [x] WFA init Delta MR -> add to Bundle!
+- [x] Creednz details button to init delta MR
+- [ ] Clean DELTA - when to initiate? We need an option to remove "old" deltas
+- [x] Workflow Creednz Delta FORM -> import into SDF -> ADD to Bundle

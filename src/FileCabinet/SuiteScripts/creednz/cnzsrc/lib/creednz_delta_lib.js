@@ -60,6 +60,19 @@ define(['N/search', 'N/record'],
                 value: JSON.stringify(deltaJSON)
             });
 
+            deltaRecord.setValue({
+                fieldId: 'custrecord_delta_is_person',
+                value: deltaJSON.isIndividual
+            });
+            deltaRecord.setValue({
+                fieldId: 'custrecord_delta_company_id',
+                value: deltaJSON.companyId
+            });
+            deltaRecord.setValue({
+                fieldId: 'custrecord_delta_phone',
+                value: deltaJSON.phone
+            });
+
         }
         const insertDelta = (deltaJSON) => {
 
