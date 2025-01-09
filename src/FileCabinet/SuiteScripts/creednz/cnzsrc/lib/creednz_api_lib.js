@@ -544,7 +544,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             // TODO: Check with Creednz
             let vendorPayeeEmail = mapVendorDTO("payeeEmail", creedNzOptions, currentRecord);
             if (vendorPayeeEmail) {
-                vendorObj.payeeEmail = vendorPayeeEmail;
+                vendorObj.paymentRemittanceEmail = vendorPayeeEmail;
             }
 
             // // TODO: Check with Creednz
@@ -561,6 +561,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             let vendorCreednzPaymentMethod = mapVendorDTO("vendorPaymentMethod", creedNzOptions, currentRecord);
             if (vendorCreednzPaymentMethod) {
                 vendorObj.vendorPaymentMethod = vendorCreednzPaymentMethod;
+            } else if (vendorPaymentCategory) {
+                vendorObj.vendorPaymentMethod = vendorPaymentCategory;
             }
 
             let vendorCreednzBankAccountType = mapVendorDTO("bankAccountType", creedNzOptions, currentRecord);
