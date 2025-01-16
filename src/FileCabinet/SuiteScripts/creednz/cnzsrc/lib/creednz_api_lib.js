@@ -489,7 +489,7 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 fieldId: "email"
             });
             if (vendorEmail) {
-                vendorObj.email = vendorEmail;
+                vendorObj.accountingEmail = vendorEmail;
             }
             // "phone": "string",
             let vendorPhone = currentRecord.getValue({
