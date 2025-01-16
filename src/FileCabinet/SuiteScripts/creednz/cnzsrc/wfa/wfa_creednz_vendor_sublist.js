@@ -61,58 +61,66 @@ define(['N/ui/serverWidget', '../lib/creednz_api_lib'],
          * @since 2016.1
          */
         const onAction = (scriptContext) => {
-            let vendorRecord = scriptContext.newRecord;
-            let form = scriptContext.form;
 
-            const creednzId = vendorRecord.getValue({
-                fieldId: 'custentity_vendor_external_id'
-            });
+            try {
+                let vendorRecord = scriptContext.newRecord;
+                let form = scriptContext.form;
 
-            let creednzSublist = makeFormSublist(form);
+                const creednzId = vendorRecord.getValue({
+                    fieldId: 'custentity_vendor_external_id'
+                });
 
-            let creedNzTransactionsParse = creednz_api_lib.getCreednzVendorFindings(creednzId);
-            const creedNzTransactionsLength = creedNzTransactionsParse.length;
+                let creednzSublist = makeFormSublist(form);
 
-            if (creedNzTransactionsLength > 0) {
-                for (let i = 0; i < creedNzTransactionsLength; i++) {
+                let creedNzTransactionsParse = creednz_api_lib.getCreednzVendorFindings(creednzId);
+                const creedNzTransactionsLength = creedNzTransactionsParse.length;
 
-                    let vendorFindingsId = creedNzTransactionsParse[i].id;
-                    let vendorFindingsType = creedNzTransactionsParse[i].type;
-                    let vendorFindingsTitle = creedNzTransactionsParse[i].title;
-                    let vendorFindingsCategory = creedNzTransactionsParse[i].category;
-                    let vendorFindingsDescription = creedNzTransactionsParse[i].description;
+                if (creedNzTransactionsLength > 0) {
+                    for (let i = 0; i < creedNzTransactionsLength; i++) {
 
+                        let vendorFindingsId = creedNzTransactionsParse[i].id;
+                        let vendorFindingsType = creedNzTransactionsParse[i].type;
+                        let vendorFindingsTitle = creedNzTransactionsParse[i].title;
+                        let vendorFindingsCategory = creedNzTransactionsParse[i].category;
+                        let vendorFindingsDescription = creedNzTransactionsParse[i].description;
+
+                        creednzSublist.setSublistValue({
+                            id: 'custpage_id',
+                            line: i,
+                            value: vendorFindingsId
+                        });
+                        creednzSublist.setSublistValue({
+                            id: 'custpage_type',
+                            line: i,
+                            value: vendorFindingsType
+                        });
+                        creednzSublist.setSublistValue({
+                            id: 'custpage_title',
+                            line: i,
+                            value: vendorFindingsTitle
+                        });
+                        creednzSublist.setSublistValue({
+                            id: 'custpage_description',
+                            line: i,
+                            value: vendorFindingsDescription.substring(0, 299)
+                        });
+                        creednzSublist.setSublistValue({
+                            id: 'custpage_category',
+                            line: i,
+                            value: creednz_api_lib.regexCategory(vendorFindingsCategory)
+                        });
+                    }
                     creednzSublist.setSublistValue({
                         id: 'custpage_id',
-                        line: i,
-                        value: vendorFindingsId
-                    });
-                    creednzSublist.setSublistValue({
-                        id: 'custpage_type',
-                        line: i,
-                        value: vendorFindingsType
-                    });
-                    creednzSublist.setSublistValue({
-                        id: 'custpage_title',
-                        line: i,
-                        value: vendorFindingsTitle
-                    });
-                    creednzSublist.setSublistValue({
-                        id: 'custpage_description',
-                        line: i,
-                        value: vendorFindingsDescription.substring(0,299)
-                    });
-                    creednzSublist.setSublistValue({
-                        id: 'custpage_category',
-                        line: i,
-                        value: creednz_api_lib.regexCategory(vendorFindingsCategory)
+                        line: creedNzTransactionsLength,
+                        value: 'END'
                     });
                 }
-                creednzSublist.setSublistValue({
-                    id: 'custpage_id',
-                    line: creedNzTransactionsLength,
-                    value: 'END'
-                });
+            } catch (e) {
+                log.error({
+                    title: 'Error in vendor.sublist',
+                    details: e.message
+                })
             }
         }
 
