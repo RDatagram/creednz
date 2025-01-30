@@ -74,7 +74,7 @@
           <conditionsavedsearch></conditionsavedsearch>
           <contexttypes>USERINTERFACE</contexttypes>
           <eventtypes>VIEW</eventtypes>
-          <isinactive>F</isinactive>
+          <isinactive>T</isinactive>
           <label>Check risk</label>
           <saverecordfirst>F</saverecordfirst>
           <initcondition>
