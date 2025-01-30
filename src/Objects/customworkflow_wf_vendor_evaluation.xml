@@ -648,9 +648,9 @@
               <valuechecked></valuechecked>
               <valuedate></valuedate>
               <valuefield></valuefield>
-              <valueformula>{recordid}</valueformula>
+              <valueformula></valueformula>
               <valuejoinfield></valuejoinfield>
-              <valueselect></valueselect>
+              <valueselect>@CURRENT@</valueselect>
               <valuetext></valuetext>
             </fieldsetting>
             <fieldsetting>
