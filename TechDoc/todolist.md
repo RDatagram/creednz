@@ -19,3 +19,13 @@
 - [x] Creednz details button to init delta MR
 - [ ] Clean DELTA - when to initiate? We need an option to remove "old" deltas
 - [x] Workflow Creednz Delta FORM -> import into SDF -> ADD to Bundle
+
+### 30. January
+
+- [ ] iCA Payments Folder in config record "Creednz Details"
+- [ ] Add ALL Fields from PaymentDTO in the transaction body
+  - [ ] Amount
+  - [ ] Date
+  - [ ] PayeeName
+  - [ ] PayerName
+  - [ ] Currency Code
