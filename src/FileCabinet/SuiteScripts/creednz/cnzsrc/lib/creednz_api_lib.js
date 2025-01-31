@@ -1026,25 +1026,16 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
             let creedNzOptions = getCreednzOptions();
 
-            /*let paymentObj = {
-                "paymentDate": "2024-10-29T10:56:57.952Z",
-                "amount": 0,
-                "currencyCode": "USD",
-                "routingNumber": "string",
-                "payerBankAccountNumber": "",
-                "payeeBankAccountNumber": "string",
-                "payerName": "string",
-                "payeeName": "string",
-                "description": "string",
-                "type": "string"
-            }*/
-
             let paymentObj = {
 
             }
             paymentObj.paymentDate = currentRecord.getValue('trandate');
-            paymentObj.amount = currentRecord.getValue('total');
+            //paymentObj.paymentDate = currentRecord.getValue('custbody_creednz_payment_date');
 
+
+            paymentObj.amount = parseFloat(currentRecord.getValue('custbody_creednz_amount'));
+
+            /*
             function isMultiCurrencyInUse() {
                 const configuration = config.load({
                     type: config.Type.FEATURES
@@ -1063,8 +1054,11 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             } else {
                 paymentObj.currencyCode = "USD"
             }
+            */
 
-            function getCompanyName() {
+            paymentObj.currencyCode = currentRecord.getValue('custbody_creednz_currency_code');
+
+            /*function getCompanyName() {
                 const companyConfig = config.load({
                     type: config.Type.COMPANY_INFORMATION
                 });
@@ -1073,28 +1067,26 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 });
             }
 
+            paymentObj.payerName = getCompanyName();*/
+            paymentObj.payerName = currentRecord.getValue('custbody_creednz_payername');
+
             let nonManadatoryValue;
-
-            paymentObj.payerName = getCompanyName();
-
-
             nonManadatoryValue = currentRecord.getValue('custbody_payer_bank_acc_number');
             setNonManadatoryValues(paymentObj,"payerBankAccountNumber",nonManadatoryValue);
 
+            /*
             const entityPayment = currentRecord.getValue('entity');
-            /**
-             *
-             * @type {Object}
-             * @property companyname
-             */
             const payeeLookup = search.lookupFields({
                 type: 'vendor',
                 id: entityPayment,
                 columns: ['companyname']
             });
-
             paymentObj.payeeName = payeeLookup.companyname;
+            */
 
+
+
+            /*
             if (creedNzOptions.icaPayable) {
                 const tmpVendorRecord = record.load(
                     {
@@ -1122,6 +1114,15 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 setNonManadatoryValues(paymentObj,"payeeBankAccountNumber",nonManadatoryValue);
 
             }
+
+             */
+
+            paymentObj.payeeName =currentRecord.getValue('custbody_creednz_payeename');
+            nonManadatoryValue = currentRecord.getValue('custbody_creednz_routing_number');
+            setNonManadatoryValues(paymentObj,"routingNumber",nonManadatoryValue);
+
+            nonManadatoryValue = currentRecord.getValue('custbody_payee_bank_acc_number');
+            setNonManadatoryValues(paymentObj,"payeeBankAccountNumber",nonManadatoryValue);
 
             paymentObj.description = currentRecord.getValue('memo');
 
