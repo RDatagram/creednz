@@ -192,7 +192,8 @@ define(['N/file', 'N/xml'],
                 "custbody_creednz_payeename": dataObj.payeeName || "",
                 "custbody_payee_bank_acc_number": dataObj.payeeBankAccountNumber || "",
                 "custbody_payer_bank_acc_number": dataObj.payerBankAccountNumber || "",
-                "custbody_creednz_routing_number": dataObj.routingNumber || ""
+                "custbody_creednz_routing_number": dataObj.routingNumber || "",
+                "custbody_creednz_payment_date": dataObj.paymentDate || "",
             };
 
             Object.keys(FIELDMAP).forEach(map => {
