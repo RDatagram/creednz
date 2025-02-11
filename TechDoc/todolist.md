@@ -22,10 +22,9 @@
 
 ### 30. January
 
-- [ ] iCA Payments Folder in config record "Creednz Details"
 - [ ] Add ALL Fields from PaymentDTO in the transaction body
-  - [ ] Amount
-  - [ ] Date
-  - [ ] PayeeName
-  - [ ] PayerName
-  - [ ] Currency Code
+  - [x] Amount
+  - [x] Date
+  - [x] PayeeName
+  - [x] PayerName
+  - [x] Currency Code
