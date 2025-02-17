@@ -1,6 +1,14 @@
 /**
  * @NApiVersion 2.1
  */
+
+/**
+ * @typedef {Object} BankAccountStatusResponse
+ * @property {boolean} bankAccountVerified
+ * @property {string} action
+ * @property {string} channel
+ */
+
 define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N/config'],
     /**
      * @param{https} https
@@ -793,6 +801,18 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
         /**
          *
+         * @param externalId
+         * @return {BankAccountStatusResponse}
+         */
+        const getCreednzVendorBankStatus = (externalId) => {
+            const creednzVendorInformation = "/external/erp/vendor/bank-account/status/externalId/" + externalId;
+
+            return baseCreednzGet(creednzVendorInformation, null);
+
+        }
+
+        /**
+         *
          * @return {any|string}
          *
          * Return delta (not existing Vendors in Netsuite)
@@ -877,6 +897,18 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
             log.debug({
                 title: "creedNzTransactionsParse",
+                details: creedNzTransactionsParse
+            });
+
+            return creedNzTransactionsParse;
+        }
+        const postCreednzUpdateInviteVendor = (dataObj) => {
+            let creedNzResponse = baseCreednzPost("/external/erp/vendor-evaluation/update-and-invite", dataObj, null);
+            let creedNzTransactions = creedNzResponse.body;
+
+            let creedNzTransactionsParse = JSON.parse(creedNzTransactions);
+            log.debug({
+                title: "postCreednzUpdateInviteVendor",
                 details: creedNzTransactionsParse
             });
 
@@ -1142,9 +1174,11 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             getCreednzVendorFindings,
             postCreednzAnalyzeVendor,
             getCreednzVendorStatus,
+            getCreednzVendorBankStatus,
             getCreednzVendorDelta,
             getCreednzVendorDifferentPoints,
             postCreednzInviteVendor,
+            postCreednzUpdateInviteVendor,
             getCreednzVendorEvaluation_vendor,
             getCreednzVendorEvaluation_status,
             getCreednzVendorEvaluation_all,
