@@ -17,6 +17,35 @@ define(['../lib/creednz_api_lib'],
          */
         const onAction = (scriptContext) => {
 
+            const vendorRecord = scriptContext.newRecord;
+
+            const emailParam = vendorRecord.getValue('email');
+            const vendorExternalId = vendorRecord.getValue('custentity_vendor_external_id');
+            //const primaryContactParam = vendorRecord.getValue('primarycontact');
+            const vendorNameParam = vendorRecord.getValue('companyname');
+            const dataObj = {
+                "vendorExternalId": vendorExternalId,
+                "email": emailParam,
+                "primaryContact": "",
+                "vendorName": vendorNameParam
+            };
+            let creedNzTransactions = creednz_api_lib.postCreednzUpdateInviteVendor(dataObj);
+
+            let creednzEvaluationId = creedNzTransactions.id;
+
+            if (creednzEvaluationId) {
+
+                //set risk assessment status as invite sent as default
+                vendorRecord.setValue({
+                    fieldId: 'custentity_creednz_bankacc_status',
+                    value: 'Request Sent'
+                });
+
+                return creednzEvaluationId;
+            } else {
+                throw new Error('Failed to post Creednz invite vendor');
+            }
+
         }
 
         return {onAction};
