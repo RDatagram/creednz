@@ -69,24 +69,24 @@ define(['N/https', 'N/record', 'N/search','N/format'],
                 const creednzAudience = accessTokenLookup.custrecord_audience;
                 //check access token is existing or expired
                 let currentDate = new Date();
-                log.debug("current date", currentDate);
+                //log.debug("current date", currentDate);
                 // check if access token is exist or not
                 if (lastSyncAccessToken) {
                     //check if the access token is expired or not
-                    log.debug("access token exist, ckeck expired or not");
+                    //log.debug("access token exist, ckeck expired or not");
                     //lastUpdatedDateTime = new Date(lastUpdatedDateTime);
                     let lastUpdatedDateTimeNow = format.format({
                         value: lastUpdatedDateTime,
                         type: format.Type.DATETIMETZ
                     });
-                    log.debug("lastUpdatedDateTimeNow", lastUpdatedDateTimeNow);
+                    //log.debug("lastUpdatedDateTimeNow", lastUpdatedDateTimeNow);
                     let parsedDateStringAsRawDateObject = format.parse({
                         value: lastUpdatedDateTimeNow,
                         type: format.Type.DATETIMETZ
                     });
-                    log.debug("parsedDateStringAsRawDateObject", parsedDateStringAsRawDateObject);
+                    //log.debug("parsedDateStringAsRawDateObject", parsedDateStringAsRawDateObject);
                     let accessTokenTimeDiff = (currentDate.getTime() - parsedDateStringAsRawDateObject.getTime()) / 1000;
-                    log.debug("time difference in seconds", accessTokenTimeDiff);
+                    //log.debug("time difference in seconds", accessTokenTimeDiff);
                     // if access token expired, create new access token using refresh token
                     if (accessTokenTimeDiff > 86400) {
                         // create new access token
