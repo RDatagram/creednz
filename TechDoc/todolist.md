@@ -22,10 +22,17 @@
 
 ### 30. January
 
-- [ ] iCA Payments Folder in config record "Creednz Details"
 - [ ] Add ALL Fields from PaymentDTO in the transaction body
-  - [ ] Amount
-  - [ ] Date
-  - [ ] PayeeName
-  - [ ] PayerName
-  - [ ] Currency Code
+  - [x] Amount
+  - [x] Date
+  - [x] PayeeName
+  - [x] PayerName
+  - [x] Currency Code
+
+### 18. Feb
+
+- [x] Email (NetSuite) -> purchaseEmail (Creednz)
+- [x] Payee Email Address (NetSuite) -> paymentRemittanceEmail (Creednz)
+- [ ] Relationships > contacts > Email (Netsuite)  ->  accountingEmail (Creednz)
+- [ ] Relationships > contacts > Phone (Netsuite)  ->  phone (Creednz)
+- [ ] Relationships > contacts > Name (Netsuite)  ->  accountingContact (Creednz)

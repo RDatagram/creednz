@@ -44,6 +44,30 @@ define(['../lib/creednz_api_lib'],
                     fieldId: 'custentity_creednz_updated_on',
                     value: new Date()
                 });
+
+                let creednzBankAccountStatus = creednz_api_lib.getCreednzVendorBankStatus(creednzExternalId);
+
+                if (creednzBankAccountStatus) {
+                    log.debug({
+                        title:'creednzBankAccountStatus',
+                        details: 'Responsed with ' + creednzBankAccountStatus
+                    });
+                    //bankAccountVerified
+                    const bankAccountVerified = creednzBankAccountStatus.bankAccountVerified;
+
+                    if (bankAccountVerified) {
+                        scriptContext.newRecord.setValue({
+                            fieldId: 'custentity_creednz_bankacc_status',
+                            value: 'Verified'
+                        });
+                    } else {
+                        scriptContext.newRecord.setValue({
+                            fieldId: 'custentity_creednz_bankacc_status',
+                            value: 'Unverified'
+                        });
+                    }
+                }
+
             }
         }
 

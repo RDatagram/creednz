@@ -49,7 +49,8 @@ define(['../lib/creednz_api_lib'],
                     'custentity_creednz_bankacc_risk',
                     'custentity_creednz_operation_risk',
                     'custentity_creednz_sanction_risk',
-                    'custentity_creednz_cyber_risk'
+                    'custentity_creednz_cyber_risk',
+                    'custentity_creednz_bankacc_status'
                 ];
                 const value = 'Pending';
 

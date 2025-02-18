@@ -438,5 +438,9 @@ MR script will stay scheduled, but without sending</description>
       <tabparent></tabparent>
       <tabtitle>Token</tabtitle>
     </subtab>
+    <subtab scriptid="tab_124_3623331_sb1_857">
+      <tabparent></tabparent>
+      <tabtitle>iCA Payments</tabtitle>
+    </subtab>
   </subtabs>
 </customrecordtype>
