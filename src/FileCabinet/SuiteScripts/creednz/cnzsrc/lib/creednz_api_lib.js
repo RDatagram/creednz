@@ -1257,7 +1257,8 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
             postCreednzAnalyzePayment,
             getCreednzVPaymentStatus,
             getCreednzPaymentFindings,
-            buildAnalyzePaymentDtoFromTransaction
+            buildAnalyzePaymentDtoFromTransaction,
+            getVendorContacts
         }
 
     });

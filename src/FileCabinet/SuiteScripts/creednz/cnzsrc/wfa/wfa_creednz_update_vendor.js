@@ -19,14 +19,32 @@ define(['../lib/creednz_api_lib'],
 
             const vendorRecord = scriptContext.newRecord;
 
-            const emailParam = vendorRecord.getValue('email');
+
             const vendorExternalId = vendorRecord.getValue('custentity_vendor_external_id');
-            //const primaryContactParam = vendorRecord.getValue('primarycontact');
             const vendorNameParam = vendorRecord.getValue('companyname');
+
+            let emailParam = vendorRecord.getValue('email');
+            let contactParam = "";
+
+            const vendorContacts = creednz_api_lib.getVendorContacts(vendorRecord.id);
+
+            if (vendorContacts.length > 0) {
+
+                let accountingEmail = vendorContacts[0].email;
+                let accountingContact = vendorContacts[0].name;
+
+                if (accountingEmail) {
+                    emailParam = accountingEmail;
+                }
+                if (accountingContact) {
+                    contactParam = accountingContact;
+                }
+            }
+
             const dataObj = {
                 "vendorExternalId": vendorExternalId,
                 "email": emailParam,
-                "primaryContact": "",
+                "primaryContact": contactParam,
                 "vendorName": vendorNameParam
             };
             let creedNzTransactions = creednz_api_lib.postCreednzUpdateInviteVendor(dataObj);
