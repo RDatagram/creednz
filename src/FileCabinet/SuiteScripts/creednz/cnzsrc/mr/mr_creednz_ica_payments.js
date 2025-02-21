@@ -6,6 +6,7 @@ define(['N/workflow', '../ssearches/searchlib', 'N/task'],
     /**
      * @param{workflow} workflow
      * @param {Object} searchlib
+     * @param task
      */
     (workflow, searchlib,task) => {
         /**
@@ -68,6 +69,13 @@ define(['N/workflow', '../ssearches/searchlib', 'N/task'],
                         title: 'Map Result',
                         details: searchResult
                 });
+
+
+            let workflowInstanceId = workflow.initiate({
+                workflowId: 'customworkflow_wf_creednz_send_payment',
+                recordType: searchResult.recordType,
+                recordId: searchResult.id
+            });
         }
 
         /**

@@ -68,6 +68,11 @@ define(['N/workflow', '../ssearches/searchlib'],
                 details: searchResult
             });
 
+            let workflowInstanceId = workflow.initiate({
+                workflowId: 'customworkflow_wf_creednz_payment_status',
+                recordType: searchResult.recordType,
+                recordId: searchResult.id
+            });
         }
 
         /**
