@@ -7,6 +7,16 @@ define(['N/search'],
      */
     (search) => {
 
+        const customsearch_mr_get_ica_payments = () => {
+            return search.load({
+                id: 'customsearch_crdnz_get_pymt_for_send',
+            })
+        }
+        const customsearch_mr_payment_check = () => {
+            return search.load({
+                id: 'customsearch_crdnz_get_pymt_for_check',
+            })
+        }
         const customsearch_ss_get_payments_for_creednz = () => {
             return search.create({
                 type: "vendorpayment",
@@ -303,7 +313,9 @@ define(['N/search'],
             customsearch_ss_get_creednz_resend,
             customsearch_ss_vendor_search_creed_paym,
             customsearch_ss_get_status_from_creednz,
-            runSearch
+            runSearch,
+            customsearch_mr_get_ica_payments,
+            customsearch_mr_payment_check,
         }
 
     });
