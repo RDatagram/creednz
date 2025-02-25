@@ -8,6 +8,118 @@ define(['N/search', 'N/record'],
      */
     (search, record) => {
 
+        /**
+         *
+         * @param idSearch
+         * @return {{internalid: number, found: boolean}}
+         */
+        const isExistingEval = (idSearch) => {
+
+            log.debug({
+                title: 'idSearch',details:idSearch
+            });
+
+            let result = {
+                found: false,
+                internalid: -1
+            };
+            let mySearch = search.create({
+                type: "customrecord_vendor_evaluation_table",
+                filters:
+                    [
+                        ["custrecord_creednz_evaluation_id", "is", idSearch]
+                    ],
+                columns:
+                    [
+                        "internalid"
+                    ]
+            });
+
+            let searchResult = mySearch.run().getRange({
+                start: 0,
+                end: 2
+            });
+
+            log.debug({
+                title: 'searchResult',
+                details:searchResult
+            })
+            if (searchResult.length > 0) {
+                result.found = true;
+                result.internalid = searchResult[0].id;
+            }
+
+            return result;
+
+        }
+
+        /**
+         *
+         * @param evalRecord
+         * @param {{
+         *  id:string,
+         *  email:string,
+         *  primaryContact:string,
+         *  name:string,
+         *  riskAssessmentStatus:string,
+         *  riskStatus:string
+         *  }} evalJSON
+         */
+        const setEvalValues = (evalRecord, evalJSON) => {
+
+            evalRecord.setValue({
+                fieldId: 'custrecord_vendor_name',
+                value: evalJSON.name
+            });
+            evalRecord.setValue({
+                fieldId: 'custrecord_creednz_evaluation_id',
+                value: evalJSON.id
+            });
+            evalRecord.setValue({
+                fieldId: 'custrecord_primary_contact',
+                value: evalJSON.primaryContact
+            });
+            evalRecord.setValue({
+                fieldId: 'custrecord_vendor_email',
+                value: evalJSON.email
+            });
+            evalRecord.setValue({
+                fieldId: 'custrecord_risk_status',
+                value: evalJSON.riskStatus
+            });
+            evalRecord.setValue({
+                fieldId: 'custrecord_assessment_status',
+                value: evalJSON.riskAssessmentStatus
+            });
+
+        }
+
+        const insertEval = (evalJSON) => {
+
+            let newRecord = record.create({
+                type: "customrecord_vendor_evaluation_table",
+                isDynamic: true
+            });
+
+            setEvalValues(newRecord, evalJSON);
+
+            return newRecord.save();
+        }
+        const updateEval = (internalid, evalJSON) => {
+
+            let existingRecord = record.load({
+                type: "customrecord_vendor_evaluation_table",
+                id: internalid,
+                isDynamic: true
+            });
+
+            setEvalValues(existingRecord, evalJSON);
+
+            return existingRecord.save();
+
+        }
+
+
         const isExistingDelta = (nameSearch) => {
 
             let result =
@@ -109,7 +221,10 @@ define(['N/search', 'N/record'],
         return {
             isExistingDelta,
             insertDelta,
-            updateDelta
+            updateDelta,
+            isExistingEval,
+            insertEval,
+            updateEval
         }
 
     });
