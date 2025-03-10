@@ -20,6 +20,10 @@ define(['../lib/creednz_api_lib'],
             const vendorRecord = scriptContext.newRecord;
 
 
+            // custentity_creednz_bank_acc_email
+            const vendorPrefferedEmail = vendorRecord.getValue('custentity_creednz_bank_acc_email') || '';
+            const vendorPrefferedContact = vendorRecord.getValue('custentity_creednz_bank_acc_contact') || '';
+
             const vendorExternalId = vendorRecord.getValue('custentity_vendor_external_id');
             const vendorNameParam = vendorRecord.getValue('companyname');
 
@@ -39,6 +43,14 @@ define(['../lib/creednz_api_lib'],
                 if (accountingContact) {
                     contactParam = accountingContact;
                 }
+            }
+
+            // Overwrite with preffered from Vendor record
+            if (vendorPrefferedEmail) {
+                emailParam = vendorPrefferedEmail
+            }
+            if (vendorPrefferedContact) {
+                contactParam = vendorPrefferedContact
             }
 
             const dataObj = {

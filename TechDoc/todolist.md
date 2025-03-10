@@ -33,6 +33,8 @@
 
 - [x] Email (NetSuite) -> purchaseEmail (Creednz)
 - [x] Payee Email Address (NetSuite) -> paymentRemittanceEmail (Creednz)
-- [ ] Relationships > contacts > Email (Netsuite)  ->  accountingEmail (Creednz)
-- [ ] Relationships > contacts > Phone (Netsuite)  ->  phone (Creednz)
-- [ ] Relationships > contacts > Name (Netsuite)  ->  accountingContact (Creednz)
+- [x] Relationships > contacts > Email (Netsuite)  ->  accountingEmail (Creednz)
+- [x] Relationships > contacts > Phone (Netsuite)  ->  phone (Creednz)
+- [x] Relationships > contacts > Name (Netsuite)  ->  accountingContact (Creednz)
+
+### 10. Mar
