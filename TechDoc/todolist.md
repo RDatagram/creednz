@@ -38,3 +38,12 @@
 - [x] Relationships > contacts > Name (Netsuite)  ->  accountingContact (Creednz)
 
 ### 10. Mar
+- [x] New fields in the vendor record
+  - [x] Bank account request email
+  - [x] Bank account request contact
+  - [ ] Add to bundle
+- [x] Refactoring API for update-and-invite Evaluation
+
+### 11.Mar
+- [ ] New fields in the Vendor Evaluation record
+  - [ ] Linked Vendor

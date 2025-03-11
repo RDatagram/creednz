@@ -1,4 +1,4 @@
-<entitycustomfield scriptid="custentity_creednz_bankacc_status">
+<entitycustomfield scriptid="custentity_creednz_bank_acc_contact">
   <accesslevel>2</accesslevel>
   <appliestocontact>F</appliestocontact>
   <appliestocustomer>F</appliestocustomer>
@@ -19,7 +19,7 @@
   <defaultchecked>F</defaultchecked>
   <defaultselection></defaultselection>
   <defaultvalue></defaultvalue>
-  <description></description>
+  <description>Contact for Bank Acc verification request</description>
   <displayheight></displayheight>
   <displaytype>NORMAL</displaytype>
   <displaywidth></displaywidth>
@@ -31,7 +31,7 @@
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Creednz: Bank Account status</label>
+  <label>Creednz: Bank Acc request contact</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>
