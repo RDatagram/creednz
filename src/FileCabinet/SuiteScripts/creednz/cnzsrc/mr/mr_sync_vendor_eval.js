@@ -64,12 +64,22 @@ define(['../lib/creednz_api_lib', '../lib/creednz_delta_lib'],
                  */
                 const isExisting = creednz_delta_lib.isExistingEval(evalId);
 
+                // get data from Creednz about vendor
+                let creedNzTransactions = creednz_api_lib.getCreednzVendorEvaluation_vendor(evalId);
+                log.debug({
+                        title: 'CreedNzTransactions.internalid',
+                        details: creedNzTransactions.internalId
+                });
+                evalResult.vendorInternalId = creedNzTransactions.internalId || '';
+
                 // log.debug isExisting
                 if (isExisting.found) {
                         log.debug({
                                 title: evalId,
                                 details: '... is Existing'
                         });
+
+
                         try {
                                 const newId = creednz_delta_lib.updateEval(isExisting.internalid,evalResult);
                         } catch (e) {
@@ -84,6 +94,7 @@ define(['../lib/creednz_api_lib', '../lib/creednz_delta_lib'],
                                 title: evalId,
                                 details: '... is not Existing'
                         });
+
                         try {
                                 const newId = creednz_delta_lib.insertEval(evalResult);
                         } catch (e) {
@@ -92,7 +103,6 @@ define(['../lib/creednz_api_lib', '../lib/creednz_delta_lib'],
                                         details: e.message
                                 })
                         }
-
                 }
         }
 

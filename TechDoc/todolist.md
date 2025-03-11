@@ -47,3 +47,4 @@
 ### 11.Mar
 - [ ] New fields in the Vendor Evaluation record
   - [ ] Linked Vendor
+- [ ] Retrieve data for Vendor for each VendorEvaluation synced record
