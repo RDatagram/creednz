@@ -64,6 +64,7 @@ define(['N/search', 'N/record'],
          *  riskAssessmentStatus:string,
          *  riskStatus:string,
          *  vendorInternalId:string
+         *  vendorJSON:string
          *  }} evalJSON
          */
         const setEvalValues = (evalRecord, evalJSON) => {
@@ -99,6 +100,11 @@ define(['N/search', 'N/record'],
                     value: evalJSON.vendorInternalId
                 });
             }
+            evalRecord.setValue({
+                fieldId: 'custrecord_vendor_json',
+                value: evalJSON.vendorJSON
+            });
+
         }
 
         const insertEval = (evalJSON) => {

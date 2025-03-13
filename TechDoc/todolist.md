@@ -45,6 +45,10 @@
 - [x] Refactoring API for update-and-invite Evaluation
 
 ### 11.Mar
-- [ ] New fields in the Vendor Evaluation record
-  - [ ] Linked Vendor
-- [ ] Retrieve data for Vendor for each VendorEvaluation synced record
+- [x] New fields in the Vendor Evaluation record
+  - [x] Linked Vendor
+  - [ ] Vendor JSON
+- [ ] Retrieve data for Vendor for each VendorEvaluation synced record - existing WorkFlow
+- [ ] WFA Eval To Vendor
+  - [x] SDF
+  - [ ] Bundle
