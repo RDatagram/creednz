@@ -52,3 +52,9 @@
 - [ ] WFA Eval To Vendor
   - [x] SDF
   - [ ] Bundle
+
+https://docs.google.com/spreadsheets/d/1yf7-MPF4NardU7aKZMmYGfR9tBLTzoR_VIgtbWQReDQ/edit?gid=0#gid=0
+
+### Backup values
+email: dlundie@icloudauthority.com
+Payee email address: aladha@icloudauthority.com

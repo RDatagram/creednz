@@ -569,6 +569,12 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
                 vendorObj.taxpayerIdType = 'Employer Identification Number'
             }
 
+            // "reportingTax1099": true,
+
+            vendorObj.reportingTax1099 = currentRecord.getValue({
+                fieldId: "is1099eligible"
+            });
+
             // "currency": "string",
             let vendorCurrency = currentRecord.getValue({
                 fieldId: "currency"
