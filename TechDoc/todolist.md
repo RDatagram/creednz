@@ -58,3 +58,10 @@ https://docs.google.com/spreadsheets/d/1yf7-MPF4NardU7aKZMmYGfR9tBLTzoR_VIgtbWQR
 ### Backup values
 email: dlundie@icloudauthority.com
 Payee email address: aladha@icloudauthority.com
+
+Vendor Payment Method: iCA (list)
+Payment Method (2): MTS (list)
+Branch, Bank... : 000300752
+Receiving Bank Primary: SWT (list)
+Receiving Party Account: 4001608
+Receiving Bank Primary ID: ROYCCAT2
