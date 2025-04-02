@@ -65,3 +65,35 @@ Branch, Bank... : 000300752
 Receiving Bank Primary: SWT (list)
 Receiving Party Account: 4001608
 Receiving Bank Primary ID: ROYCCAT2
+
+https://docs.google.com/document/d/1Cx0MU51QLZsPZu67r0_LbbPZuVMg5wSe/edit
+
+```javascript
+if (paymentMethod == “ACH” || paymentMethod == “Wire”)  {
+	if (billingCountry == “United States”)  {
+		if(Bank account number != null Bank account number != “” &&   routing number != null && routing number != “” ) {
+            PaymentMethod(custentity_paymentmethod) = DAC 
+		    PaymentFormat(custentity_paymentformat) = CTX
+		    Receiving Bank Primary ID Type(custentity_recbankprimidtype) = ABA
+		    Receiving Party Account  (custentity_recpartyaccount)= Bank account number
+		    Receiving Bank Primary ID (custentity_recbankprimid) = routing number
+        } else if (Bank account number != null Bank account number != “” &&  swift != null && swift != “” ) {
+PaymentMethod(custentity_paymentmethod) = MTS 
+		Receiving Bank Primary ID Type(custentity_recbankprimidtype) = SWT
+		Receiving Party Account  (custentity_recpartyaccount)= Bank account number
+		Receiving Bank Primary ID (custentity_recbankprimid) = swift
+}
+
+} else if (billingCountry != “United States”) {
+        PaymentMethod(custentity_paymentmethod) = MTS 
+		PaymentFormat(custentity_paymentformat) = Wire
+        Branch, Bank, IRC ID, or SORT Code(custentity_vendorbranchbankircid) = usWireInternationalData - (creednz)
+		Receiving Bank Primary ID Type(custentity_recbankprimidtype) = SWT
+		Receiving Party Account  (custentity_recpartyaccount)= Bank account number or iban -
+ one of them will be populated
+		Receiving Bank Primary ID (custentity_recbankprimid) = swift number 
+}
+
+}
+
+```
