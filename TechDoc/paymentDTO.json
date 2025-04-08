@@ -1,7 +1,7 @@
 {
   "analyzePaymentDtos": [
     {
-      "paymentDate": "2024-11-06T10:09:44.007Z",
+      "paymentDate": "2025-04-08T10:27:35.171Z",
       "amount": 0,
       "currencyCode": "ARS",
       "routingNumber": "string",
@@ -10,7 +10,10 @@
       "payeeBankAccountNumber": "string",
       "payerName": "string",
       "payeeName": "string",
-      "description": "string"
+      "description": "string",
+      "invoiceId": "string",
+      "iban": "string",
+      "swift": "string"
     }
   ]
 }

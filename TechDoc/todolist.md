@@ -28,6 +28,7 @@
   - [x] PayeeName
   - [x] PayerName
   - [x] Currency Code
+  - !!!! Check out the request from 08.April, more fields
 
 ### 18. Feb
 
@@ -41,30 +42,19 @@
 - [x] New fields in the vendor record
   - [x] Bank account request email
   - [x] Bank account request contact
-  - [ ] Add to bundle
+  - [x] Add to bundle
 - [x] Refactoring API for update-and-invite Evaluation
 
 ### 11.Mar
 - [x] New fields in the Vendor Evaluation record
   - [x] Linked Vendor
-  - [ ] Vendor JSON
+  - [x] Vendor JSON
 - [ ] Retrieve data for Vendor for each VendorEvaluation synced record - existing WorkFlow
-- [ ] WFA Eval To Vendor
+- [x] WFA Eval To Vendor
   - [x] SDF
-  - [ ] Bundle
+  - [x] Bundle
 
 https://docs.google.com/spreadsheets/d/1yf7-MPF4NardU7aKZMmYGfR9tBLTzoR_VIgtbWQReDQ/edit?gid=0#gid=0
-
-### Backup values
-email: dlundie@icloudauthority.com
-Payee email address: aladha@icloudauthority.com
-
-Vendor Payment Method: iCA (list)
-Payment Method (2): MTS (list)
-Branch, Bank... : 000300752
-Receiving Bank Primary: SWT (list)
-Receiving Party Account: 4001608
-Receiving Bank Primary ID: ROYCCAT2
 
 https://docs.google.com/document/d/1Cx0MU51QLZsPZu67r0_LbbPZuVMg5wSe/edit
 
@@ -97,3 +87,15 @@ PaymentMethod(custentity_paymentmethod) = MTS
 }
 
 ```
+
+
+### 08.April
+- [ ] New fields in the Payments (Transaction) body (required for PaymentDTO)
+  - [x] Creednz Invoice Id
+  - [x] Creednz swift
+  - [x] Creednz iban
+- [x] Adding fields into project and bundle
+  - [x] SDF
+  - [x] Bundle
+- [ ] API changes
+  - [ ] Load new fields into VendorDTO
