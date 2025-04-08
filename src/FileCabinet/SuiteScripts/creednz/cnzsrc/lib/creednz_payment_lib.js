@@ -13,6 +13,9 @@
  * @property {string} payeeBankAccountNumber
  * @property {string} payerBankAccountNumber
  * @property {string} routingNumber
+ * @property {string} swift
+ * @property {string} iban
+ * @property {string} invoiceId
  */
 
 define(['N/file', 'N/xml'],
@@ -160,11 +163,89 @@ define(['N/file', 'N/xml'],
                                 </DepAcctID>
                             </RcvrDepAcctID>
                      */
+
+                    /*
+
+                    <RcvrDepAcctID>
+			            <DepAcctID AcctCur="USD" AcctID="4001608" AcctType="D">
+				            <BankInfo BankIDType="SWT" BranchID="000300752" Name="Royal Bank of Canada">
+					            <PostAddr>
+						            <City>Toronto</City>
+						            <Country>CA</Country>
+					            </PostAddr>
+                                <BankID>ROYCCAT2</BankID>
+				            </BankInfo>
+			            </DepAcctID>
+		            </RcvrDepAcctID>
+
+                     */
+
+                    /*
+                    <RcvrDepAcctID>
+			            <DepAcctID AcctCur="USD" AcctID="ES2701821215872012224031" AcctType="D">
+				            <BankInfo BankIDType="SWT" Name="Banco Bilbao Vizcaya Argentaria SA">
+					            <PostAddr>
+						            <Addr1>C/Sauceda 28</Addr1>
+						            <City>Madrid</City>
+						            <PostalCode>28050</PostalCode>
+						            <Country>ES</Country>
+                                </PostAddr>
+					            <BankID>BBVAESMMXXX</BankID>
+				            </BankInfo>
+			            </DepAcctID>
+		            </RcvrDepAcctID>
+                     */
+
                     const RcvrDepAcctID = getElement(payment, "RcvrDepAcctID");
                     const RcvrDepAcctID_DepAcctID = getElement(RcvrDepAcctID, "DepAcctID");
-                    result.payeeBankAccountNumber = RcvrDepAcctID_DepAcctID.attributes["AcctID"];
+
+
+
                     const RcvrDepAcctID_DepAcctID_BankInfo = getElement(RcvrDepAcctID_DepAcctID, "BankInfo");
-                    result.routingNumber = getElementText(RcvrDepAcctID_DepAcctID_BankInfo,"BankID");
+
+                    const BankIDType = RcvrDepAcctID_DepAcctID_BankInfo.attributes["BankIDType"];
+                    log.debug({
+                        title: 'Processing type',
+                        details: BankIDType
+                    });
+                    result.type = BankIDType;
+
+                    if (BankIDType === "ABA") {
+                        log.debug({
+                            title: 'Processing type ABA',
+                            details: BankIDType
+                        });
+                        result.swift = "";
+                        result.iban = "";
+                        result.payeeBankAccountNumber = RcvrDepAcctID_DepAcctID.attributes["AcctID"];
+                        result.routingNumber = getElementText(RcvrDepAcctID_DepAcctID_BankInfo,"BankID");
+                    } else if (BankIDType === "SWT") {
+                        log.debug({
+                            title: 'Processing type SWT',
+                            details: BankIDType
+                        });
+                        result.routingNumber = "";
+                        result.swift = getElementText(RcvrDepAcctID_DepAcctID_BankInfo,"BankID");
+
+                        // BranchID
+                        const BranchID = RcvrDepAcctID_DepAcctID_BankInfo.attributes["BranchID"] || '';
+
+                        log.debug({
+                            title: 'Processing BranchID',
+                            details: BranchID
+                        });
+
+                        if (BranchID.length > 0) {
+                            result.iban = "";
+                            result.payeeBankAccountNumber = RcvrDepAcctID_DepAcctID.attributes["AcctID"];
+
+                        } else {
+                            result.iban = RcvrDepAcctID_DepAcctID.attributes["AcctID"];
+                            result.payeeBankAccountNumber = "";
+                        }
+                    }
+
+                    result.invoiceId = "";
 
                     log.debug({
                         title: 'match Tranid ' + tranid,
@@ -194,6 +275,9 @@ define(['N/file', 'N/xml'],
                 "custbody_payer_bank_acc_number": dataObj.payerBankAccountNumber || "",
                 "custbody_creednz_routing_number": dataObj.routingNumber || "",
                 "custbody_creednz_payment_date": dataObj.paymentDate || "",
+                "custbody_creednz_payment_swift": dataObj.swift || "",
+                "custbody_creednz_payment_iban": dataObj.iban || "",
+                "custbody_creednz_payment_invoiceid": dataObj.invoiceId || "",
             };
 
             Object.keys(FIELDMAP).forEach(map => {
