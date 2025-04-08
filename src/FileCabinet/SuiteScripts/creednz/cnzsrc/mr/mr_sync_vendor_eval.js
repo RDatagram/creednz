@@ -66,12 +66,14 @@ define(['../lib/creednz_api_lib', '../lib/creednz_delta_lib'],
 
                 // get data from Creednz about vendor
                 let creedNzTransactions = creednz_api_lib.getCreednzVendorEvaluation_vendor(evalId);
-                log.debug({
-                        title: 'CreedNzTransactions.internalid',
-                        details: creedNzTransactions.internalId
-                });
-                evalResult.vendorInternalId = creedNzTransactions.internalId || '';
 
+                evalResult.vendorInternalId = creedNzTransactions.internalId || '';
+                evalResult.vendorJSON = JSON.stringify(creedNzTransactions);
+
+                log.debug({
+                        title: 'evalResult.vendorJSON',
+                        details: evalResult.vendorJSON
+                });
                 // log.debug isExisting
                 if (isExisting.found) {
                         log.debug({

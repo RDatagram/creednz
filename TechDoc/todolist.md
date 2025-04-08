@@ -45,6 +45,55 @@
 - [x] Refactoring API for update-and-invite Evaluation
 
 ### 11.Mar
-- [ ] New fields in the Vendor Evaluation record
-  - [ ] Linked Vendor
-- [ ] Retrieve data for Vendor for each VendorEvaluation synced record
+- [x] New fields in the Vendor Evaluation record
+  - [x] Linked Vendor
+  - [ ] Vendor JSON
+- [ ] Retrieve data for Vendor for each VendorEvaluation synced record - existing WorkFlow
+- [ ] WFA Eval To Vendor
+  - [x] SDF
+  - [ ] Bundle
+
+https://docs.google.com/spreadsheets/d/1yf7-MPF4NardU7aKZMmYGfR9tBLTzoR_VIgtbWQReDQ/edit?gid=0#gid=0
+
+### Backup values
+email: dlundie@icloudauthority.com
+Payee email address: aladha@icloudauthority.com
+
+Vendor Payment Method: iCA (list)
+Payment Method (2): MTS (list)
+Branch, Bank... : 000300752
+Receiving Bank Primary: SWT (list)
+Receiving Party Account: 4001608
+Receiving Bank Primary ID: ROYCCAT2
+
+https://docs.google.com/document/d/1Cx0MU51QLZsPZu67r0_LbbPZuVMg5wSe/edit
+
+```javascript
+if (paymentMethod == “ACH” || paymentMethod == “Wire”)  {
+	if (billingCountry == “United States”)  {
+		if(Bank account number != null Bank account number != “” &&   routing number != null && routing number != “” ) {
+            PaymentMethod(custentity_paymentmethod) = DAC 
+		    PaymentFormat(custentity_paymentformat) = CTX
+		    Receiving Bank Primary ID Type(custentity_recbankprimidtype) = ABA
+		    Receiving Party Account  (custentity_recpartyaccount)= Bank account number
+		    Receiving Bank Primary ID (custentity_recbankprimid) = routing number
+        } else if (Bank account number != null Bank account number != “” &&  swift != null && swift != “” ) {
+PaymentMethod(custentity_paymentmethod) = MTS 
+		Receiving Bank Primary ID Type(custentity_recbankprimidtype) = SWT
+		Receiving Party Account  (custentity_recpartyaccount)= Bank account number
+		Receiving Bank Primary ID (custentity_recbankprimid) = swift
+}
+
+} else if (billingCountry != “United States”) {
+        PaymentMethod(custentity_paymentmethod) = MTS 
+		PaymentFormat(custentity_paymentformat) = Wire
+        Branch, Bank, IRC ID, or SORT Code(custentity_vendorbranchbankircid) = usWireInternationalData - (creednz)
+		Receiving Bank Primary ID Type(custentity_recbankprimidtype) = SWT
+		Receiving Party Account  (custentity_recpartyaccount)= Bank account number or iban -
+ one of them will be populated
+		Receiving Bank Primary ID (custentity_recbankprimid) = swift number 
+}
+
+}
+
+```
