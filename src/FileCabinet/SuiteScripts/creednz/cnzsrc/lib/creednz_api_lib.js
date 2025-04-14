@@ -1135,91 +1135,17 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
             let paymentObj = {}
             paymentObj.paymentDate = currentRecord.getValue('trandate');
-            //paymentObj.paymentDate = currentRecord.getValue('custbody_creednz_payment_date');
-
 
             paymentObj.amount = parseFloat(currentRecord.getValue('custbody_creednz_amount'));
 
-            /*
-            function isMultiCurrencyInUse() {
-                const configuration = config.load({
-                    type: config.Type.FEATURES
-                });
-
-                return configuration.getValue('multicurrency');
-            }
-
-            if (isMultiCurrencyInUse()) {
-                const isoCodeLookUp = search.lookupFields({
-                    type: 'currency',
-                    id: currentRecord.getValue('currency'),
-                    columns: ['symbol']
-                });
-                paymentObj.currencyCode = isoCodeLookUp.symbol;
-            } else {
-                paymentObj.currencyCode = "USD"
-            }
-            */
-
             paymentObj.currencyCode = currentRecord.getValue('custbody_creednz_currency_code');
 
-            /*function getCompanyName() {
-                const companyConfig = config.load({
-                    type: config.Type.COMPANY_INFORMATION
-                });
-                return companyConfig.getValue({
-                    fieldId: 'companyname',
-                });
-            }
-
-            paymentObj.payerName = getCompanyName();*/
             paymentObj.payerName = currentRecord.getValue('custbody_creednz_payername');
 
             let nonManadatoryValue;
             nonManadatoryValue = currentRecord.getValue('custbody_payer_bank_acc_number');
             setNonManadatoryValues(paymentObj, "payerBankAccountNumber", nonManadatoryValue);
 
-            /*
-            const entityPayment = currentRecord.getValue('entity');
-            const payeeLookup = search.lookupFields({
-                type: 'vendor',
-                id: entityPayment,
-                columns: ['companyname']
-            });
-            paymentObj.payeeName = payeeLookup.companyname;
-            */
-
-
-            /*
-            if (creedNzOptions.icaPayable) {
-                const tmpVendorRecord = record.load(
-                    {
-                        type: "vendor",
-                        id: entityPayment
-                    }
-                );
-                calculateMapset(tmpVendorRecord,creedNzOptions);
-
-                nonManadatoryValue = mapVendorDTO('routingNumber',creedNzOptions, tmpVendorRecord);
-                setNonManadatoryValues(paymentObj,"routingNumber",nonManadatoryValue);
-
-                nonManadatoryValue = mapVendorDTO('bankAccountNumber',creedNzOptions, tmpVendorRecord);
-                setNonManadatoryValues(paymentObj,"payeeBankAccountNumber",nonManadatoryValue);
-
-                // vendorPaymentMethod
-                nonManadatoryValue = mapVendorDTO('vendorPaymentMethod',creedNzOptions, tmpVendorRecord);
-                setNonManadatoryValues(paymentObj,"type",nonManadatoryValue);
-
-            } else {
-                nonManadatoryValue = currentRecord.getValue('custbody_creednz_routing_number');
-                setNonManadatoryValues(paymentObj,"routingNumber",nonManadatoryValue);
-
-                nonManadatoryValue = currentRecord.getValue('custbody_payee_bank_acc_number');
-                setNonManadatoryValues(paymentObj,"payeeBankAccountNumber",nonManadatoryValue);
-
-            }
-
-             */
 
             paymentObj.payeeName = currentRecord.getValue('custbody_creednz_payeename');
             nonManadatoryValue = currentRecord.getValue('custbody_creednz_routing_number');
@@ -1227,6 +1153,13 @@ define(['N/https', 'N/record', 'N/search', './creednz_token_lib', 'N/format', 'N
 
             nonManadatoryValue = currentRecord.getValue('custbody_payee_bank_acc_number');
             setNonManadatoryValues(paymentObj, "payeeBankAccountNumber", nonManadatoryValue);
+
+            nonManadatoryValue = currentRecord.getValue('custbody_creednz_payment_swift');
+            setNonManadatoryValues(paymentObj, "swift", nonManadatoryValue);
+            nonManadatoryValue = currentRecord.getValue('custbody_creednz_payment_iban');
+            setNonManadatoryValues(paymentObj, "iban", nonManadatoryValue);
+            nonManadatoryValue = currentRecord.getValue('custbody_creednz_payment_invoiceid');
+            setNonManadatoryValues(paymentObj, "invoiceId", nonManadatoryValue);
 
             paymentObj.description = currentRecord.getValue('memo');
 

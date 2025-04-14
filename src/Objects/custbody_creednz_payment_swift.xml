@@ -1,20 +1,27 @@
-<entitycustomfield scriptid="custentity_creednz_sanction_risk">
+<transactionbodycustomfield scriptid="custbody_creednz_payment_swift">
   <accesslevel>2</accesslevel>
-  <appliestocontact>F</appliestocontact>
-  <appliestocustomer>F</appliestocustomer>
-  <appliestoemployee>F</appliestoemployee>
-  <appliestogroup>F</appliestogroup>
-  <appliestoothername>F</appliestoothername>
-  <appliestopartner>F</appliestopartner>
-  <appliestopricelist>F</appliestopricelist>
-  <appliestoproject>F</appliestoproject>
-  <appliestoprojecttemplate>F</appliestoprojecttemplate>
-  <appliestostatement>F</appliestostatement>
-  <appliestovendor>T</appliestovendor>
-  <appliestowebsite>F</appliestowebsite>
   <applyformatting>F</applyformatting>
-  <availableexternally>F</availableexternally>
-  <availabletosso>F</availabletosso>
+  <bodycustomerpayment>F</bodycustomerpayment>
+  <bodydeposit>F</bodydeposit>
+  <bodydepositapplication>F</bodydepositapplication>
+  <bodyexpensereport>F</bodyexpensereport>
+  <bodyinventoryadjustment>F</bodyinventoryadjustment>
+  <bodyitemfulfillment>F</bodyitemfulfillment>
+  <bodyitemfulfillmentorder>F</bodyitemfulfillmentorder>
+  <bodyitemreceipt>F</bodyitemreceipt>
+  <bodyitemreceiptorder>F</bodyitemreceiptorder>
+  <bodyjournal>F</bodyjournal>
+  <bodyopportunity>F</bodyopportunity>
+  <bodyothertransaction>F</bodyothertransaction>
+  <bodypickingticket>F</bodypickingticket>
+  <bodyprintflag>F</bodyprintflag>
+  <bodyprintpackingslip>F</bodyprintpackingslip>
+  <bodyprintstatement>F</bodyprintstatement>
+  <bodypurchase>F</bodypurchase>
+  <bodysale>F</bodysale>
+  <bodystore>F</bodystore>
+  <bodytransferorder>F</bodytransferorder>
+  <bodyvendorpayment>T</bodyvendorpayment>
   <checkspelling>F</checkspelling>
   <defaultchecked>F</defaultchecked>
   <defaultselection></defaultselection>
@@ -27,12 +34,13 @@
   <enabletextenhance>F</enabletextenhance>
   <encryptatrest>F</encryptatrest>
   <fieldtype>TEXT</fieldtype>
+  <fldsizelabel></fldsizelabel>
   <globalsearch>F</globalsearch>
   <help></help>
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Creednz Sanction Risk</label>
+  <label>CRDNZ: Payment swift</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>
@@ -49,5 +57,5 @@
   <sourcefrom></sourcefrom>
   <sourcelist></sourcelist>
   <storevalue>T</storevalue>
-  <subtab>[scriptid=custtab_creednz_data_tab]</subtab>
-</entitycustomfield>
+  <subtab>[scriptid=custtab_creednz_payment]</subtab>
+</transactionbodycustomfield>
