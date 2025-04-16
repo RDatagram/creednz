@@ -41,6 +41,20 @@ define(['N/query', 'N/search'],
             return retObj;
         }
 
-        return {genQuery}
+        /**
+         *
+         * @param code3 Country code 3-letters
+         * @return {*|string} Country code 2-letters
+         */
+        const mapCountry3Code2 = (code3) =>
+        {
+            const jsonFile = file.load({
+                'id' : 'country_code_map.json'
+            });
+            const mapTable = JSON.parse(jsonFile.getContents());
+            return mapTable[code3] || '' ;
+        }
+
+        return {genQuery,mapCountry3Code2}
 
     });

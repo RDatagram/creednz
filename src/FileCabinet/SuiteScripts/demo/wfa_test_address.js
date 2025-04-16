@@ -2,11 +2,12 @@
  * @NApiVersion 2.1
  * @NScriptType WorkflowActionScript
  */
-define(['N/record'],
+define(['N/record','../creednz/cnzsrc/lib/creednz_dao_lib'],
     /**
  * @param{record} record
+     * @param creednz_dao_lib
  */
-    (record) => {
+    (record,creednz_dao_lib) => {
         /**
          * Defines the WorkflowAction script trigger point.
          * @param {Object} scriptContext
@@ -27,7 +28,7 @@ define(['N/record'],
             try {
 
                 const addressDetails = {
-                    country: 'CA',
+                    country: 'CAN',
                     addr1: '2528 Nicklaus Court',
                     city: 'Burlington',
                     state: 'ON',
@@ -61,7 +62,7 @@ define(['N/record'],
 
                 addressRecord.setValue({
                     fieldId: 'country',
-                    value: addressDetails.country
+                    value: creednz_dao_lib.mapCountry3Code2(addressDetails.country)
                 });
 
                 // Set the address fields
@@ -69,16 +70,11 @@ define(['N/record'],
                     fieldId: 'addr1',
                     value: addressDetails.addr1
                 });
-                /*
 
-
-
-*/
                 addressRecord.setValue({
                     fieldId: 'city',
                     value: addressDetails.city
                 });
-
 
                 addressRecord.setValue({
                     fieldId: 'state',
