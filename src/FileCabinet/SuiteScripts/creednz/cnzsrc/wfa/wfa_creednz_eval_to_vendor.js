@@ -75,7 +75,6 @@ define(['N/record', '../lib/creednz_dao_lib'],
 
             if (vendorJSONString) {
 
-
                 const vendorData = JSON.parse(vendorJSONString);
 
                 // DEBUG TEST VALUES
@@ -135,6 +134,7 @@ define(['N/record', '../lib/creednz_dao_lib'],
                 }
 
                 updateField('name', 'companyname');
+                updateField('name', 'custentity_vendorname');
                 updateField('purchaseEmail', 'email');
                 updateField('url', 'url');
                 updateField('paymentRemittanceEmail', 'custentity_payee_email');
@@ -145,17 +145,6 @@ define(['N/record', '../lib/creednz_dao_lib'],
 
                 if (vendorData.vendorPaymentMethod === "ACH" || vendorData.vendorPaymentMethod === "Wire")
                 {
-                    /*
-                    let retval = {
-                        "custentity_paymentmethod": "", // list
-                        "custentity_paymentformat": "",
-                        "custentity_recbankprimidtype": "",
-                        "custentity_recpartyaccount": "",
-                        "custentity_recbankprimid": "",
-                        "custentity_vendorbranchbankircid": ""
-
-                        }
-                     */
 
                     const findVendPymtMeth = creednz_dao_lib.genQuery('customlist_vendpymtmeth', 'name', 'iCA', 'id');
                     if (findVendPymtMeth.found) {
@@ -247,7 +236,25 @@ define(['N/record', '../lib/creednz_dao_lib'],
                     value: 'Updated with Vendor Evaluation data'
                 });
 
-                return vendorRecord.save();
+                // remove all Addresses
+                while (vendorRecord.getLineCount({sublistId: 'addressbook'}) > 0) {
+                    vendorRecord.removeLine({
+                        sublistId: 'addressbook',
+                        line: 0
+                    });
+                }
+                const addressJSON = creednz_dao_lib.mapAddressFromCreednz(vendorData);
+                creednz_dao_lib.addVendorAddress(vendorRecord,'Creednz Billing',addressJSON.billingAddress);
+                creednz_dao_lib.addVendorAddress(vendorRecord,'Creednz Shipping',addressJSON.shippingAddress);
+                // log.debug
+                log.debug({
+                    title:'addressJSON',
+                    details:addressJSON
+                })
+
+                const vendorId = vendorRecord.save();
+                return vendorId;
+
             }
         }
 

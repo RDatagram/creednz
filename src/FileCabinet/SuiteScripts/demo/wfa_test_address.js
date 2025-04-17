@@ -2,11 +2,12 @@
  * @NApiVersion 2.1
  * @NScriptType WorkflowActionScript
  */
-define(['N/record'],
+define(['N/record', '../creednz/cnzsrc/lib/creednz_dao_lib'],
     /**
- * @param{record} record
- */
-    (record) => {
+     * @param{record} record
+     * @param creednz_dao_lib
+     */
+    (record, creednz_dao_lib) => {
         /**
          * Defines the WorkflowAction script trigger point.
          * @param {Object} scriptContext
@@ -24,35 +25,70 @@ define(['N/record'],
                 title: 'Adding new address',
                 details: 'Adding a new address to the vendor record'
             });
-            try {
+            //try {
 
-                const addressDetails = {
-                    country: 'CA',
-                    addr1: '2528 Nicklaus Court',
-                    city: 'Burlington',
-                    state: 'ON',
-                    zip: 'L7M4V1',
-                    addressee: 'John Doe',
-                    defaultBilling : false,
-                    defaultShipping : false
-                }
-                //const vendor = scriptContext.newRecord;
+            const addressBill = {
+                country: creednz_dao_lib.mapCountry3Code2('CAN'),
+                addr1: '2528 Nicklaus Court',
+                city: 'Burlington',
+                state: 'ON',
+                zip: 'L7M4V1',
+                addressee: 'John Doe',
+                defaultBilling: true,
+                defaultShipping: false
+            }
 
-                const vendor = record.load({
-                    type: 'Vendor',
-                    id: scriptContext.newRecord.id,
-                    isDynamic: true
+            const addressShip = {
+                country:  creednz_dao_lib.mapCountry3Code2('CAN'),
+                addr1: '2528 Nicklaus Court',
+                city: 'Burlington',
+                state: 'ON',
+                zip: 'L7M4V1',
+                addressee: 'Zoran R-DATAGRAM',
+                defaultBilling: false,
+                defaultShipping: true
+            }
+            //const vendor = scriptContext.newRecord;
+
+            const vendor = record.load({
+                type: 'Vendor',
+                id: scriptContext.newRecord.id,
+                isDynamic: true
+            });
+
+            while (vendor.getLineCount({sublistId: 'addressbook'}) > 0) {
+                vendor.removeLine({
+                    sublistId: 'addressbook',
+                    line: 0
                 });
+            }
 
-                // Add a new address line to the record
+
+            // BILLING ADDRESS
+            // Add a new address line to the record
+
+            const addAddress = (label,addressBilling) => {
                 const addressSubrecord = vendor.selectNewLine({
                     sublistId: 'addressbook'
                 });
                 vendor.setCurrentSublistValue({
                     sublistId: 'addressbook',
                     fieldId: 'label',
-                    value: 'Creednz'
+                    value: label
                 });
+
+                vendor.setCurrentSublistValue({
+                    sublistId: 'addressbook',
+                    fieldId: 'defaultbilling',
+                    value: addressBilling.defaultBilling || false
+                });
+
+                vendor.setCurrentSublistValue({
+                    sublistId: 'addressbook',
+                    fieldId: 'defaultshipping',
+                    value: addressBilling.defaultShipping || false
+                });
+
                 // Create the subrecord
                 const addressRecord = addressSubrecord.getCurrentSublistSubrecord({
                     sublistId: 'addressbook',
@@ -61,57 +97,53 @@ define(['N/record'],
 
                 addressRecord.setValue({
                     fieldId: 'country',
-                    value: addressDetails.country
+                    value: addressBilling.country
                 });
 
                 // Set the address fields
                 addressRecord.setValue({
                     fieldId: 'addr1',
-                    value: addressDetails.addr1
+                    value: addressBilling.addr1
                 });
-                /*
 
-
-
-*/
                 addressRecord.setValue({
                     fieldId: 'city',
-                    value: addressDetails.city
+                    value: addressBilling.city
                 });
-
 
                 addressRecord.setValue({
                     fieldId: 'state',
-                    value: addressDetails.state
+                    value: addressBilling.state
                 });
 
                 addressRecord.setValue({
                     fieldId: 'zip',
-                    value: addressDetails.zip
+                    value: addressBilling.zip
                 });
 
                 addressRecord.setValue({
                     fieldId: 'addressee',
-                    value: addressDetails.addressee
+                    value: addressBilling.addressee
                 });
-
-                // Indicate if it's a default billing and shipping address
-                addressSubrecord.setValue('defaultbilling', addressDetails.defaultBilling || false);
-                addressSubrecord.setValue('defaultshipping', addressDetails.defaultShipping || false);
 
                 // Commit the new line to the record
                 vendor.commitLine({
                     sublistId: 'addressbook'
                 });
 
-                vendor.save();
+            }
 
-            } catch (e) {
+            addAddress('Creednz Billing',addressBill);
+            addAddress('Creednz Shipping',addressShip);
+
+            vendor.save();
+
+            /*} catch (e) {
                 log.error({
                     title : e.name,
                     details: e.message
                 })
-            }
+            }*/
         }
 
         return {onAction};
