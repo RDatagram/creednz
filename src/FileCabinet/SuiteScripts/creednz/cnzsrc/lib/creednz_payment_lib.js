@@ -201,6 +201,7 @@ define(['N/file', 'N/xml'],
 
 
 
+
                     const RcvrDepAcctID_DepAcctID_BankInfo = getElement(RcvrDepAcctID_DepAcctID, "BankInfo");
 
                     const BankIDType = RcvrDepAcctID_DepAcctID_BankInfo.attributes["BankIDType"];
@@ -245,7 +246,11 @@ define(['N/file', 'N/xml'],
                         }
                     }
 
-                    result.invoiceId = "";
+                    const PmtDetail = getElement(payment, "PmtDetail");
+                    const InvoiceInfo = getElement(PmtDetail, "InvoiceInfo");
+                    const InvoiceNum= InvoiceInfo.attributes["InvoiceNum"] ;
+
+                    result.invoiceId = InvoiceNum || '';
 
                     log.debug({
                         title: 'match Tranid ' + tranid,
